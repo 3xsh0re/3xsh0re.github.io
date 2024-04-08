@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="跟着《GO圣经》学习GO啦！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO学习笔记_1">
+<meta property="og:url" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/index.html">
+<meta property="og:site_name" content="3xsh0re">
+<meta property="og:description" content="跟着《GO圣经》学习GO啦！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-49-47.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-51-26.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-55-52.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_12-43-23.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_13-47-33.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_13-51-04.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_14-02-15.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_15-05-52.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-18_20-21-57.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-31_15-53-48.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-09-52.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-08-41.png">
+<meta property="og:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-15-13.png">
+<meta property="article:published_time" content="2023-08-15T11:12:20.000Z">
+<meta property="article:modified_time" content="2023-12-02T03:23:13.830Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="读书笔记">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://remixxyh.github.io/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-49-47.png">
+  
+  
+  
+  <title>GO学习笔记_1 - 3xsh0re</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"remixxyh.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"vIkPGtXoC93i79dQ8HOxhY47-MdYXbMMI","app_key":"X45W6ylXfIClx5FtIsbKJsLb","server_url":"https://vikpgtxo.api.lncldglobal.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="GO学习笔记_1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-15 19:12" pubdate>
+          2023年8月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          85 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">GO学习笔记_1</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年12月2日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>跟着《GO圣经》学习GO啦！</p>
+<span id="more"></span>
+
+<h3 id="Go的优势"><a href="#Go的优势" class="headerlink" title="Go的优势"></a>Go的优势</h3><ul>
+<li><p>简单易学</p>
+</li>
+<li><ul>
+<li>Go语言的作者都有C的基因，Go自然而然也有了C的基因，但是Go的语法比C还简单, 并且几乎支持大多数你在其他语言见过的特性：封装、继承、多态、反射等</li>
+</ul>
+</li>
+<li><p>丰富的标准库</p>
+</li>
+<li><ul>
+<li>Go目前已经内置了大量的库，特别是网络库非常强大</li>
+<li>前面说了作者是C的作者，所以Go里面也可以直接包含c代码，利用现有的丰富的C库</li>
+</ul>
+</li>
+<li><p>跨平台编译和部署</p>
+</li>
+<li><ul>
+<li>Go代码可直接编译成机器码，不依赖其他库，部署就是扔一个文件上去就完事了. 并且Go代码还可以做到跨平台编译(例如: window系统编译linux的应用)</li>
+</ul>
+</li>
+<li><p>内置强大的工具</p>
+</li>
+<li><ul>
+<li>Go语言里面内置了很多工具链，最好的应该是gofmt工具，自动化格式化代码，能够让团队review变得如此的简单，代码格式一模一样，想不一样都很困难</li>
+</ul>
+</li>
+<li><p>性能优势: Go 极其地快。其性能与 C 或 C++相似。在我们的使用中，Go 一般比 Python 要快 30 倍左右</p>
+</li>
+<li><ul>
+<li>语言层面支持并发，这个就是Go最大的特色，天生的支持并发，可以充分的利用多核，很容易的使用并发</li>
+<li>内置runtime，支持垃圾回收</li>
+</ul>
+</li>
+</ul>
+<h3 id="Go环境搭建"><a href="#Go环境搭建" class="headerlink" title="Go环境搭建"></a>Go环境搭建</h3><h4 id="Goland下载安装"><a href="#Goland下载安装" class="headerlink" title="Goland下载安装"></a>Goland下载安装</h4><p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-49-47.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/go/download/other.html">Goland各版本下载</a></p>
+<p><a target="_blank" rel="noopener" href="https://chenjunan.top/detail/Detail?id=37">Goland破解教程</a></p>
+<h4 id="Go语言安装"><a href="#Go语言安装" class="headerlink" title="Go语言安装"></a>Go语言安装</h4><p><a target="_blank" rel="noopener" href="https://go.dev/dl/">官网地址</a></p>
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-51-26.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>go version</code>查看是否安装完成</p>
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-15_19-55-52.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="开始GO-——Part1"><a href="#开始GO-——Part1" class="headerlink" title="开始GO!——Part1"></a>开始GO!——Part1</h3><p>笔者跟着《Go语言圣经》一起学习的~~😘</p>
+<p>对应第一章</p>
+<h4 id="编写第一个GO程序"><a href="#编写第一个GO程序" class="headerlink" title="编写第一个GO程序"></a>编写第一个GO程序</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io/ioutil&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 通过循环遍历命令行参数中的每个URL</span><br>	<span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		<span class="hljs-comment">// 使用HTTP GET请求获取URL的响应</span><br>		resp, err := http.Get(url)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 如果发生错误，将错误信息输出到标准错误流并退出程序</span><br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch:%v\n&quot;</span>, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;<br><br>		<span class="hljs-comment">// 读取响应体的内容</span><br>		b, err := ioutil.ReadAll(resp.Body)<br>		resp.Body.Close()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 如果在读取过程中发生错误，将错误信息输出到标准错误流并退出程序</span><br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: reading %s: %v\n&quot;</span>, url, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;<br><br>		<span class="hljs-comment">// 将获取到的内容输出到标准输出</span><br>		fmt.Printf(<span class="hljs-string">&quot;%s&quot;</span>, b)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在命令行里执行<code>go run .\Hello.go http://gopl.io</code>，得到返回包，说明你的Go语言环境已经完全搭建成功啦！</p>
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_12-43-23.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h4><p><code>os</code>包提供一些与操作系统交互的函数和变量，程序的命令行参数可以从<code>os</code>包的Args变量获取。</p>
+<p><code>os.Args</code>变量是一个字符串的切片，区间索引时，同样是<strong>左闭右开</strong></p>
+<p><code>os.Args</code>的第一个元素，<code>os.Args[0]</code>, 是命令本身的名字；其它的元素则是程序启动时传给它的 参数。s[m:n]形式的切片表达式，产生从第m个元素到第n-1个元素的切片。如果省略切片表达式的m或n，会默认传入0或 len(s)，因此切片可以简写成os.Args[1:]。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-comment">//测试程序</span><br><span class="hljs-keyword">import</span> (<br>   <span class="hljs-string">&quot;fmt&quot;</span><br>   <span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">var</span> s, sep <span class="hljs-type">string</span><br>   <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">len</span>(os.Args); i++ &#123;<br>      s += sep + os.Args[i]<br>      sep = <span class="hljs-string">&quot; &quot;</span><br>   &#125;<br>   fmt.Println(s)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于上面的程序，我们可以有如下理解：</p>
+<ul>
+<li><p>GO里面注释使用<code>//</code></p>
+</li>
+<li><p>GO初始定义的变量若是没有赋值，则隐式地被赋为零值，数值类型是0，字符串类型是空字符串””</p>
+</li>
+<li><p>对于string类型的变量，<code>+</code>号可以直接连接字符串</p>
+</li>
+<li><p>循环变量<code>i</code>没有定义类型，是因为。<strong>符号<code>:=</code> 是短变量声明的一部分</strong>, 这是定义一个或多个变量并根据它们的初始值为这些变量赋予适当类型的语句</p>
+</li>
+<li><p>GO中<code>i++</code>是语句，不是表达式，所以不能用于赋值，**<code>j=i++</code>非法<strong>，而且<code>++</code>和<code>--</code>都只 能放在变量名后面，因此</strong><code>--i </code>也非法**</p>
+</li>
+<li><p>GO中只有<code>for</code>一种循环语句，但有多种形式</p>
+<ul>
+<li><p>第一种：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> initialization; condition; post&#123;<br>    <br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">for 循环三个部分不需要括号包围，左大括号必须与post同一行</span><br><span class="hljs-comment">initalization如果存在，必须是一条简单语句。即，短变量声明、自增语句、赋值语句或函数调用。</span><br><span class="hljs-comment">condition 是一个布尔表达式（boolean expression），其值在每次循环迭代开始时计算。如果为 true 则执行循环体语句。</span><br><span class="hljs-comment">post语句在循环体执行结束后执行，之后再次对conditon求值。condition 值为 false 时，循环结束</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>省略：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// a traditional &quot;while&quot; loop</span><br><span class="hljs-keyword">for</span> condition &#123;<br><br>&#125;<br><span class="hljs-comment">//上面就是省略了初始化和post，变成了熟悉的while循环</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>range</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> _, arg := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>	s += sep + arg<br>	sep = <span class="hljs-string">&quot; &quot;</span><br>&#125;<br><span class="hljs-comment">/*for 循环的另一种形式, 在某种数据类型的区间（range）上遍历，如字符串或切片。</span><br><span class="hljs-comment">大多数程序员都这么写for循环</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>每次循环迭代，range产生一对值：索引以及索引对应的元素值<br>但是我们这个例子不需要索引，而<strong>range的语法要求：要处理元素，必须处理索引</strong><br>而且<strong>GO不允许使用无用的局部变量，会编译错误</strong><br>解决方法是使用空标识符<code>_</code>，<strong>空标识符可用于任何语法需要变量名但程序逻辑不需要的时候</strong></p>
+</li>
+</ul>
+</li>
+<li><p>声明一个变量有好几种方式，下面这些都等价：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">s := <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">var</span> s <span class="hljs-type">string</span><br><span class="hljs-keyword">var</span> s = <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">var</span> s <span class="hljs-type">string</span> = <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>一个简洁的写法，使用strings包的Join函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    fmt.Println(strings.Join(os.Args[<span class="hljs-number">1</span>:],<span class="hljs-string">&quot;&quot;</span>))<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><h5 id="练习-1-1"><a href="#练习-1-1" class="headerlink" title="练习 1.1"></a>练习 1.1</h5><p>修改 echo 程序，使其能够打印 os.Args[0] ，即被执行命令本身的名字。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> s, sep <span class="hljs-type">string</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(os.Args); i++ &#123;<br>		s += sep + os.Args[i]<br>		sep = <span class="hljs-string">&quot; &quot;</span><br>	&#125;<br>	fmt.Println(s)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_13-47-33.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="练习-1-2"><a href="#练习-1-2" class="headerlink" title="练习 1.2"></a>练习 1.2</h5><p>修改 echo 程序，使其打印每个参数的索引和值，每个一行。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">for</span> n, arg := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%d %s\n&quot;</span>, n, arg)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_13-51-04.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="练习-1-3"><a href="#练习-1-3" class="headerlink" title="练习 1.3"></a>练习 1.3</h5><p>做实验测量潜在低效的版本和使用了 strings.Join 的版本的运行时间差异。（1.6 节讲解了部分 time 包，11.4节展示了如何写标准测试程序，以得到系统性的性能评测。）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   start := time.Now()<br>   <span class="hljs-comment">//测试一</span><br>   <span class="hljs-comment">//for _, arg := range os.Args[1:] &#123;</span><br>   <span class="hljs-comment">// fmt.Printf(&quot;%s &quot;, arg)</span><br>   <span class="hljs-comment">//&#125;</span><br>   <span class="hljs-comment">//测试二</span><br>   fmt.Println(strings.Join(os.Args[<span class="hljs-number">1</span>:], <span class="hljs-string">&quot; &quot;</span>))<br>   secs := time.Since(start).Seconds()<br>   fmt.Printf(<span class="hljs-string">&quot;花费：%.8fs&quot;</span>, secs)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_14-02-15.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用<code>Join</code>函数确实可以大幅减少时间复杂度</p>
+<h4 id="查找重复的行"><a href="#查找重复的行" class="headerlink" title="查找重复的行"></a>查找重复的行</h4><p>对文件做拷贝、打印、搜索、排序、统计或类似事情的程序都有一个差不多的程序结构：一 个处理输入的循环，在每个元素上执行计算处理，在处理的同时或最后产生输出。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 创建一个映射(map)，用于存储每行文本及其出现次数</span><br>	counts := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br>	<span class="hljs-comment">// 创建一个用于从标准输入读取的扫描器</span><br>	input := bufio.NewScanner(os.Stdin)<br>	<span class="hljs-comment">// 循环读取标准输入的每一行文本</span><br>	<span class="hljs-keyword">for</span> input.Scan() &#123;<br>		<span class="hljs-comment">// 将当前行文本作为键，增加其对应的出现次数</span><br>		counts[input.Text()]++<br>	&#125;<br>	<span class="hljs-comment">// 遍历映射(map)，打印出现次数大于1的行及其出现次数</span><br>	<span class="hljs-keyword">for</span> line, n := <span class="hljs-keyword">range</span> counts &#123;<br>		<span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">1</span> &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%d\t%s\n&quot;</span>, n, line)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-16_15-05-52.png" srcset="/img/loading.gif" lazyload></p>
+<p>对上面的代码可以有如下理解：</p>
+<ul>
+<li><p><code>map</code>是存储了键值对的集合，键可以是任意类型，只要其值可以用<code>==</code>运算符比较；值可以是任意类型。上面得的代码中，键是字符串，值是整数。内置函数make创建空函数</p>
+</li>
+<li><p>打印结果使用<code>range</code>函数，在<code>counts</code>上迭代，每次得到键和值。需要注意的是，**<code>map</code>的遍历顺序不确定，该顺序随机，每次运行都会变化**。</p>
+</li>
+<li><p>关于<code>bufio</code>包，这个包使得处理输入和输出方便高效。<code>Scanner</code>类型是该包最有用的特性之 一，它读取输入并将其拆成行或单词；<strong>通常是处理行形式的输入最简单的方法</strong>。 程序使用短变量声明创建<code>bufio.Scanner</code>类型的变量<code>input</code>。读取内容由<code>input.Text()</code>获取，在读到一行时返回<code>true</code>。</p>
+</li>
+<li><p><code>fmt.Printf</code>函数对一些表达式产生格式化输出。该函 数的首个参数是个格式字符串，指定后续参数被如何格式化。和C语言类似。后缀<code>f</code>指<code>fomart</code>，<code>ln</code> 指<code>line</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go">%d 十进制整数<br>%x, %o, %b 十六进制，八进制，二进制整数。<br>%f, %g, %e 浮点数： <span class="hljs-number">3.141593</span> <span class="hljs-number">3.141592653589793</span> <span class="hljs-number">3.141593e+00</span><br>%t 布尔：<span class="hljs-literal">true</span>或<span class="hljs-literal">false</span><br>%c 字符（<span class="hljs-type">rune</span>） (Unicode码点)<br>%s 字符串<br>%q 带双引号的字符串<span class="hljs-string">&quot;abc&quot;</span>或带单引号的字符<span class="hljs-string">&#x27;c&#x27;</span><br>%v 变量的自然形式（natural format）<br>%T 变量的类型<br>%% 字面上的百分号标志（无操作数）<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>fmt.Printf</code>相当于C的<code>printf</code>函数，可以格式化参数；而<code>fmt.Println</code>函数相当于C++的<code>cout</code>函数，直接输出字符串</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">name := <span class="hljs-string">&quot;Alice&quot;</span><br>age := <span class="hljs-number">30</span><br>fmt.Printf(<span class="hljs-string">&quot;Name: %s, Age: %d\n&quot;</span>, name, age)<br>name := <span class="hljs-string">&quot;Bob&quot;</span><br>age := <span class="hljs-number">25</span><br>fmt.Println(<span class="hljs-string">&quot;Name:&quot;</span>, name, <span class="hljs-string">&quot;Age:&quot;</span>, age)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>还有另一个方法，一口气把全部输入数据读到内存中，分割为多行，然后处理它们。这个例子引入 了<code>ReadFile</code>函数（来自于<code>io/ioutil</code>包），读取指定文件的全部内容，<code>strings.Split</code>函数把字符串分割成子串的切片。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 创建一个映射(map)，用于存储每行文本及其出现次数</span><br>	counts := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>)<br>	<span class="hljs-comment">// 循环遍历命令行参数中的每个文件名</span><br>	<span class="hljs-keyword">for</span> _, filename := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		<span class="hljs-comment">// 读取文件的内容</span><br>		data, err := ioutil.ReadFile(filename)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 如果读取文件发生错误，将错误信息输出到标准错误流并继续处理下一个文件</span><br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;xxx:%v\n&quot;</span>, err)<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-comment">// 将文件内容按行拆分，并统计每行的出现次数</span><br>		<span class="hljs-keyword">for</span> _, line := <span class="hljs-keyword">range</span> strings.Split(<span class="hljs-type">string</span>(data), <span class="hljs-string">&quot;\n&quot;</span>) &#123;<br>			counts[line]++<br>		&#125;<br>	&#125;<br>	<span class="hljs-comment">// 遍历映射(map)，打印出现次数大于1的行及其出现次数</span><br>	<span class="hljs-keyword">for</span> line, n := <span class="hljs-keyword">range</span> counts &#123;<br>		<span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">1</span> &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%d\t%s\n&quot;</span>, n, line)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>ReadFile</code>函数返回一个字节切片，必须把它转换为<code>string</code>，才能 用<code>strings.Split</code>分割。实现上，<code>bufio.Scanner</code>、<code>ioutil.ReadFile</code>和<code>ioutil.WriteFile</code>都使 用<code>*os.File</code>的<code>Read</code>和<code>Write</code>方法，但是，大多数程序员很少需要直接调用那些低级函数。</p>
+<h4 id="获取URL"><a href="#获取URL" class="headerlink" title="获取URL"></a>获取URL</h4><p>Go语言在<code>net</code>这 个强大<code>package</code>的帮助下提供了一系列的<code>package</code>来做这件事情，使用这些包可以更简单地用 网络收发信息，还可以建立更底层的网络连接，编写服务器程序。</p>
+<p>下面是一个使用示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 循环遍历命令行参数中的每个URL</span><br>	<span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		<span class="hljs-comment">// 使用HTTP GET请求获取URL的响应</span><br>		resp, err := http.Get(url)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 如果发生错误，将错误信息输出到标准错误流并退出程序</span><br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch:%v\n&quot;</span>, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;<br>		<span class="hljs-comment">// 读取响应体的内容</span><br>		b, err := ioutil.ReadAll(resp.Body)<br>		resp.Body.Close()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 如果在读取过程中发生错误，将错误信息输出到标准错误流并退出程序</span><br>			fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: reading %s: %v\n&quot;</span>, url, err)<br>			os.Exit(<span class="hljs-number">1</span>)<br>		&#125;	<br>		<span class="hljs-comment">// 将获取到的内容输出到标准输出</span><br>		fmt.Printf(<span class="hljs-string">&quot;%s&quot;</span>, b)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在文件资源目录下使用终端，命令：<code>go run hello.go http://remixxyh.github.io</code></p>
+<h4 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h4><h5 id="练习1-7"><a href="#练习1-7" class="headerlink" title="练习1.7"></a>练习1.7</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>      resp, err := http.Get(url)<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch:%v\n&quot;</span>, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>      _, err = io.Copy(os.Stdout, resp.Body)<br>      resp.Body.Close()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: reading %s: %v\n&quot;</span>, url, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>      fmt.Printf(<span class="hljs-string">&quot;%s&quot;</span>, b)<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里使用<code>io.Copy</code>函数，是题目所给的将内容直接拷贝到标准输出中，将 <code>io.Copy</code> 的返回值存储在一个匿名变量 <code>_</code> 中，因为我们主要关心错误处理，而不是复制的字节数。</p>
+<h5 id="练习1-8"><a href="#练习1-8" class="headerlink" title="练习1.8"></a>练习1.8</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>      <span class="hljs-keyword">if</span> !strings.HasPrefix(url, <span class="hljs-string">&quot;http://&quot;</span>) &#123;<br>         url = <span class="hljs-string">&quot;http://&quot;</span> + url<br>      &#125;<br>      resp, err := http.Get(url)<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch:%v\n&quot;</span>, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>      _, err = io.Copy(os.Stdout, resp.Body)<br>      resp.Body.Close()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: reading %s: %v\n&quot;</span>, url, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="练习1-9"><a href="#练习1-9" class="headerlink" title="练习1.9"></a>练习1.9</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>      <span class="hljs-keyword">if</span> !strings.HasPrefix(url, <span class="hljs-string">&quot;http://&quot;</span>) &#123;<br>         url = <span class="hljs-string">&quot;https://&quot;</span> + url<br>      &#125;<br>      resp, err := http.Get(url)<br>      fmt.Printf(resp.Status)<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch:%v\n&quot;</span>, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>      _, err = io.Copy(os.Stdout, resp.Body)<br>      resp.Body.Close()<br>      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>         fmt.Fprintf(os.Stderr, <span class="hljs-string">&quot;fetch: reading %s: %v\n&quot;</span>, url, err)<br>         os.Exit(<span class="hljs-number">1</span>)<br>      &#125;<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-18_20-21-57.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="并发获取多个URL"><a href="#并发获取多个URL" class="headerlink" title="并发获取多个URL"></a>并发获取多个URL</h4><p>Go语言最有意思并且最新奇的特性就是对并发编程的支持</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	start := time.Now()<br>	ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">string</span>)<br>	<span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		<span class="hljs-keyword">go</span> fetch(url, ch)<br>	&#125;<br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] &#123;<br>		fmt.Println(&lt;-ch)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;%.2fs elapsed\n&quot;</span>, time.Since(start).Seconds())<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fetch</span><span class="hljs-params">(url <span class="hljs-type">string</span>, ch <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">string</span>)</span></span> &#123;<br>	start := time.Now()<br>	resp, err := http.Get(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		ch &lt;- fmt.Sprint(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	nbytes, err := io.Copy(ioutil.Discard, resp.Body)<br>	resp.Body.Close()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		ch &lt;- fmt.Sprintf(<span class="hljs-string">&quot;while reading %s: %v&quot;</span>, url, err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	secs := time.Since(start).Seconds()<br>	ch &lt;- fmt.Sprintf(<span class="hljs-string">&quot;%.2fs %7d %s&quot;</span>, secs, nbytes, url)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>terminal</code>里执行：<code>go run hello.go https://www.baidu.com http://gopl.io https://remixxyh.github.io</code></p>
+<p>将会得到：</p>
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-08-31_15-53-48.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以发现整个程序执行的时间由获取请求最长的那个决定</p>
+<p>这是一个并发请求的程序，分析上面的代码：</p>
+<ul>
+<li><code>ch := make(chan string)</code>是一个用于在<code>Goroutine</code>之间传递数据的管道，每当<code>fetch</code>函数执行完毕后，它会将一个带有消息的字符串发送到通道中</li>
+<li><code>Goroutine</code>是一种函数的并发执行方式，<code>main</code>函数本身也运行在一个<code>goroutine</code>中，而<code>go function</code>则表示创建一个新的goroutine，并在这个新的goroutine中执行这个函数</li>
+<li>这个程序里会异步执行<code>Get</code>方法，将<code>Body</code>拷贝到<code>ioutil.Discard</code>（可以把这个变量看成一个垃圾桶）输出流中，<code>io.Copy</code>函数会返回两个值(复制的字节数和可能的错误)，从而实现不处理<code>Body</code>，得到响应体的字节数</li>
+<li><strong>在使用通道发送或者接收数据时，如果此时通道已满或者主函数<code>main</code>没有做好接收的准备（注意：<code>main</code>函数也是一个<code>Goroutine</code>），那么会在发送数据的<code>Goroutine</code>那里阻塞，这个例子中就是<code>fetch</code>函数；如果通道为空或者没有数据可以使用，那么会在接收数据的<code>Goroutine</code>那里阻塞。所以这个例子在<code>main</code>使用一个<code>for</code>循环接收数据，是为了防止主函数执行完了但是<code>fetch</code>还没有执行完</strong>。</li>
+</ul>
+<h4 id="Web服务"><a href="#Web服务" class="headerlink" title="Web服务"></a>Web服务</h4><p>Go语言的内置库使得写一个类似fetch的web服务器变得异常地简单。在本节中，我们会展示 一个微型服务器，这个服务器的功能是返回当前用户正在访问的URL。比如用户访问的是 <a target="_blank" rel="noopener" href="http://localhost:8000/hello">http://localhost:8000/hello</a> ，那么响应是URL.Path &#x3D; “hello”。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handler)<br>	log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;localhost:8000&quot;</span>, <span class="hljs-literal">nil</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handler</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	fmt.Fprintf(w, <span class="hljs-string">&quot;URL.Path = %q\n&quot;</span>, r.URL.Path)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-09-52.png" srcset="/img/loading.gif" lazyload></p>
+<p>在浏览器里访问：</p>
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-08-41.png" srcset="/img/loading.gif" lazyload></p>
+<p>多个控制器：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> mu sync.Mutex<br><span class="hljs-keyword">var</span> count <span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, handler)<br>	http.HandleFunc(<span class="hljs-string">&quot;/count&quot;</span>, counter)<br>	log.Fatal(http.ListenAndServe(<span class="hljs-string">&quot;localhost:8000&quot;</span>, <span class="hljs-literal">nil</span>))<br>&#125;<br><br><span class="hljs-comment">// handler echoes the Path component of the requested URL.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handler</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	mu.Lock()<br>	count++<br>	mu.Unlock()<br>	fmt.Fprintf(w, <span class="hljs-string">&quot;URL.Path = %q\n&quot;</span>, r.URL.Path)<br>&#125;<br><br><span class="hljs-comment">// counter echoes the number of calls so far.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">counter</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	mu.Lock()<br>	fmt.Fprintf(w, <span class="hljs-string">&quot;Count %d\n&quot;</span>, count)<br>	mu.Unlock()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/Snipaste_2023-09-01_14-15-13.png" srcset="/img/loading.gif" lazyload></p>
+<p>​		在这些代码的背后，服务器每一 次接收请求处理时都会另起一个<code>goroutine</code>，这样服务器就可以同一时间处理多个请求。在并发情况下，两个请求同一时刻去更新<code>count</code>，那么这个值可能并不会被正确地 增加；这个程序可能会引发一个严重的<code>bug</code>：竞态条件。</p>
+<p>​		<strong>为了避免这个问题，我们必须保证每次修改变量的最多只能有一个<code>goroutine</code>，这也就是代码里的<code>mu.Lock()</code>和 <code>mu.Unlock()</code>调用将修改<code>count</code>的所有行为包在中间的目的。</strong></p>
+<p>第一章的学习就到这里啦，入门了GO👍👍👍</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
+      
+        <a href="/tags/Golang/" class="print-no-link">#Golang</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>GO学习笔记_1</div>
+      <div>https://remixxyh.github.io/2023/08/15/GO学习笔记-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/" title="一次公益src挖掘-230820">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一次公益src挖掘-230820</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/14/Google-Hacking%E5%AD%A6%E4%B9%A0/" title="Google_Hacking学习">
+                        <span class="hidden-mobile">Google_Hacking学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","appKey":"GoMWtP1iHSKKpwsbzBlVqJ7P","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
