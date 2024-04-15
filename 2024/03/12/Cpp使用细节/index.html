@@ -1,0 +1,902 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="学习算法过程中记录C++的使用细节问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++使用细节">
+<meta property="og:url" content="https://remixxyh.github.io/2024/03/12/Cpp%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82/index.html">
+<meta property="og:site_name" content="3xsh0re">
+<meta property="og:description" content="学习算法过程中记录C++的使用细节问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-12T06:59:33.000Z">
+<meta property="article:modified_time" content="2024-04-15T07:01:40.414Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>C++使用细节 - 3xsh0re</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"remixxyh.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"vIkPGtXoC93i79dQ8HOxhY47-MdYXbMMI","app_key":"X45W6ylXfIClx5FtIsbKJsLb","server_url":"https://vikpgtxo.api.lncldglobal.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++使用细节"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-12 14:59" pubdate>
+          2024年3月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C++使用细节</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月15日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>学习算法过程中记录C++的使用细节问题</p>
+<span id="more"></span>
+
+<h2 id="语法细节"><a href="#语法细节" class="headerlink" title="语法细节"></a>语法细节</h2><h3 id="结构体的定义"><a href="#结构体的定义" class="headerlink" title="结构体的定义"></a>结构体的定义</h3><p>C++的关键字<code>struct</code>是从C语言中的<code>struct</code>继承过来的，但是与C语言中要求struct只能包含成员变量不一样。C++中，<code>struct</code>类似于<code>class</code>，既可以包含<strong>成员变量</strong>，又可以包含<strong>成员函数</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Student</span>&#123;<br>    <span class="hljs-type">char</span> *name; <span class="hljs-comment">//姓名</span><br>    <span class="hljs-type">int</span> age; <span class="hljs-comment">//年龄</span><br>    <span class="hljs-type">int</span> school_id; <span class="hljs-comment">//学号</span><br>&#125;;<br><span class="hljs-comment">//在定义结构体时，不能在结构体内初始化包含的那些变量,因为结构体声明只是创建一个新的数据类型，还不存在这种类型的变量实体。</span><br><br>Student xiaoming, jim; <span class="hljs-comment">//C++允许省略struct，在Student前面可以不加struct。定义结构体Student类型的变量xiaoming,jim。</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Student</span> xiaoming, jim; <span class="hljs-comment">//C风格的变量定义，在C++里面也没有问题，兼容。</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h3><p>错误实例：重复定义了变量<code>j</code>，导致出错</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> j;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt; <span class="hljs-number">5</span>;j++)<br>	&#123;<br>	&#125;<br>	cout&lt;&lt;j&lt;&lt;endl;<span class="hljs-comment">//1而不是4</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="数值处理"><a href="#数值处理" class="headerlink" title="数值处理"></a>数值处理</h3><p>设置浮点数小数位数：</p>
+<p>如果不加 <code>fixed</code>，<code>setprecision(4)</code>会控制输出的有效数字为4位，因此会四舍五入取到小数点后一位，输出结果为 123.5。如果加上<code>fixed</code>，就会控制小数点后的位数，输出结果为 123.4568。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iomanip&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">double</span> num = <span class="hljs-number">123.456789</span>;<br>    cout &lt;&lt; <span class="hljs-built_in">setprecision</span>(<span class="hljs-number">4</span>) &lt;&lt; num &lt;&lt; endl;  <span class="hljs-comment">// 输出结果为 123.5</span><br>	cout &lt;&lt; fixed &lt;&lt; <span class="hljs-built_in">setprecision</span>(<span class="hljs-number">2</span>) &lt;&lt; num &lt;&lt; endl;  <span class="hljs-comment">// 输出结果为 123.45</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="传递二维数组作为参数"><a href="#传递二维数组作为参数" class="headerlink" title="传递二维数组作为参数"></a>传递二维数组作为参数</h3><p>可以用<strong>二维数组</strong>名作为实参或者形参，在被调用函数中对形参数组定义时可以可以指定所有维数的大小，也可以省略第一维的大小说明。如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Func</span><span class="hljs-params">(<span class="hljs-type">int</span> array[<span class="hljs-number">3</span>][<span class="hljs-number">10</span>])</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Func</span><span class="hljs-params">(<span class="hljs-type">int</span> array[][<span class="hljs-number">10</span>])</span></span>;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="C-新特性"><a href="#C-新特性" class="headerlink" title="C++新特性"></a>C++新特性</h3><h4 id="基于范围的for循环"><a href="#基于范围的for循环" class="headerlink" title="基于范围的for循环"></a>基于范围的for循环</h4><p>与传统的 <code>for</code> 循环相比，基于范围的 <code>for</code> 循环自动处理迭代，避免了迭代器或下标可能引入的错误，使代码更加易于编写和理解。</p>
+<ul>
+<li><code>declaration</code> 是当前范围内元素的声明，通常是一个变量定义，这个变量会依次取得 <code>range</code> 中每个元素的值。</li>
+<li><code>expression</code> 是要迭代的序列，可以是花括号括起来的初始化列表、数组、容器类对象等，也可以是返回 string 字符串和容器对象的函数。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (declaration : expression) &#123;<br>    <span class="hljs-comment">// 循环体</span><br>&#125;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; elem : vec) &#123;<br>        elem *= <span class="hljs-number">2</span>; <span class="hljs-comment">// 将每个元素值翻倍</span><br>&#125;<br><span class="hljs-comment">//遍历容器类返回值</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; ch : <span class="hljs-built_in">return_str</span>()) &#123; <span class="hljs-comment">// 使用引用避免拷贝</span><br>        std::cout &lt;&lt; ch;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="auto关键字"><a href="#auto关键字" class="headerlink" title="auto关键字"></a>auto关键字</h4><p>使用 <code>auto</code> 关键字可以让编译器自动推断元素的类型，这在遍历复杂类型的容器时非常有用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    std::vector&lt;std::string&gt; strings = &#123;<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;World&quot;</span>, <span class="hljs-string">&quot;C++11&quot;</span>&#125;;<br>    <span class="hljs-comment">// 使用基于范围的for循环和auto关键字遍历vector</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; str : strings) &#123; <span class="hljs-comment">// 使用引用避免拷贝</span><br>        std::cout &lt;&lt; str &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">// 输出：Hello World C++11 </span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="类库使用Tips"><a href="#类库使用Tips" class="headerlink" title="类库使用Tips"></a>类库使用Tips</h2><h3 id="devC-使用C-11"><a href="#devC-使用C-11" class="headerlink" title="devC++使用C++11"></a>devC++使用C++11</h3><p>1.【工具】-【编译选项】-【编译器】</p>
+<p>2.找到“编译时加入以下命令”</p>
+<p>3.填入“-std&#x3D;c++11”</p>
+<p>4.点击确定</p>
+<p> 完成以上步骤就ok！</p>
+<h3 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h3><p><code>swap</code>:交换两个变量的值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">swap</span>(a, b);<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p><code>to_string</code>: 将数字常量转为string</p>
+<p><strong>不能使用时，string str &#x3D; char(2+’0’) + “123”;</strong></p>
+<p>std::string str &#x3D; “sin(“;    str +&#x3D; char(num + ‘0’); &#x2F;&#x2F; 将整数转换为字符后拼接到字符串后面    str +&#x3D; “)”;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">int</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">long</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">unsigned</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">float</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">double</span> val)</span></span>;<br><span class="hljs-function">string <span class="hljs-title">to_string</span> <span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">double</span> val)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>substr(pos,len)</code>:提取从pos开始的len个字符</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    string str = <span class="hljs-string">&quot;Hello, world!&quot;</span>;<br>    <span class="hljs-comment">// 提取从位置 7 开始的 5 个字符，即 &quot;world&quot;</span><br>    string substr = str.<span class="hljs-built_in">substr</span>(<span class="hljs-number">7</span>, <span class="hljs-number">5</span>);<br>    cout &lt;&lt; <span class="hljs-string">&quot;Substr: &quot;</span> &lt;&lt; substr &lt;&lt; std::endl; <span class="hljs-comment">// 输出: Substr: world</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>pop_back()</code>:弹出最后一个字符</p>
+<h3 id="cmath"><a href="#cmath" class="headerlink" title="cmath"></a>cmath</h3><p><code>pow()</code> :用于计算一个数的指数幂。它需要两个参数：底数和指数，并返回底数的指数幂结果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">double</span> base = <span class="hljs-number">2.0</span>;<br>    <span class="hljs-type">double</span> exponent = <span class="hljs-number">3.0</span>;<br>    <span class="hljs-type">double</span> result = <span class="hljs-built_in">pow</span>(base, exponent);<br>    cout &lt;&lt; <span class="hljs-string">&quot;2^3 = &quot;</span> &lt;&lt; result &lt;&lt; endl; <span class="hljs-comment">// 输出: 2^3 = 8</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>round()</code>:四舍五入到最近的整数</p>
+<h3 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h3><p><code>vector</code>初始化方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">vector&lt;<span class="hljs-type">int</span>&gt; ilist = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3.0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>&#125;;<br><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ilist5</span><span class="hljs-params">(<span class="hljs-number">7</span>,<span class="hljs-number">3</span>)</span></span>;<span class="hljs-comment">//指定值初始化，ilist5被初始化为包含7个值为3的int</span><br></code></pre></td></tr></table></figure>
+
+<p><code>push_back()</code>:压入任意类型数值</p>
+<p><code>pop_back()</code>:没有返回值</p>
+<p><code>back()</code>:最后一个值</p>
+<p><code>begin()</code>:返回起始位置</p>
+<p><code>end():</code>返回最后的位置</p>
+<p><code>size()</code>:数组的长度</p>
+<p>用vector实现二维数组：<code>vector&lt;vector&lt;int&gt;&gt; matrix(r,vector&lt;int&gt;(c,-1))</code>&#x2F;&#x2F;r为行数，c为列数</p>
+<p><code>resize(nums.size()+k,0)</code>:重置vector长度</p>
+<h3 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h3><p>**<code>sort</code>:**有三个参数<code>sort(begin, end, cmp)</code>，其中<code>begin</code>为指向数组的第一个元素的指针，<code>end</code>为指向数组的最后一个元素的下一个位置的指针，<code>cmp</code>参数为排序准则，<code>cmp</code>参数可以不写，如果不写的话，默认从小到大进行排序。如果我们想从大到小排序可以将cmp参数写为<code>greater&lt;int&gt;()</code>就是对<code>int</code>数组进行排序。如果我们需要按照其他的排序准则，那么就需要我们自己定义一个bool类型的函数来传入。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-type">int</span> num[<span class="hljs-number">10</span>] = &#123;<span class="hljs-number">6</span>,<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">8</span>,<span class="hljs-number">7</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0</span>&#125;;<br><span class="hljs-built_in">sort</span>(num,num+<span class="hljs-number">10</span>,<span class="hljs-built_in">greater</span>&lt;<span class="hljs-type">int</span>&gt;());<br></code></pre></td></tr></table></figure>
+
+<p>比如说我们按照每个数的个位进行从大到小排序，我们就可以根据自己的需求来写一个函数作为排序的准则传入到<code>sort()</code>中。<br>我们可以将这个函数定义为：<strong>返回值为<code>true</code>时就将<code>y</code>放到右侧</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>&#123;<br>	<span class="hljs-keyword">return</span> x &gt; y;<br>&#125;<br><span class="hljs-built_in">sort</span>(nums,nums + n,cmp);<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>max</code></strong>:返回两个中的最大值</p>
+<p><strong><code>min</code></strong>:返回两个中的最小值</p>
+<p><strong><code>next_permutation</code></strong>:全排列</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>  vector&lt;<span class="hljs-type">char</span>&gt; chars = &#123;<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>&#125;;<br>  <span class="hljs-keyword">do</span> &#123;<br>    cout &lt;&lt; chars[<span class="hljs-number">0</span>] &lt;&lt; chars[<span class="hljs-number">1</span>] &lt;&lt; chars[<span class="hljs-number">2</span>] &lt;&lt; endl;<br>  &#125; <span class="hljs-keyword">while</span> (<span class="hljs-built_in">next_permutation</span>(chars.<span class="hljs-built_in">begin</span>(), chars.<span class="hljs-built_in">end</span>()));<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>map是STL的一个关联容器，它提供一对一的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=hash&spm=1001.2101.3001.7020">hash</a>。</p>
+<p>关键字(key)，每个关键字只能在map中出现一次；<br>关键字的值(value)；</p>
+<p>map以模板(泛型)方式实现，可以存储任意类型的数据，包括使用者自定义的数据类型。Map主要用于资料一对一映射(one-to-one)的情況，map內部的实现自建一颗<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%BA%A2%E9%BB%91%E6%A0%91&spm=1001.2101.3001.7020">红黑树</a>，这颗树具有对数据自动排序的功能。在map内部所有的数据都是有序的，后边我们会见识到有序的好处。比如一个班级中，每个学生的学号跟他的姓名就存在著一对一映射的关系。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;map&gt;</span>  <span class="hljs-comment">//注意，STL头文件没有扩展名.h</span></span><br><span class="hljs-keyword">typedef</span> map&lt;<span class="hljs-type">int</span>,CString&gt; MAP_INT_CSTRING;<span class="hljs-comment">//为了使用方便，可以对模板类进行一下类型定义</span><br><br>MAP_INT_CSTRING enumMap;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>与<code>unordered_set</code>不同，底层是红黑树实现</p>
+<p>使用之前必须加相应容器的头文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;set&gt;</span> <span class="hljs-comment">// set属于std命名域的，因此需要通过命名限定，例如using std::set;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>定义的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">set&lt;<span class="hljs-type">int</span>&gt; a; <span class="hljs-comment">// 定义一个int类型的集合a</span><br><span class="hljs-comment">// set&lt;int&gt; a(10); // error，未定义这种构造函数</span><br><span class="hljs-comment">// set&lt;int&gt; a(10, 1); // error，未定义这种构造函数</span><br><span class="hljs-function">set&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">b</span><span class="hljs-params">(a)</span></span>; <span class="hljs-comment">// 定义并用集合a初始化集合b</span><br><span class="hljs-function">set&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">b</span><span class="hljs-params">(a.begin(), a.end())</span></span>; <span class="hljs-comment">// 将集合a中的所有元素作为集合b的初始值</span><br></code></pre></td></tr></table></figure>
+
+<p>除此之外，还可以直接使用数组来初始化向量：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> n[] = &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> &#125;;<br><span class="hljs-function">list&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(n, n + <span class="hljs-number">5</span>)</span></span>; <span class="hljs-comment">// 将数组n的前5个元素作为集合a的初值</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>容器大小：<code>st.size();</code></li>
+<li>容器最大容量：<code>st.max_size();</code></li>
+<li>容器判空：<code>st.empty();</code></li>
+<li>查找键 key 的元素个数：<code>st.count(key);</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++">set&lt;<span class="hljs-type">int</span>&gt; st;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i&lt;<span class="hljs-number">6</span>; i++)<br>&#123;<br>    st.<span class="hljs-built_in">insert</span>(i);<br>&#125;<br><br>cout &lt;&lt; st.<span class="hljs-built_in">size</span>() &lt;&lt; endl; <span class="hljs-comment">// 输出：6</span><br>cout &lt;&lt; st.<span class="hljs-built_in">max_size</span>() &lt;&lt; endl; <span class="hljs-comment">// 输出：214748364</span><br>cout &lt;&lt; st.<span class="hljs-built_in">count</span>(<span class="hljs-number">2</span>) &lt;&lt; endl; <span class="hljs-comment">// 输出：1</span><br><span class="hljs-keyword">if</span> (st.<span class="hljs-built_in">empty</span>())<br>    cout &lt;&lt; <span class="hljs-string">&quot;元素为空&quot;</span> &lt;&lt; endl; <span class="hljs-comment">// 未执行</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在容器中插入元素：<code>st.insert(const T&amp; x);</code></li>
+<li>任意位置插入一个元素：<code>st.insert(iterator it, const T&amp; x);</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++">set&lt;<span class="hljs-type">int</span>&gt; st;<br><br><span class="hljs-comment">// 在容器中插入元素</span><br>st.<span class="hljs-built_in">insert</span>(<span class="hljs-number">4</span>);<br><span class="hljs-comment">// 任意位置插入一个元素</span><br>set&lt;<span class="hljs-type">int</span>&gt;::iterator it = st.<span class="hljs-built_in">begin</span>();<br>st.<span class="hljs-built_in">insert</span>(it, <span class="hljs-number">2</span>);<br><br><span class="hljs-comment">// 遍历显示</span><br><span class="hljs-keyword">for</span> (it = st.<span class="hljs-built_in">begin</span>(); it != st.<span class="hljs-built_in">end</span>(); it++)<br>    cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>; <span class="hljs-comment">// 输出：2 4</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除容器中值为 elem 的元素：<code>st.pop_back(const T&amp; elem);</code></li>
+<li>删除it迭代器所指的元素：<code>st.erase(iterator it);</code></li>
+<li>删除区间 [first,last] 之间的所有元素：<code>st.erase(iterator first, iterator last);</code></li>
+<li>清空所有元素：<code>st.clear();</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++">set&lt;<span class="hljs-type">int</span>&gt; st;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">8</span>; i++)<br>    st.<span class="hljs-built_in">insert</span>(i);<br><br><span class="hljs-comment">// 删除容器中值为elem的元素</span><br>st.<span class="hljs-built_in">erase</span>(<span class="hljs-number">4</span>);<br><span class="hljs-comment">// 任意位置删除一个元素</span><br>set&lt;<span class="hljs-type">int</span>&gt;::iterator it = st.<span class="hljs-built_in">begin</span>();<br>st.<span class="hljs-built_in">erase</span>(it);<br><span class="hljs-comment">// 删除[first,last]之间的元素</span><br>st.<span class="hljs-built_in">erase</span>(st.<span class="hljs-built_in">begin</span>(), ++st.<span class="hljs-built_in">begin</span>());<br><br><span class="hljs-comment">// 遍历显示</span><br><span class="hljs-keyword">for</span> (it = st.<span class="hljs-built_in">begin</span>(); it != st.<span class="hljs-built_in">end</span>(); it++)<br>    cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>; <span class="hljs-comment">// 输出：2 3 5 6 7</span><br>cout &lt;&lt; endl;<br><br><span class="hljs-comment">// 清空所有元素</span><br>st.<span class="hljs-built_in">clear</span>();<br><br><span class="hljs-comment">// 判断set是否为空</span><br><span class="hljs-keyword">if</span> (st.<span class="hljs-built_in">empty</span>())<br>    cout &lt;&lt; <span class="hljs-string">&quot;集合为空&quot;</span> &lt;&lt; endl; <span class="hljs-comment">// 输出：集合为空</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查找键 key 是否存在,若存在，返回该键的元素的迭代器；若不存在，返回<code>set.end()： st.find(key);</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++">set&lt;<span class="hljs-type">int</span>&gt; st;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">6</span>; i++)<br>    st.<span class="hljs-built_in">insert</span>(i);<br><br><span class="hljs-comment">// 通过find(key)查找键值</span><br>set&lt;<span class="hljs-type">int</span>&gt;::iterator it;<br>it = st.<span class="hljs-built_in">find</span>(<span class="hljs-number">2</span>);<br>cout &lt;&lt; *it &lt;&lt; endl; <span class="hljs-comment">// 输出：2</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h3><p>​	<code>unordered_set</code>本质是使用<code>hash</code>散列的方式存储数据，是一种使<strong>用hash值作为key</strong>的容器，所以当有频繁的搜索、插入和移除拥有常数时间。<code>unordered_set</code>存储原理是声明一个有<code>n</code>个桶的数据结构，计算加入到<code>unordered_set</code>的新的值<code>hash</code>，然后计算<code>hash%n</code>后的值<code>x</code>，将新的值加入到桶<code>x</code>中。<strong>当桶x中已经有了元素，就直接链接在后边</strong>。当数据结构中的元素满足一定数量时需要扩充桶的数量，并重新构建桶结构。它具有以下特点：</p>
+<p>　　1、<code>unordered_set</code>是一种容器，它以不特定的顺序存储<strong>唯一</strong>的元素，并允许根据元素的值快速检索单个元素。</p>
+<p>　　2、在<code>unordered_set</code>中，元素的值同时是唯一标识它的键。键是不可变的，只可增删，不可修改。</p>
+<p>　　3、在内部，<code>unordered_set</code>中的元素没有按照任何特定的顺序排序，而是根据它们的散列值组织成桶（一个线性链表代表一个桶），从而允许通过它们的值直接快速访问单个元素（平均时间复杂度为常数）。</p>
+<p>　　4、<code>unordered_set</code>容器比<code>set</code>容器更快地通过它们的键访问单个元素，尽管它们在元素子集的范围迭代中通常效率较低。</p>
+<p>　　5、容器中的迭代器<strong>只能是正向迭代器</strong>。</p>
+<p><strong>初始化：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;unordered_set&gt;</span></span><br><br>unordered_set&lt;<span class="hljs-type">char</span>&gt; example;<br>unordered_set&lt;string&gt; things &#123;<span class="hljs-number">16</span>&#125;; <span class="hljs-comment">// 16 buckets</span><br>unordered_set&lt;string&gt; words &#123;<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>, <span class="hljs-string">&quot;four&quot;</span>&#125;;<span class="hljs-comment">// Initializer list</span><br>unordered_set&lt;string&gt; copy_wrds &#123;words&#125;; <span class="hljs-comment">// Copy constructor</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>操作：</strong></p>
+<p>插入</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// Returns a pair - an iterator &amp; a bool value</span><br><span class="hljs-keyword">auto</span> pr = words.<span class="hljs-built_in">insert</span>(<span class="hljs-string">&quot;ninety&quot;</span>);<br><span class="hljs-comment">// 1st arg is a hint. Returns an iterator</span><br><span class="hljs-keyword">auto</span> iter = words.<span class="hljs-built_in">insert</span> (pr.first, <span class="hljs-string">&quot;nine&quot;</span>); <br></code></pre></td></tr></table></figure>
+
+<p>查找，调用 unordered_set 的<code>find()</code>会返回一个迭代器。这个迭代器指向和参数哈希值匹配的元素，如果没有匹配的元素，会返回这个容器的结束迭代器<code>(set.end())</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_set&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;  <br>    std::unordered_set&lt;<span class="hljs-type">int</span>&gt; example = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br>    <span class="hljs-keyword">auto</span> search = example.<span class="hljs-built_in">find</span>(<span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">if</span> (search != example.<span class="hljs-built_in">end</span>()) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Found &quot;</span> &lt;&lt; (*search) &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Not found\n&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>删除，成员函数clear()可以删除它的全部元素。</p>
+<p>成员函数erase()可以删除容器中和传入参数的哈希值相同的元素。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">std::pair&lt;string, string&gt; person &#123; <span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-string">&quot;Smith&quot;</span>&#125;;<br><span class="hljs-keyword">auto</span> iter = names.<span class="hljs-built_in">find</span>(person);<br><span class="hljs-keyword">if</span>(iter != std::<span class="hljs-built_in">end</span>(names))<br>    names.<span class="hljs-built_in">erase</span>(iter);<br></code></pre></td></tr></table></figure>
+
+<p>迭代</p>
+<p>与正常容器迭代相同</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">unordered_set&lt;balloon,balloon_hash&gt;::iterator iter = balloons.<span class="hljs-built_in">begin</span>();<br><span class="hljs-keyword">while</span>(iter != balloons.<span class="hljs-built_in">end</span>())&#123;<br>    iter++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>采用二进制存储状态</p>
+<p>转小写数字字符方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> n = s.<span class="hljs-built_in">size</span>();<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;i &lt; n; i++)<br>&#123;<br>    s[i] += (s[i]&gt;=<span class="hljs-number">65</span>&amp;&amp;s[i]&lt;=<span class="hljs-number">90</span>)?<span class="hljs-number">32</span>:<span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+      
+        <a href="/tags/c/" class="print-no-link">#c++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++使用细节</div>
+      <div>https://remixxyh.github.io/2024/03/12/Cpp使用细节/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/15/%E5%85%8D%E6%9D%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="免杀学习记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">免杀学习记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/26/Anaconda%E5%91%BD%E4%BB%A4%E5%B0%8F%E8%AE%B0/" title="Anaconda命令小记">
+                        <span class="hidden-mobile">Anaconda命令小记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","appKey":"GoMWtP1iHSKKpwsbzBlVqJ7P","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
