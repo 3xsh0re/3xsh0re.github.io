@@ -19,29 +19,29 @@
     <meta name="description" content="0Day安全软件漏洞分析第2版阅读随笔3​	开启第三章的阅读，在第二章学习了基本的栈溢出原理之后，我们已经调试过如何在缓冲区植入代码了，那么接下来将继续学习如何更专业地植入代码，或者说开发shellcode😋">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0Day安全软件漏洞分析第2版阅读随笔3">
-<meta property="og:url" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/index.html">
+<meta property="og:url" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/index.html">
 <meta property="og:site_name" content="3xsh0re">
 <meta property="og:description" content="0Day安全软件漏洞分析第2版阅读随笔3​	开启第三章的阅读，在第二章学习了基本的栈溢出原理之后，我们已经调试过如何在缓冲区植入代码了，那么接下来将继续学习如何更专业地植入代码，或者说开发shellcode😋">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-40-46.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_16-27-19.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-37-55.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-58-55.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-59-11.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_19-02-55.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-56-12.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-46-58.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-50-02.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-52-35.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-57-18.png">
-<meta property="og:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_22-03-42.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-40-46.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_16-27-19.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-37-55.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-58-55.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-59-11.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_19-02-55.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-56-12.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-46-58.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-50-02.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-52-35.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_21-57-18.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_22-03-42.png">
 <meta property="article:published_time" content="2023-12-12T14:58:29.000Z">
 <meta property="article:modified_time" content="2023-12-12T15:00:18.953Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="软件与系统安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://remixxyh.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-40-46.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2023/12/12/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%943/Snipaste_2023-12-12_18-40-46.png">
   
   
   
@@ -83,7 +83,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"remixxyh.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"vIkPGtXoC93i79dQ8HOxhY47-MdYXbMMI","app_key":"X45W6ylXfIClx5FtIsbKJsLb","server_url":"https://vikpgtxo.api.lncldglobal.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"vIkPGtXoC93i79dQ8HOxhY47-MdYXbMMI","app_key":"X45W6ylXfIClx5FtIsbKJsLb","server_url":"https://vikpgtxo.api.lncldglobal.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -420,7 +420,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>0Day安全软件漏洞分析第2版阅读随笔3</div>
-      <div>https://remixxyh.github.io/2023/12/12/0Day安全软件漏洞分析第2版阅读随笔3/</div>
+      <div>https://3xsh0re.github.io/2023/12/12/0Day安全软件漏洞分析第2版阅读随笔3/</div>
     </div>
     <div class="license-meta">
       
