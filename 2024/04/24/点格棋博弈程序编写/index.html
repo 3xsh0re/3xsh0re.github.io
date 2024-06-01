@@ -24,8 +24,9 @@
 <meta property="og:description" content="乱七八糟">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="d:\0-MyBlog\hexo-blog\source_posts\%E7%82%B9%E6%A0%BC%E6%A3%8B%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99\Snipaste_2024-04-28_21-56-35.png">
+<meta property="og:image" content="d:\0-MyBlog\hexo-blog\source_posts\%E7%82%B9%E6%A0%BC%E6%A3%8B%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99\Snipaste_2024-05-16_17-35-06.png">
 <meta property="article:published_time" content="2024-04-24T04:24:29.000Z">
-<meta property="article:modified_time" content="2024-04-28T14:31:22.528Z">
+<meta property="article:modified_time" content="2024-05-16T09:38:57.960Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="博弈">
 <meta name="twitter:card" content="summary_large_image">
@@ -251,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          813 字
+          1.3k 字
         
       </span>
     
@@ -262,7 +263,7 @@
         
         
         
-          7 分钟
+          11 分钟
         
       </span>
     
@@ -312,7 +313,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年4月28日 晚上
+                    本文最后更新于：2024年5月16日 下午
                   
                 
               </p>
@@ -330,7 +331,21 @@
 <h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><p>这个函数是博弈引擎与平台进行通信交互的主函数，具体逻辑如下：</p>
 <p><img src="D:\0-MyBlog\hexo-blog\source_posts\点格棋博弈程序编写\Snipaste_2024-04-28_21-56-35.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="数据结构——Edge-Node"><a href="#数据结构——Edge-Node" class="headerlink" title="数据结构——Edge&amp;Node"></a>数据结构——Edge&amp;Node</h3><h3 id="DBGame类"><a href="#DBGame类" class="headerlink" title="DBGame类"></a>DBGame类</h3><p>理清每个属性，函数的含义</p>
-<h3 id="核心算法——alpha-beta剪枝"><a href="#核心算法——alpha-beta剪枝" class="headerlink" title="核心算法——alpha&amp;beta剪枝"></a>核心算法——alpha&amp;beta剪枝</h3><p>也就是弄清MyMove()函数的实现逻辑</p>
+<h3 id="核心算法——alpha-beta剪枝"><a href="#核心算法——alpha-beta剪枝" class="headerlink" title="核心算法——alpha&amp;beta剪枝"></a>核心算法——alpha&amp;beta剪枝</h3><p>树结构定义：</p>
+<p>每个节点表示此时的赢面</p>
+<p>根节点表示我方赢面</p>
+<p>父节点到子节点表示执棋方落子一步，故以我方为根节点，则奇数层为我方赢面，偶数层为敌方赢面</p>
+<p>搜索深度就是树的深度</p>
+<p>最大最小算法：</p>
+<p>​	根据树结构定义，我们显然要在奇数层获取最大赢面，对手会在偶数层使得我们走向最小赢面。故我们在偶数层填入子节点中的最小值，称为MIN节点，在奇数层填写子节点中的最大值，称为MAX节点。</p>
+<p>剪枝：</p>
+<p>​	上述算法需要遍历整个博弈树，我们发现在遍历博弈树的过程中，我们的赢面情况是在不断变化的，所以我们可以记录当前赢面的范围，从而规避掉不必要的搜索路径。<code>alpha</code>表示此时可以获得的最大赢面，<code>beta</code>表示此时我方受到敌方行棋限制（根据先前的搜索结果敌方可以导向我方选择路径）后可以获得的最大赢面，当<code>alpha</code>大于等于<code>beta</code>时，剪掉后续路径。<br>$$<br>alpha&lt;&#x3D;score&lt;&#x3D;beta<br>$$<br>回溯过程中存在三种状态：</p>
+<ol>
+<li>初始状态：通过父节点向下传递<code>alpha</code>和<code>beta</code>的值</li>
+<li>左子树回溯结果：如果是MAX节点，则更改<code>alpha</code>的值，需要满足值大于原<code>alpha</code>，否则不用更改；如果是MIN节点，则更改<code>beta</code>的值，需要满足值小于原<code>beta</code>，否则不用更改</li>
+<li>回溯结果：即右子树回溯，</li>
+</ol>
+<p><img src="D:\0-MyBlog\hexo-blog\source_posts\点格棋博弈程序编写\Snipaste_2024-05-16_17-35-06.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="评估函数"><a href="#评估函数" class="headerlink" title="评估函数"></a>评估函数</h3><p>DBGame::Evaluate</p>
 <p>DBGame::EvaluateNoHash</p>
 <p>DBGame::FastEval</p>
