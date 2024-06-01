@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>通过数组构造树</title>
+    <link href="/2024/06/01/%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E6%9E%84%E9%80%A0%E6%A0%91/"/>
+    <url>/2024/06/01/%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E6%9E%84%E9%80%A0%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<p>通过前序遍历数组(后序遍历数组)和中序遍历数组构造树的方法😀</p><span id="more"></span><h3 id="前序遍历-中序遍历构造"><a href="#前序遍历-中序遍历构造" class="headerlink" title="前序遍历+中序遍历构造"></a>前序遍历+中序遍历构造</h3><p>在前序遍历中，我们可以知道顺序为：中、左、右</p><p>在中序遍历中，我们可以知道顺序为：左、中、右</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>安装frida-objection-Android的hook框架</title>
     <link href="/2024/05/21/%E5%AE%89%E8%A3%85frida-objection-Android%E7%9A%84hook%E6%A1%86%E6%9E%B6/"/>
     <url>/2024/05/21/%E5%AE%89%E8%A3%85frida-objection-Android%E7%9A%84hook%E6%A1%86%E6%9E%B6/</url>
     
-    <content type="html"><![CDATA[<p>学一点安卓逆向吧</p><span id="more"></span><h3 id="安装Python相关包"><a href="#安装Python相关包" class="headerlink" title="安装Python相关包"></a>安装Python相关包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install frida==12.8.0<br>pip install frida-tools==5.4.0<br>pip install objection==1.8.4<br></code></pre></td></tr></table></figure><p><img src="D:\0-MyBlog\hexo-blog\source_posts\安装frida-objection-Android的hook框架\Snipaste_2024-05-21_14-31-06.png"></p><h3 id="下载frida-server"><a href="#下载frida-server" class="headerlink" title="下载frida-server"></a>下载frida-server</h3><p><a href="https://github.com/frida/frida/releases?expanded=true&page=6&q=12">Github仓库</a></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb push frida-server-12.8.0-android-x86 /data/local/tmp<br></code></pre></td></tr></table></figure><h3 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h3><p><a href="https://blog.csdn.net/x2584179909/article/details/108319973">https://blog.csdn.net/x2584179909/article/details/108319973</a></p>]]></content>
+    <content type="html"><![CDATA[<p>学一点安卓逆向吧</p><span id="more"></span><h3 id="安装Python相关包"><a href="#安装Python相关包" class="headerlink" title="安装Python相关包"></a>安装Python相关包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install frida==12.8.0<br>pip install frida-tools==5.4.0<br>pip install objection==1.8.4<br></code></pre></td></tr></table></figure><p><img src="/2024/05/21/%E5%AE%89%E8%A3%85frida-objection-Android%E7%9A%84hook%E6%A1%86%E6%9E%B6/Snipaste_2024-05-21_14-31-06.png"></p><h3 id="下载frida-server"><a href="#下载frida-server" class="headerlink" title="下载frida-server"></a>下载frida-server</h3><p><a href="https://github.com/frida/frida/releases?expanded=true&page=6&q=12">Github仓库</a></p><p>通过<code>adb</code>将<code>frida-server</code>安装到模拟机</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb push frida-server-12.8.0-android-x86 /data/local/tmp<br></code></pre></td></tr></table></figure><h3 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h3><p><code>adb</code>用于在局域网中操作Android设备</p><p><a href="https://blog.csdn.net/x2584179909/article/details/108319973">参考博客文章</a></p>]]></content>
     
     
     <categories>
