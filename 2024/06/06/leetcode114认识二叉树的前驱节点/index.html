@@ -16,23 +16,26 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="之前写的项目里用过redis，但是没有专门学习过，现在系统学习一下。">
+    <meta name="description" content="题目分析给你二叉树的根结点 root ，请你将它展开为一个单链表：  展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。 展开后的单链表应该与二叉树 先序遍历 顺序相同。  这道题一开始做的时候开了一个数组存了前序遍历的结果，然后对数组操作解题。做是做出来了，但感觉中等题应该有比较巧妙的思路解题。于是去看了题解，学习到了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis学习">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/06/05/Redis%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="leetcode114认识二叉树的前驱节点">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/index.html">
 <meta property="og:site_name" content="3xsh0re">
-<meta property="og:description" content="之前写的项目里用过redis，但是没有专门学习过，现在系统学习一下。">
+<meta property="og:description" content="题目分析给你二叉树的根结点 root ，请你将它展开为一个单链表：  展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。 展开后的单链表应该与二叉树 先序遍历 顺序相同。  这道题一开始做的时候开了一个数组存了前序遍历的结果，然后对数组操作解题。做是做出来了，但感觉中等题应该有比较巧妙的思路解题。于是去看了题解，学习到了">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-05T13:22:59.000Z">
-<meta property="article:modified_time" content="2024-06-06T01:18:28.399Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-42-24.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-53-05.png">
+<meta property="article:published_time" content="2024-06-06T08:36:52.000Z">
+<meta property="article:modified_time" content="2024-06-06T09:13:13.450Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="后端开发">
-<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-42-24.png">
   
   
   
-  <title>Redis学习 - 3xsh0re</title>
+  <title>leetcode114认识二叉树的前驱节点 - 3xsh0re</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Redis学习"></span>
+            <span id="subtitle" data-typed-text="leetcode114认识二叉树的前驱节点"></span>
           
         </div>
 
@@ -238,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-05 21:22" pubdate>
-          2024年6月5日 晚上
+        <time datetime="2024-06-06 16:36" pubdate>
+          2024年6月6日 下午
         </time>
       </span>
     
@@ -250,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          804 字
+          1k 字
         
       </span>
     
@@ -261,7 +264,7 @@
         
         
         
-          7 分钟
+          9 分钟
         
       </span>
     
@@ -306,12 +309,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Redis学习</h1>
+            <h1 id="seo-header">leetcode114认识二叉树的前驱节点</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月6日 上午
+                    本文最后更新于：2024年6月6日 下午
                   
                 
               </p>
@@ -319,36 +322,26 @@
             
               <div class="markdown-body">
                 
-                <p>之前写的项目里用过redis，但是没有专门学习过，现在系统学习一下。</p>
-<span id="more"></span>
+                <span id="more"></span>
 
-<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p>redis是典型的非关系型数据库。以key-value形式存储。</p>
-<p>NoSQL也有说法“Not Only SQL”。</p>
-<p>优点：<strong>对数据高并发读写（内存操作）</strong>、<strong>单线程操作（原子性）</strong></p>
-<p><strong>Redis为什么不用多线程？</strong></p>
-<p>Redis并没有采用多线程的方式来提高性能，而是采用了<strong>单线程+异步IO</strong>模型</p>
-<ol>
-<li>单线程模型避免了多线程的上下文切换开销</li>
-<li>多线程需要增加锁机制，增加系统的复杂性和开销，和redis的设计理念不符</li>
-<li>Redis使用事件驱动模型，在单个线程中通过IO多路复用技术同时监听多个IO事件，并在事件发生时进行处理</li>
-</ol>
-<p><strong>场景设计：热点事件，某个网页点击量短时间内飙升</strong></p>
-<p>将数据缓存在redis中，前端访问时，直接从内存中查数据；等到请求量下降时，再将点击量等等数据同步到关系型数据库中。保持数据的最终一致性即可。</p>
-<h3 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h3><p>事务相当于执行批量的redis操作命令，事务的操作不是原子性的，当中间的操作出错时，不会停止执行命令，也不会回滚到出错前的状态。</p>
-<h3 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h3><p>Redis不定时的将数据持久到硬盘中，Redis启动时，会提前将硬盘中的数据加载到内存。</p>
-<h4 id="RDB方式"><a href="#RDB方式" class="headerlink" title="RDB方式"></a>RDB方式</h4><p>快照方式，将内存数据以快照方式写入到二进制文件中(dump.rdb)。触发RDB持久化过程分为手动触发和自动触发。</p>
-<p>触发机制：</p>
-<p>手动触发：</p>
-<ol>
-<li>save命令：会阻塞当前Redis服务器，如果内存中数据较多，会造成长时间的阻塞，不建议轻易使用</li>
-<li>bgsave命令：redis执行fork指令开启一个子进程，由子进程实现RDB持久化</li>
-</ol>
-<p>自动触发：</p>
-<p>使用save相关配置：save m n，表示m秒内数据集存在n次修改时会自动触发bgsave命令。</p>
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>给你二叉树的根结点 <code>root</code> ，请你将它展开为一个单链表：</p>
 <ul>
-<li>优点：压缩紧凑的二进制文件，使用于备份、全量复制等场景。开发中可以按照每6小时执行一次bgsave备份。</li>
-<li>缺点：RDB无法做到实时持久化，每次bgsave时都需要fork子进程，消耗时间</li>
+<li>展开后的单链表应该同样使用 <code>TreeNode</code> ，其中 <code>right</code> 子指针指向链表中下一个结点，而左子指针始终为 <code>null</code> 。</li>
+<li>展开后的单链表应该与二叉树 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/6442839?fr=aladdin"><strong>先序遍历</strong></a> 顺序相同。</li>
 </ul>
+<p>这道题一开始做的时候开了一个数组存了前序遍历的结果，然后对数组操作解题。做是做出来了，但感觉中等题应该有比较巧妙的思路解题。于是去看了题解，学习到了前驱节点这个概念。</p>
+<h3 id="前驱与后继"><a href="#前驱与后继" class="headerlink" title="前驱与后继"></a>前驱与后继</h3><p><strong>一个节点的前驱节点，也就是中序遍历中该节点的前一个节点。</strong>举个例子：</p>
+<p><img src="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-42-24.png" srcset="/img/loading.gif" lazyload></p>
+<p>中序遍历的顺序为：1，2，4，5，7，8，9，11</p>
+<p>那么7的前驱节点为5，8的前驱节点为7</p>
+<p>分析一下就可以看出，5其实是7的左子树的最右下的节点，也是中序遍历左子的最后一个节点</p>
+<p><strong>一个节点的后继节点，也就是中序遍历中该节点的后一个节点</strong></p>
+<p>那么7的后继节点为8，8的后继节点为9</p>
+<h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><p>学习到了前驱节点，再看这道题，可以发现，要按照前序遍历的结果形成链表，就是要把<strong>访问到的当前节点的右子树接到当前节点的前驱节点上</strong>。</p>
+<p><img src="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-53-05.png" srcset="/img/loading.gif" lazyload></p>
+<p>那我做题的思路可以转变到：遍历节点，判断该节点的左子节点<code>lnode</code>是否存在，如果存在，取出这个左子树的最右下的节点，这个节点就是当前节点的前驱节点<code>pnode</code>，然后将当前遍历节点的右子节点<code>rnode</code>接到<code>pnode</code>上。做完上面的操作后，将该节点的右子树指针赋值为左子树指针，并将左子树指针置空。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        TreeNode *current = root;<br>        <span class="hljs-keyword">while</span>(current!=<span class="hljs-literal">nullptr</span>)<br>        &#123;<br>            <span class="hljs-comment">// 判断左子树是否为空</span><br>            <span class="hljs-keyword">if</span> (current-&gt;left!=<span class="hljs-literal">nullptr</span>)<br>            &#123;<br>                TreeNode *lnode = current-&gt;left;<br>                <span class="hljs-comment">// 前驱节点</span><br>                TreeNode *pnode = lnode;<br>                <span class="hljs-keyword">while</span>(pnode-&gt;right!=<span class="hljs-literal">nullptr</span>) pnode = pnode-&gt;right;<br>                pnode-&gt;right = current-&gt;right;<br>                current-&gt;right = lnode;<br>                current-&gt;left  = <span class="hljs-literal">nullptr</span>;<br>            &#125;<br>            current = current-&gt;right;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -367,7 +360,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">后端开发</a>
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
   
   
 
@@ -382,9 +375,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="print-no-link">#后端开发</a>
+        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
       
-        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
       
     </div>
   
@@ -396,8 +389,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Redis学习</div>
-      <div>https://3xsh0re.github.io/2024/06/05/Redis学习/</div>
+      <div>leetcode114认识二叉树的前驱节点</div>
+      <div>https://3xsh0re.github.io/2024/06/06/leetcode114认识二叉树的前驱节点/</div>
     </div>
     <div class="license-meta">
       
@@ -409,7 +402,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月5日</div>
+          <div>2024年6月6日</div>
         </div>
       
       
@@ -441,18 +434,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/" title="leetcode114认识二叉树的前驱节点">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode114认识二叉树的前驱节点</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/05/leetcode117%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" title="leetcode117复习二叉树的层序遍历">
-                        <span class="hidden-mobile">leetcode117复习二叉树的层序遍历</span>
+                      <a href="/2024/06/05/Redis%E5%AD%A6%E4%B9%A0/" title="Redis学习">
+                        <span class="hidden-mobile">Redis学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

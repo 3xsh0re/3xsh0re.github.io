@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>leetcode114认识二叉树的前驱节点</title>
+    <link href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/"/>
+    <url>/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<span id="more"></span><h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>给你二叉树的根结点 <code>root</code> ，请你将它展开为一个单链表：</p><ul><li>展开后的单链表应该同样使用 <code>TreeNode</code> ，其中 <code>right</code> 子指针指向链表中下一个结点，而左子指针始终为 <code>null</code> 。</li><li>展开后的单链表应该与二叉树 <a href="https://baike.baidu.com/item/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86/6442839?fr=aladdin"><strong>先序遍历</strong></a> 顺序相同。</li></ul><p>这道题一开始做的时候开了一个数组存了前序遍历的结果，然后对数组操作解题。做是做出来了，但感觉中等题应该有比较巧妙的思路解题。于是去看了题解，学习到了前驱节点这个概念。</p><h3 id="前驱与后继"><a href="#前驱与后继" class="headerlink" title="前驱与后继"></a>前驱与后继</h3><p><strong>一个节点的前驱节点，也就是中序遍历中该节点的前一个节点。</strong>举个例子：</p><p><img src="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-42-24.png"></p><p>中序遍历的顺序为：1，2，4，5，7，8，9，11</p><p>那么7的前驱节点为5，8的前驱节点为7</p><p>分析一下就可以看出，5其实是7的左子树的最右下的节点，也是中序遍历左子的最后一个节点</p><p><strong>一个节点的后继节点，也就是中序遍历中该节点的后一个节点</strong></p><p>那么7的后继节点为8，8的后继节点为9</p><h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><p>学习到了前驱节点，再看这道题，可以发现，要按照前序遍历的结果形成链表，就是要把<strong>访问到的当前节点的右子树接到当前节点的前驱节点上</strong>。</p><p><img src="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/Snipaste_2024-06-06_16-53-05.png"></p><p>那我做题的思路可以转变到：遍历节点，判断该节点的左子节点<code>lnode</code>是否存在，如果存在，取出这个左子树的最右下的节点，这个节点就是当前节点的前驱节点<code>pnode</code>，然后将当前遍历节点的右子节点<code>rnode</code>接到<code>pnode</code>上。做完上面的操作后，将该节点的右子树指针赋值为左子树指针，并将左子树指针置空。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">flatten</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        TreeNode *current = root;<br>        <span class="hljs-keyword">while</span>(current!=<span class="hljs-literal">nullptr</span>)<br>        &#123;<br>            <span class="hljs-comment">// 判断左子树是否为空</span><br>            <span class="hljs-keyword">if</span> (current-&gt;left!=<span class="hljs-literal">nullptr</span>)<br>            &#123;<br>                TreeNode *lnode = current-&gt;left;<br>                <span class="hljs-comment">// 前驱节点</span><br>                TreeNode *pnode = lnode;<br>                <span class="hljs-keyword">while</span>(pnode-&gt;right!=<span class="hljs-literal">nullptr</span>) pnode = pnode-&gt;right;<br>                pnode-&gt;right = current-&gt;right;<br>                current-&gt;right = lnode;<br>                current-&gt;left  = <span class="hljs-literal">nullptr</span>;<br>            &#125;<br>            current = current-&gt;right;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Redis学习</title>
     <link href="/2024/06/05/Redis%E5%AD%A6%E4%B9%A0/"/>
     <url>/2024/06/05/Redis%E5%AD%A6%E4%B9%A0/</url>
