@@ -24,7 +24,7 @@
 <meta property="og:description" content="之前写的项目里用过redis，但是没有专门学习过，现在系统学习一下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-05T13:22:59.000Z">
-<meta property="article:modified_time" content="2024-06-06T01:18:28.399Z">
+<meta property="article:modified_time" content="2024-06-07T07:19:07.928Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="后端开发">
 <meta property="article:tag" content="Redis">
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          804 字
+          3k 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          7 分钟
+          25 分钟
         
       </span>
     
@@ -311,7 +311,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月6日 上午
+                    本文最后更新于：2024年6月7日 下午
                   
                 
               </p>
@@ -322,7 +322,7 @@
                 <p>之前写的项目里用过redis，但是没有专门学习过，现在系统学习一下。</p>
 <span id="more"></span>
 
-<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p>redis是典型的非关系型数据库。以key-value形式存储。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是典型的非关系型数据库。以key-value形式存储。</p>
 <p>NoSQL也有说法“Not Only SQL”。</p>
 <p>优点：<strong>对数据高并发读写（内存操作）</strong>、<strong>单线程操作（原子性）</strong></p>
 <p><strong>Redis为什么不用多线程？</strong></p>
@@ -334,22 +334,95 @@
 </ol>
 <p><strong>场景设计：热点事件，某个网页点击量短时间内飙升</strong></p>
 <p>将数据缓存在redis中，前端访问时，直接从内存中查数据；等到请求量下降时，再将点击量等等数据同步到关系型数据库中。保持数据的最终一致性即可。</p>
-<h3 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h3><p>事务相当于执行批量的redis操作命令，事务的操作不是原子性的，当中间的操作出错时，不会停止执行命令，也不会回滚到出错前的状态。</p>
-<h3 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h3><p>Redis不定时的将数据持久到硬盘中，Redis启动时，会提前将硬盘中的数据加载到内存。</p>
-<h4 id="RDB方式"><a href="#RDB方式" class="headerlink" title="RDB方式"></a>RDB方式</h4><p>快照方式，将内存数据以快照方式写入到二进制文件中(dump.rdb)。触发RDB持久化过程分为手动触发和自动触发。</p>
+<h2 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h2><p>事务相当于执行批量的redis操作命令，事务的操作不是原子性的，当中间的操作出错时，不会停止执行命令，也不会回滚到出错前的状态。</p>
+<h2 id="Redis持久化机制"><a href="#Redis持久化机制" class="headerlink" title="Redis持久化机制"></a>Redis持久化机制</h2><p>Redis不定时的将数据持久到硬盘中，Redis启动时，会提前将硬盘中的数据加载到内存。</p>
+<h3 id="RDB方式"><a href="#RDB方式" class="headerlink" title="RDB方式"></a>RDB方式</h3><p>快照方式，将内存数据以快照方式写入到二进制文件中(dump.rdb)。触发RDB持久化过程分为手动触发和自动触发。</p>
 <p>触发机制：</p>
-<p>手动触发：</p>
-<ol>
-<li>save命令：会阻塞当前Redis服务器，如果内存中数据较多，会造成长时间的阻塞，不建议轻易使用</li>
-<li>bgsave命令：redis执行fork指令开启一个子进程，由子进程实现RDB持久化</li>
+<h4 id="手动触发："><a href="#手动触发：" class="headerlink" title="手动触发："></a>手动触发：</h4><ol>
+<li>save命令：<strong>会阻塞当前Redis服务器，无法接收其他请求</strong>，如果内存中数据较多，会造成长时间的阻塞，不建议在生产环境中使用</li>
+<li>bgsave命令：<strong>异步操作，不会阻塞主进程</strong>。redis执行fork指令开启一个子进程，由子进程实现RDB持久化。</li>
 </ol>
-<p>自动触发：</p>
-<p>使用save相关配置：save m n，表示m秒内数据集存在n次修改时会自动触发bgsave命令。</p>
+<p><strong>bgsave命令就一定不会阻塞主进程吗？</strong></p>
+<p>不一定，bgsave命令中，fork子进程这个操作是同步的，如果fork一个子进程花费时间太久（一般很快），basave命令仍然有阻塞其他客户的请求的可能。</p>
+<h4 id="自动触发："><a href="#自动触发：" class="headerlink" title="自动触发："></a>自动触发：</h4><p>使用save相关配置：save m n，表示m秒内数据集存在n次修改时会自动触发bgsave命令。</p>
 <ul>
 <li>优点：压缩紧凑的二进制文件，使用于备份、全量复制等场景。开发中可以按照每6小时执行一次bgsave备份。</li>
 <li>缺点：RDB无法做到实时持久化，每次bgsave时都需要fork子进程，消耗时间</li>
 </ul>
+<h3 id="AOF方式"><a href="#AOF方式" class="headerlink" title="AOF方式"></a>AOF方式</h3><p><code>AOF(Append-only file)</code></p>
+<p>与RDB存储某个时刻的快照不同，AOF持久化方式会记录客户端对服务器的每一次写操作命令，并将这些写操作以Redis协议追加保存到以后缀为aof文件末尾，在Redis服务器重启时，会加载并运行aof文件的命令，以达到恢复数据的目的。</p>
+<p>Redis默认不开启AOF持久化方式，我们可以在配置文件中开启并进行更加详细的配置，如下面的redis.conf文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 开启aof机制</span><br>appendonly <span class="hljs-built_in">yes</span><br><br><span class="hljs-comment"># aof文件名</span><br>appendfilename <span class="hljs-string">&quot;appendonly.aof&quot;</span><br><br><span class="hljs-comment"># 写入策略,always表示每个写操作都保存到aof文件中,也可以是everysec或no</span><br>appendfsync always<br><br><span class="hljs-comment"># 默认不重写aof文件</span><br>no-appendfsync-on-rewrite no<br><br><span class="hljs-comment"># 保存目录</span><br><span class="hljs-built_in">dir</span> ~/redis/<br></code></pre></td></tr></table></figure>
 
+<h4 id="三种写入策略"><a href="#三种写入策略" class="headerlink" title="三种写入策略"></a>三种写入策略</h4><ol>
+<li>always：保存每一个写操作，很安全也很慢，因为写文件需要进行IO操作</li>
+<li>everysec：默认写入策略，每秒写入一次AOF文件，所以最多刚要写入就宕机，最多丢失1s数据</li>
+<li>no：交给OS来处理，最快，最不安全。</li>
+</ol>
+<h4 id="AOF文件重写"><a href="#AOF文件重写" class="headerlink" title="AOF文件重写"></a>AOF文件重写</h4><p>AOF将客户端的每一个写操作都追加到aof文件末尾，比如对一个key多次执行incr命令，这时候，aof保存每一次命令到aof文件中，aof文件会变得非常大。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">incr num 1<br>incr num 2<br>incr num 3<br>incr num 4<br>incr num 5<br>incr num 6<br>...<br>incr num 100000<br></code></pre></td></tr></table></figure>
+
+<p>aof文件太大，加载aof文件恢复数据时，就会非常慢，为了解决这个问题，Redis支持aof文件重写，通过重写aof，可以生成一个恢复当前数据的最少命令集，比如上面的例子中那么多条命令，可以重写为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">set</span> num <span class="hljs-number">100000</span><br></code></pre></td></tr></table></figure>
+
+<p>aof文件是一个二进制文件，并不是像上面的例子一样，直接保存每个命令，而使用Redis自己的格式，上面只是方便演示。</p>
+<p><strong>AOF重写方式也是异步操作，即如果要写入aof文件，则Redis主进程会forks一个子进程来处理</strong></p>
+<h4 id="重写AOF文件的好处"><a href="#重写AOF文件的好处" class="headerlink" title="重写AOF文件的好处"></a>重写AOF文件的好处</h4><ul>
+<li>压缩aof文件，减少磁盘占用量。</li>
+<li>将aof的命令压缩为最小命令集，加快了数据恢复的速度。</li>
+</ul>
+<h3 id="混合持久化"><a href="#混合持久化" class="headerlink" title="混合持久化"></a>混合持久化</h3><p>混合持久化是Redis 4.0之后新增的方式，结合了RDB和AOF的优点。</p>
+<ul>
+<li>在写入的时候，先把当前数据以RDB形式写入文件的开头，再将后续的操作命令以AOF的格式存入文件。这样既能保证Redis重启时的速度，又能降低数据丢失的风险。</li>
+<li>混合持久化的缺点是，在Redis重启时需要同时处理两个文件（RDB文件和AOF文件），可能会比单一持久化机制的恢复速度慢。</li>
+</ul>
+<p>混合模式兼并了RDB重启后的快速恢复能力和AOF丢失数据风险低的能力，具体操作流程如下：</p>
+<ol>
+<li>子进程会通过<code>BGSAVE </code>写入AOF中</li>
+<li>触发<code>BGREWRITEAOF</code>后，会将AOF写入到文件</li>
+<li>将含有RDB和AOF的数据覆盖旧的AOF文件（这时AOF文件一半为RDB，一半为AOF）</li>
+</ol>
+<h4 id="AOF重写和RDB持久化的冲突"><a href="#AOF重写和RDB持久化的冲突" class="headerlink" title="AOF重写和RDB持久化的冲突"></a>AOF重写和RDB持久化的冲突</h4><p>在Redis中，AOF重写和RDB持久化可能会同时发生，这会导致一些冲突和问题。例如：</p>
+<ul>
+<li>AOF重写和RDB持久化都需要fork子进程，如果两个子进程同时存在，会增加内存的消耗和系统的负载。</li>
+<li>AOF重写和RDB持久化都需要写入磁盘，如果两个文件同时写入，会增加磁盘的压力和IO的开销。</li>
+<li>AOF重写和RDB持久化都需要在完成后通知主进程，如果两个信号同时到达，可能会造成信号丢失或者处理错误。</li>
+</ul>
+<p>为了解决这些冲突和问题，Redis采用了以下策略：</p>
+<ul>
+<li><strong>如果AOF重写和RDB持久化同时被触发，那么只有一个子进程会被创建，优先执行RDB持久化，然后再执行AOF重写。</strong>这样可以避免同时存在两个子进程的情况。</li>
+<li>如果AOF重写正在进行，而此时又收到了RDB持久化的请求，那么RDB持久化会被延迟到AOF重写完成后再执行。这样可以避免同时写入两个文件的情况。</li>
+<li>如果AOF重写和RDB持久化都完成了，那么主进程会先处理RDB持久化的信号，然后再处理AOF重写的信号。这样可以避免信号丢失或者处理错误的情况。</li>
+</ul>
+<p>总之，Redis通过优先级、延迟和顺序等方式来协调AOF重写和RDB持久化的冲突和问题，保证了数据的完整性和一致性，下图为简要说明。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AOF重写与RDB持久化同时被触发</td>
+<td>优先RDB</td>
+</tr>
+<tr>
+<td>AOF重写正在进行</td>
+<td>优先AOF</td>
+</tr>
+<tr>
+<td>AOF重写和RDB持久化都完成</td>
+<td>优先RDB</td>
+</tr>
+</tbody></table>
+<h3 id="三种模式的选择建议"><a href="#三种模式的选择建议" class="headerlink" title="三种模式的选择建议"></a>三种模式的选择建议</h3><p>具体的选择建议如下：</p>
+<ul>
+<li>如果对数据完整性要求不高，可以只使用RDB，或者将AOF的同步频率设置为每秒一次</li>
+<li>如果想让数据尽可能不丢失，可以只使用AOF，并将AOF的同步频率设置为每次写入操作都同步</li>
+<li>如果对数据完整性和性能都有要求，可以同时使用AOF和RDB，并将AOF的同步频率设置为每秒一次。这样既可以保证数据的安全性，又可以利用RDB进行快速的数据恢复</li>
+<li>如果既想节省磁盘空间，又想提高数据恢复速度，可以只使用RDB，并适当调整RDB的快照频率</li>
+</ul>
+<h2 id="Redis内存淘汰机制"><a href="#Redis内存淘汰机制" class="headerlink" title="Redis内存淘汰机制"></a>Redis内存淘汰机制</h2>
                 
               </div>
             
