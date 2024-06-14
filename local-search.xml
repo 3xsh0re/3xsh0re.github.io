@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>leetcode236复习二叉树的祖先节点</title>
+    <link href="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/"/>
+    <url>/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<p>祖先节点QAQ</p><span id="more"></span><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>首先，题目是要找二叉树的最近公共祖先，给出的定义是：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。”</p><p><img src="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png"></p><h3 id="祖先节点"><a href="#祖先节点" class="headerlink" title="祖先节点"></a>祖先节点</h3><p>一个节点的祖先我简单理解为，这个节点向上回溯过程中遇到的所有节点，直到根节点为止。</p><p>两个节点的公共祖先节点我简单理解为，这两个节点回溯路径中重合的节点，直到根节点为止。</p><p>最近的公共祖先节点我简单理解为，重合节点中高度最小（深度最大）的节点。在判断中，可以认为一个公共祖先节点的左右子节点均不再是公共祖先节点，那么这个节点就是最近的公共祖先节点。</p><p>解题：</p><p>对于二叉树类的题目，一般就采用递归遍历的方式，这道题选择DFS，当我们遇到需要寻找的节点时，就返回这个节点，然后向下遍历左子树和右子树，得到遍历结果left和right。</p><p>此时left无非三种结果：null,p,q；同理right也是。</p><ul><li>当两者皆为空时，说明不存在，返回空即可</li><li>当left为空时，说明p或q某一个在当前root节点右侧，且可以保证当p和q在同一侧时，返回的总是p、q中深度小的那个，反之right为空同理</li><li>当两者均不为空时，因为是回溯的，所以第一次运行到最后的<code>return root</code>，说明当前的root节点是最近公共祖先节点</li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">NULL</span> || root == p || root == q)<br>        &#123;<br>            <span class="hljs-keyword">return</span> root;<br>        &#125;<br>        TreeNode *left = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;left,p,q);<br>        TreeNode *right = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;right,p,q);<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span> &amp;&amp; right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> right;<br>        <span class="hljs-keyword">if</span> (right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> left;<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>leetcode114认识二叉树的前驱节点</title>
     <link href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/"/>
     <url>/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/</url>
@@ -190,20 +217,22 @@
   
   <entry>
     <title>点格棋博弈程序编写</title>
-    <link href="/2024/04/24/%E7%82%B9%E6%A0%BC%E6%A3%8B%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/"/>
-    <url>/2024/04/24/%E7%82%B9%E6%A0%BC%E6%A3%8B%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/</url>
+    <link href="/2024/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/"/>
+    <url>/2024/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/</url>
     
-    <content type="html"><![CDATA[<p>乱七八糟</p><span id="more"></span><h3 id="通信消息格式"><a href="#通信消息格式" class="headerlink" title="通信消息格式"></a>通信消息格式</h3><p>1)”name?” 命令<br>功能：询问引擎名称<br>完整格式： <code>&quot;name?+&#39;\n&#39;&quot;</code><br>说明：<code>&quot;name?&quot;</code>命令为无参命令，只能由平台向引擎发送。</p><p>2)”new” 命令<br>功能：创建对弈<br>完整格式：<code>&quot;new+&#39; &#39;+side+&#39;\n&#39;&quot;</code><br>参数：<br><code>side</code>：用于指明引擎的执棋颜色，其值为black或white。<br>说明：<br>“new” 命令用于通知引擎创建新棋局。若side值为black，则引擎先手行棋，应向平台发送”move”命令。若side值为white，则引擎后手行棋，应等待引擎发送行棋通知，即”move”命令。</p><p>3)”move” 命令<br>功能：行棋通知<br>完整格式：<code>&quot;move+[&#39; &#39;+position list]+&#39;\n&#39;&quot;</code><br>参数：<br><code>position list</code>：坐标列表。<br>说明：<br>            “move” 命令用于通知引擎开始行棋，其参数为上一手棋的着法。坐标列表内坐标按字符位数进行区分，两个坐标之间不加空格符，两个字符构成一个坐标，第一字符表示横轴坐标，第二字符表示纵轴坐标。添子类棋种坐标列表内坐标数量等同于落子数量，每一个坐标表示一处棋子落点。</p><p> 由于windows平台的制约，博弈软件在接收平台命令后需要调用”fflush(stdin);”刷新输入缓存区。博弈软件在向平台发送数据后需要调用”fflush(stdout);”刷新输出缓存区。</p><h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><p>这个函数是博弈引擎与平台进行通信交互的主函数，具体逻辑如下：</p><p><img src="D:\0-MyBlog\hexo-blog\source_posts\点格棋博弈程序编写\Snipaste_2024-04-28_21-56-35.png"></p><h3 id="数据结构——Edge-Node"><a href="#数据结构——Edge-Node" class="headerlink" title="数据结构——Edge&amp;Node"></a>数据结构——Edge&amp;Node</h3><h3 id="DBGame类"><a href="#DBGame类" class="headerlink" title="DBGame类"></a>DBGame类</h3><p>理清每个属性，函数的含义</p><h3 id="核心算法——alpha-beta剪枝"><a href="#核心算法——alpha-beta剪枝" class="headerlink" title="核心算法——alpha&amp;beta剪枝"></a>核心算法——alpha&amp;beta剪枝</h3><p>树结构定义：</p><p>每个节点表示此时的赢面</p><p>根节点表示我方赢面</p><p>父节点到子节点表示执棋方落子一步，故以我方为根节点，则奇数层为我方赢面，偶数层为敌方赢面</p><p>搜索深度就是树的深度</p><p>最大最小算法：</p><p>​根据树结构定义，我们显然要在奇数层获取最大赢面，对手会在偶数层使得我们走向最小赢面。故我们在偶数层填入子节点中的最小值，称为MIN节点，在奇数层填写子节点中的最大值，称为MAX节点。</p><p>剪枝：</p><p>​上述算法需要遍历整个博弈树，我们发现在遍历博弈树的过程中，我们的赢面情况是在不断变化的，所以我们可以记录当前赢面的范围，从而规避掉不必要的搜索路径。<code>alpha</code>表示此时可以获得的最大赢面，<code>beta</code>表示此时我方受到敌方行棋限制（根据先前的搜索结果敌方可以导向我方选择路径）后可以获得的最大赢面，当<code>alpha</code>大于等于<code>beta</code>时，剪掉后续路径。<br>$$<br>alpha&lt;&#x3D;score&lt;&#x3D;beta<br>$$<br>回溯过程中存在三种状态：</p><ol><li>初始状态：通过父节点向下传递<code>alpha</code>和<code>beta</code>的值</li><li>左子树回溯结果：如果是MAX节点，则更改<code>alpha</code>的值，需要满足值大于原<code>alpha</code>，否则不用更改；如果是MIN节点，则更改<code>beta</code>的值，需要满足值小于原<code>beta</code>，否则不用更改</li><li>回溯结果：即右子树回溯，</li></ol><p><img src="D:\0-MyBlog\hexo-blog\source_posts\点格棋博弈程序编写\Snipaste_2024-05-16_17-35-06.png"></p><h3 id="评估函数"><a href="#评估函数" class="headerlink" title="评估函数"></a>评估函数</h3><p>DBGame::Evaluate</p><p>DBGame::EvaluateNoHash</p><p>DBGame::FastEval</p><p>这三个函数的核心逻辑</p>]]></content>
+    <content type="html"><![CDATA[<p>乱七八糟地写一些博弈算法吧。</p><span id="more"></span><h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><p>这个函数是博弈引擎与平台进行通信交互的主函数，具体逻辑如下：</p><p><img src="D:\0-MyBlog\hexo-blog\source_posts\博弈程序编写\Snipaste_2024-04-28_21-56-35.png"></p><h3 id="alpha-beta剪枝"><a href="#alpha-beta剪枝" class="headerlink" title="alpha&amp;beta剪枝"></a>alpha&amp;beta剪枝</h3><p>树结构定义：</p><p>每个节点表示此时的赢面</p><p>根节点表示我方赢面</p><p>父节点到子节点表示执棋方落子一步，故以我方为根节点，则奇数层为我方赢面，偶数层为敌方赢面</p><p>搜索深度就是树的深度</p><p>最大最小算法：</p><p>​根据树结构定义，我们显然要在奇数层获取最大赢面，对手会在偶数层使得我们走向最小赢面。故我们在偶数层填入子节点中的最小值，称为MIN节点，在奇数层填写子节点中的最大值，称为MAX节点。</p><p>剪枝：</p><p>​上述算法需要遍历整个博弈树，我们发现在遍历博弈树的过程中，我们的赢面情况是在不断变化的，所以我们可以记录当前赢面的范围，从而规避掉不必要的搜索路径。<code>alpha</code>表示此时可以获得的最大赢面，<code>beta</code>表示此时我方受到敌方行棋限制（根据先前的搜索结果敌方可以导向我方选择路径）后可以获得的最大赢面，当<code>alpha</code>大于等于<code>beta</code>时，剪掉后续路径。<br>$$<br>alpha&lt;&#x3D;score&lt;&#x3D;beta<br>$$<br>回溯过程中存在三种状态：</p><ol><li>初始状态：通过父节点向下传递<code>alpha</code>和<code>beta</code>的值</li><li>左子树回溯结果：如果是MAX节点，则更改<code>alpha</code>的值，需要满足值大于原<code>alpha</code>，否则不用更改；如果是MIN节点，则更改<code>beta</code>的值，需要满足值小于原<code>beta</code>，否则不用更改</li><li>回溯结果：即右子树回溯，</li></ol><p><img src="D:\0-MyBlog\hexo-blog\source_posts\博弈程序编写\Snipaste_2024-05-16_17-35-06.png"></p><h3 id="蒙特卡洛树搜索"><a href="#蒙特卡洛树搜索" class="headerlink" title="蒙特卡洛树搜索"></a>蒙特卡洛树搜索</h3><h3 id="点格棋代码实现"><a href="#点格棋代码实现" class="headerlink" title="点格棋代码实现"></a>点格棋代码实现</h3><h4 id="主要行棋逻辑"><a href="#主要行棋逻辑" class="headerlink" title="主要行棋逻辑"></a>主要行棋逻辑</h4><p><code>MyMove()</code>函数主要是清理当前棋局，并产生走法，然后调用评估函数得到评分最大的走法</p><p><img src="D:\0-MyBlog\hexo-blog\source_posts\博弈程序编写\Snipaste_2024-06-09_15-06-01.png"></p><h4 id="评估函数"><a href="#评估函数" class="headerlink" title="评估函数"></a>评估函数</h4><p>主要使用极大极小搜索，以及使用α&amp;β剪枝算法剪枝</p><p><img src="D:\0-MyBlog\hexo-blog\source_posts\博弈程序编写\Snipaste_2024-06-09_16-11-01.png"></p>]]></content>
     
     
     <categories>
       
-      <category>杂项</category>
+      <category>算法</category>
       
     </categories>
     
     
     <tags>
+      
+      <tag>算法</tag>
       
       <tag>博弈</tag>
       
