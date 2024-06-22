@@ -16,25 +16,23 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="祖先节点QAQ">
+    <meta name="description" content="二叉搜索树YES！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode236复习二叉树的祖先节点">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/index.html">
+<meta property="og:title" content="leetcode530学习二叉搜索树">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/22/leetcode530%E5%AD%A6%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="祖先节点QAQ">
+<meta property="og:description" content="二叉搜索树YES！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png">
-<meta property="article:published_time" content="2024-06-14T13:20:37.000Z">
-<meta property="article:modified_time" content="2024-06-14T14:00:37.344Z">
+<meta property="article:published_time" content="2024-06-22T07:05:37.000Z">
+<meta property="article:modified_time" content="2024-06-22T11:20:29.442Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png">
   
   
   
-  <title>leetcode236复习二叉树的祖先节点 - 3xsh0re&#39;Blog</title>
+  <title>leetcode530学习二叉搜索树 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +227,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="leetcode236复习二叉树的祖先节点"></span>
+            <span id="subtitle" data-typed-text="leetcode530学习二叉搜索树"></span>
           
         </div>
 
@@ -240,8 +238,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-14 21:20" pubdate>
-          2024年6月14日 晚上
+        <time datetime="2024-06-22 15:05" pubdate>
+          2024年6月22日 下午
         </time>
       </span>
     
@@ -252,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          959 字
+          2.6k 字
         
       </span>
     
@@ -263,7 +261,7 @@
         
         
         
-          8 分钟
+          22 分钟
         
       </span>
     
@@ -308,12 +306,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">leetcode236复习二叉树的祖先节点</h1>
+            <h1 id="seo-header">leetcode530学习二叉搜索树</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月14日 晚上
+                    本文最后更新于：2024年6月22日 晚上
                   
                 
               </p>
@@ -321,23 +319,37 @@
             
               <div class="markdown-body">
                 
-                <p>祖先节点QAQ</p>
+                <p>二叉搜索树YES！</p>
 <span id="more"></span>
 
-<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>首先，题目是要找二叉树的最近公共祖先，给出的定义是：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。”</p>
-<p><img src="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="祖先节点"><a href="#祖先节点" class="headerlink" title="祖先节点"></a>祖先节点</h3><p>一个节点的祖先我简单理解为，这个节点向上回溯过程中遇到的所有节点，直到根节点为止。</p>
-<p>两个节点的公共祖先节点我简单理解为，这两个节点回溯路径中重合的节点，直到根节点为止。</p>
-<p>最近的公共祖先节点我简单理解为，重合节点中高度最小（深度最大）的节点。在判断中，可以认为一个公共祖先节点的左右子节点均不再是公共祖先节点，那么这个节点就是最近的公共祖先节点。</p>
-<p>解题：</p>
-<p>对于二叉树类的题目，一般就采用递归遍历的方式，这道题选择DFS，当我们遇到需要寻找的节点时，就返回这个节点，然后向下遍历左子树和右子树，得到遍历结果left和right。</p>
-<p>此时left无非三种结果：null,p,q；同理right也是。</p>
-<ul>
-<li>当两者皆为空时，说明不存在，返回空即可</li>
-<li>当left为空时，说明p或q某一个在当前root节点右侧，且可以保证当p和q在同一侧时，返回的总是p、q中深度小的那个，反之right为空同理</li>
-<li>当两者均不为空时，因为是回溯的，所以第一次运行到最后的<code>return root</code>，说明当前的root节点是最近公共祖先节点</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">NULL</span> || root == p || root == q)<br>        &#123;<br>            <span class="hljs-keyword">return</span> root;<br>        &#125;<br>        TreeNode *left = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;left,p,q);<br>        TreeNode *right = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;right,p,q);<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span> &amp;&amp; right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> right;<br>        <span class="hljs-keyword">if</span> (right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> left;<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>二叉搜索树是一种二叉树的树形数据结构，其定义如下：</p>
+<ol>
+<li>空树是二叉搜索树。</li>
+<li>若二叉搜索树的左子树不为空，则其左子树上所有点的附加权值均小于其根节点的值。</li>
+<li>若二叉搜索树的右子树不为空，则其右子树上所有点的附加权值均大于其根节点的值。</li>
+<li>二叉搜索树的左右子树均为二叉搜索树。</li>
+</ol>
+<p>二叉搜索树上的基本操作所花费的时间与这棵树的高度成正比。对于一个有$n$个结点的二叉搜索树中，这些操作的最优时间复杂度为$O(logn)$，最坏为$O(n)$。随机构造这样一棵二叉搜索树的期望高度为$O(logn)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">TreeNode</span>&#123;<br>	<span class="hljs-type">int</span> key;<br>	TreeNode*left;<br>	TreeNode*right;<br>	<span class="hljs-comment">// 维护其他信息，如高度，节点数量等</span><br>    <span class="hljs-type">int</span> size;   <span class="hljs-comment">// 当前节点为根的子树大小</span><br>    <span class="hljs-type">int</span> count;  <span class="hljs-comment">// 当前节点的重复数量</span><br>	<span class="hljs-built_in">TreeNode</span>(<span class="hljs-type">int</span> value):<span class="hljs-built_in">key</span>(value),<span class="hljs-built_in">size</span>(<span class="hljs-number">1</span>),<span class="hljs-built_in">count</span>(<span class="hljs-number">1</span>),<span class="hljs-built_in">left</span>(<span class="hljs-literal">nullptr</span>),<span class="hljs-built_in">right</span>(<span class="hljs-literal">nullptr</span>)&#123;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>由二叉树的定义，二叉搜索树的中序遍历结果可以得到一个非降的序列</p>
+<p>在搜索二叉树中，搜索是相对容易的，当值大于这个节点时，向右子树搜索，反之向左子树搜索。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">Search</span><span class="hljs-params">(TreeNode *root,<span class="hljs-type">int</span> target)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>	&#125;<br>	<span class="hljs-keyword">if</span> (root-&gt;value == target)<br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>	&#125;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (root-&gt;value &gt; target)<br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Search</span>(root-&gt;left,target);<br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">Search</span>(root-&gt;right,target);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在二叉搜索树中，插入、删除等操作都是基于搜索操作的</p>
+<p>插入：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp">&#125;<br><span class="hljs-function">TreeNode *<span class="hljs-title">Insert</span><span class="hljs-params">(TreeNode *root,<span class="hljs-type">int</span> value)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)<br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TreeNode</span>(value);<br>	&#125;<br>	<span class="hljs-keyword">if</span> (value &gt; root-&gt;key)<br>	&#123;<br>		root-&gt;left = <span class="hljs-built_in">Insert</span>(root-&gt;left,value);<br>	&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(value &lt; root-&gt;key)<br>	&#123;<br>		root-&gt;right = <span class="hljs-built_in">Insert</span>(root-&gt;right,value);<br>	&#125;<br>	<span class="hljs-keyword">return</span> root;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>删除操作稍微复杂了一点，需要判断几种情况，假设这时我们已经找到了需要删除的节点<code>node</code></p>
+<ol>
+<li>当<code>node</code>为叶子节点时，直接删除</li>
+<li>当<code>node</code>只有一个子节点时，返回仅存的那个子节点，然后直接删除<code>node</code></li>
+<li>当<code>node</code>有两个子节点时，需要先找到<code>node</code>的前驱或者后继节点，返回这两个中的某一个，同时需要递归的删除此节点</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">TreeNode* <span class="hljs-title">deleteNode</span><span class="hljs-params">(TreeNode* root, <span class="hljs-type">int</span> key)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)<br>    &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">if</span> ( key &gt; root-&gt;val )&#123;<br>            root-&gt;right = <span class="hljs-built_in">deleteNode</span>(root-&gt;right,key);<br>            <span class="hljs-keyword">return</span> root;<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( key &lt; root-&gt;val )&#123;<br>            root-&gt;left = <span class="hljs-built_in">deleteNode</span>(root-&gt;left,key);<br>            <span class="hljs-keyword">return</span> root;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-comment">// 已经是叶子节点</span><br>            <span class="hljs-keyword">if</span> (root-&gt;left == <span class="hljs-literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="hljs-literal">nullptr</span>)<br>            &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>            &#125;<br>            <span class="hljs-comment">// 只有一个子节点</span><br>            <span class="hljs-keyword">if</span> (root-&gt;left == <span class="hljs-literal">nullptr</span>)<br>            &#123;<br>                <span class="hljs-keyword">return</span> root-&gt;right;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (root-&gt;right == <span class="hljs-literal">nullptr</span>)&#123;<br>                <span class="hljs-keyword">return</span> root-&gt;left;<br>            &#125;<br>            TreeNode *successor = root-&gt;right;<br>            <span class="hljs-keyword">while</span>(successor-&gt;left)<br>            &#123;<br>                successor = successor-&gt;left;<br>            &#125;<br>            root-&gt;right = <span class="hljs-built_in">deleteNode</span>(root-&gt;right,successor-&gt;val);<br>            successor-&gt;left = root-&gt;left;<br>            successor-&gt;right = root-&gt;right;<br>            <span class="hljs-keyword">return</span> successor;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> root;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p>这道题意思很明显，找差值最小，按照中序遍历的二叉搜索树自然递增，所以中序遍历接口</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ANS</span><span class="hljs-params">(TreeNode *root,<span class="hljs-type">int</span>&amp; pre, <span class="hljs-type">int</span>&amp; ans)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)<br>    &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-built_in">ANS</span>(root-&gt;left,pre,ans);<br>    <span class="hljs-keyword">if</span> (pre == <span class="hljs-number">-1</span>)<br>    &#123;<br>        pre = root-&gt;val;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        ans = <span class="hljs-built_in">min</span>(ans,root-&gt;val - pre);<br>        pre = root-&gt;val;<br>    &#125;<br>    <span class="hljs-built_in">ANS</span>(root-&gt;right,pre,ans);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">getMinimumDifference</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>    <span class="hljs-type">int</span> ans = INT_MAX,pre = <span class="hljs-number">-1</span>;<br>    <span class="hljs-built_in">ANS</span>(root,pre,ans);<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -386,8 +398,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>leetcode236复习二叉树的祖先节点</div>
-      <div>https://3xsh0re.github.io/2024/06/14/leetcode236复习二叉树的祖先节点/</div>
+      <div>leetcode530学习二叉搜索树</div>
+      <div>https://3xsh0re.github.io/2024/06/22/leetcode530学习二叉搜索树/</div>
     </div>
     <div class="license-meta">
       
@@ -399,7 +411,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月14日</div>
+          <div>2024年6月22日</div>
         </div>
       
       
@@ -431,18 +443,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/22/leetcode530%E5%AD%A6%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode530学习二叉搜索树">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode530学习二叉搜索树</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/" title="leetcode114认识二叉树的前驱节点">
-                        <span class="hidden-mobile">leetcode114认识二叉树的前驱节点</span>
+                      <a href="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/" title="leetcode236复习二叉树的祖先节点">
+                        <span class="hidden-mobile">leetcode236复习二叉树的祖先节点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
