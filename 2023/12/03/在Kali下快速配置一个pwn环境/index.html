@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_21-58-31.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-00-12.png">
 <meta property="article:published_time" content="2023-12-03T14:31:16.000Z">
-<meta property="article:modified_time" content="2023-12-03T14:33:33.844Z">
+<meta property="article:modified_time" content="2024-06-29T02:52:36.377Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="软件与系统安全">
 <meta property="article:tag" content="pwn">
@@ -316,7 +316,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月3日 晚上
+                    本文最后更新于：2024年6月29日 上午
                   
                 
               </p>
@@ -337,18 +337,21 @@
 <h4 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h4><p>然后就是换源，一个是apt源，一个是pip源</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs sh">//换apt源<br>vim /etc/apt/sources.list<br>//deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free<br>apt-get update<br>apt-get upgrade<br>//换pip源<br><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mkdir</span> .pip<br><span class="hljs-built_in">cd</span> .pip<br>vim pip.conf<br>/*<br>[global]<br><span class="hljs-built_in">timeout</span> = 6000<br>index-url = https://pypi.tuna.tsinghua.edu.cn/simple/<br>[install]<br>trusted-host=https://pypi.tuna.tsinghua.edu.cn<br>*/<br></code></pre></td></tr></table></figure>
 
-<p><img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-00-47.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-01-46.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-00-47.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-01-46.png" srcset="/img/loading.gif" lazyload class="">
+
 <h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><p>安装pwntools，在本kali下是python3了，所以其实是安装pwn库</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install pwn<br></code></pre></td></tr></table></figure>
 
 <p>没啥问题</p>
-<p><img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_21-58-31.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_21-58-31.png" srcset="/img/loading.gif" lazyload class="">
+
 <h3 id="pwngdb"><a href="#pwngdb" class="headerlink" title="pwngdb"></a>pwngdb</h3><p>安装pwndbg，pwndbg其实是原生gdb的一个插件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~<br><span class="hljs-built_in">mkdir</span> pwn<br><span class="hljs-built_in">cd</span> pwn<br>git <span class="hljs-built_in">clone</span> https://github.com/pwndbg/pwndbg<br><span class="hljs-built_in">cd</span> pwndbg<br>./setup.sh<br>gdb<br></code></pre></td></tr></table></figure>
 
 <p>安装完即可！😀</p>
-<p><img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-00-12.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/12/03/%E5%9C%A8Kali%E4%B8%8B%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AApwn%E7%8E%AF%E5%A2%83/Snipaste_2023-12-03_22-00-12.png" srcset="/img/loading.gif" lazyload class="">
 
                 
               </div>

@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-55-57.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-59-46.png">
 <meta property="article:published_time" content="2023-10-26T15:00:22.000Z">
-<meta property="article:modified_time" content="2023-11-11T08:38:49.195Z">
+<meta property="article:modified_time" content="2024-06-29T03:06:36.626Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="软件与系统安全">
@@ -324,7 +324,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年11月11日 下午
+                    本文最后更新于：2024年6月29日 上午
                   
                 
               </p>
@@ -354,7 +354,8 @@
 <p><strong>但我们需要注意的是，节可以被任意命名，并且代码的任意部分可以编译到PE的任意节中，如果可执行文件经过了“加壳”处理，PE 的节信息就会变得非常“古怪”。 在 Crack 和反病毒分析中需要经常处理这类古怪的 PE 文件。</strong></p>
 <h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p>在内核状态下，我们才能看到并调试物理内存。所以用户态下，我们用调试器看到的都是虚拟内存。Windows让所有的程序都认为自己拥有独立的4GB的内存，这当然是不可能的哈哈的😁</p>
 <p>如下图展示：</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-25_22-21-19.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-25_22-21-19.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>这里书中有个比喻非常精妙：</p>
 <ul>
 <li>内存管理机制就像银行</li>
@@ -372,39 +373,52 @@
 <li><strong>相对虚拟地址</strong>：内存地址相对于映射基址的偏移量。</li>
 <li><strong>相对虚拟地址&#x3D;虚拟内存地址-装载基址</strong></li>
 </ul>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-25_22-58-02.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-25_22-58-02.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>​        <strong>操作系统在装载时基本上不会破坏程序的各种数据结构，所以文件地址和相对虚拟地址有很大的一致性，但是存在存放基本单位的差别。</strong></p>
 <ul>
 <li>文件数据按0x200字节为基本单位进行组织，PE数据节的大小始终是0x200的整数倍</li>
 <li>内存数据按0x1000字节为基本单位进行组织，内存数据节的大小始终是0x1000的整数倍</li>
 <li>这种由文件单位引起的<strong>节基址差</strong>称作节偏移，所以<strong>文件偏移地址&#x3D;虚拟内存地址-装载基址-节地址差</strong></li>
 </ul>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_13-32-23.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_13-32-38.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_13-32-23.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_13-32-38.png" srcset="/img/loading.gif" lazyload class="">
+
 <h3 id="crack-me1"><a href="#crack-me1" class="headerlink" title="crack_me1"></a>crack_me1</h3><p>实验代码来源于原书</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PASSWORD <span class="hljs-string">&quot;1234567&quot;</span> </span><br><span class="hljs-type">int</span> <span class="hljs-title function_">verify_password</span> <span class="hljs-params">(<span class="hljs-type">char</span> *password)</span> <br>&#123; <br>    <span class="hljs-type">int</span> authenticated; <br>    authenticated=<span class="hljs-built_in">strcmp</span>(password,PASSWORD); <br>    <span class="hljs-keyword">return</span> authenticated; <br>&#125; <br><br>main() <br>&#123; <br>    <span class="hljs-type">int</span> valid_flag=<span class="hljs-number">0</span>; <br>    <span class="hljs-type">char</span> password[<span class="hljs-number">1024</span>]; <br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) <br>    &#123; <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;please input password: &quot;</span>); <br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%s&quot;</span>,password); <br>        valid_flag = verify_password(password); <br>        <span class="hljs-keyword">if</span>(valid_flag) <br>        &#123; <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;incorrect password!\n\n&quot;</span>); <br>        &#125; <br>        <span class="hljs-keyword">else</span> <br>        &#123; <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Congratulation! You have passed the verification!\n&quot;</span>); <br>            <span class="hljs-keyword">break</span>; <br>        &#125; <br>    &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>使用命令<code>gcc -o crack_me.exe test.c</code>编译为64位的exe文件，当然如果你不是<code>x86-64</code>架构，那么命令有所变化，需要编为32位的程序😋。</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-35-25.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-35-25.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>接下来，使用IDA查看文件结构，这个时候假装我们不知道代码是自己写的😁</p>
 <p>可以看到如下的文件结构：</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-37-10.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-37-10.png" srcset="/img/loading.gif" lazyload class="">
+
 <p><strong>这里普及一下：红色的线表示if语句为真，绿色的线表示if语句结果为假</strong></p>
 <p>然后可以发现，我们需要得到<code>Congratulation!</code>，那么用鼠标选中这条线，按空格切换到汇编代码：</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-41-37.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-41-37.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>使用了一个<code>jz</code>指令，这里我们需要知道这条指令由状态标志寄存器的ZF位决定，为1则跳转</p>
 <p>ZF表示结果运算是否为0，如果为0则置1，反之置0。</p>
 <p>所以这里我只需要让ZF&#x3D;1即可</p>
 <p>将程序拖进x64dbg里，然后程序会自动运行，这里读者不知道为什么会自动中断😂，这里直接继续运行</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-46-55.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-46-55.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>到需要我们输入密码即可，这里我们需要寻找之前分析出来的判断位置，然后下断点，修改标志位即可破解成功！</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-49-19.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-49-19.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>我们可以通过调用堆栈窗口，查看crack_me.exe的调用，然后查找出来位置，然后在即将跳转的那个指令处打下断点，可以发现这里<code>x64gbd</code>汇编出来是<code>je</code>指令，笔者这里还不清楚为什么会这样😭。当然这里效果和jz是一样，破解方法不变。</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-51-51.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-51-51.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>然后在terminal里输入密码，就会在断点处停下，在视图右侧会显示当前CPU的一些寄存器的状态，修改ZF&#x3D;1再单步调试到输出即可。</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-55-57.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-55-57.png" srcset="/img/loading.gif" lazyload class="">
+
 <p>破解成功！原密码为1234567</p>
-<p><img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-59-46.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-59-46.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
 <p>第一章学习完毕！</p>
 <p>之前有些基础，所以觉得不难，但是还是觉得这本书太适合入门了，写的很清晰明了的😍</p>
 

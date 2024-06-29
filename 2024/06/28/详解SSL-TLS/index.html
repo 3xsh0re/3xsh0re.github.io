@@ -1,0 +1,901 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="其实抛开项目内容不谈，这里我详细分析了SSL&#x2F;TLS建立安全连接的流程，以及部分加密算法的数学原理，以及SSL是如何工作在CA以及证书上的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解SSL&#x2F;TLS">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/index.html">
+<meta property="og:site_name" content="3xsh0re&#39;Blog">
+<meta property="og:description" content="其实抛开项目内容不谈，这里我详细分析了SSL&#x2F;TLS建立安全连接的流程，以及部分加密算法的数学原理，以及SSL是如何工作在CA以及证书上的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-31-58.jpg">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-33-44.jpg">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-35-20.jpg">
+<meta property="article:published_time" content="2024-06-28T14:29:06.000Z">
+<meta property="article:modified_time" content="2024-06-28T16:14:52.064Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="数字认证技术">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-31-58.jpg">
+  
+  
+  
+  <title>详解SSL/TLS - 3xsh0re&#39;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"vIkPGtXoC93i79dQ8HOxhY47-MdYXbMMI","app_key":"X45W6ylXfIClx5FtIsbKJsLb","server_url":"https://vikpgtxo.api.lncldglobal.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="详解SSL/TLS"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-28 22:29" pubdate>
+          2024年6月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">详解SSL/TLS</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年6月29日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>其实抛开项目内容不谈，这里我详细分析了SSL&#x2F;TLS建立安全连接的流程，以及部分加密算法的数学原理，以及SSL是如何工作在CA以及证书上的。</p>
+<span id="more"></span>
+
+<h3 id="项目内容"><a href="#项目内容" class="headerlink" title="项目内容"></a>项目内容</h3><p>采用Python语言，基于OpenSSL库实现证书颁发机构(CA)程序，并基于证书签发机制和公钥密码体制(RSA算法)实现了SSL握手流程，完成客户端与服务端之间共享密钥的交换，并且在消息传输的过程中采用对称加密算法(AES)对明文消息进行加密。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="讲一讲什么是CA以及CA的工作原理"><a href="#讲一讲什么是CA以及CA的工作原理" class="headerlink" title="讲一讲什么是CA以及CA的工作原理"></a>讲一讲什么是CA以及CA的工作原理</h4><p>CA是证书颁发机构的简称，证书颁发机构是一个可信任的实体，负责颁发、管理和撤销数字证书。数字证书用于在公钥基础设施 (PKI) 中验证身份，并确保在网络通信中数据的安全性和完整性。</p>
+<p><strong>CA的作用是作为公证人，在一次SSL握手过程中，假设我们没有CA颁发的证书作为验证，那么考虑此时客户端被中间人劫持，在双方交换密钥的过程中，中间人可以自己的公钥发送给客户端，此时客户端没有别的信息来鉴别这个公钥，因此中间人会维持两个对话，一个是中间人-客户端，一个是中间人-服务端。所以此时需要一个中间人来证明这个公钥是可信安全的，CA就出现了，服务端会将自己的公钥（在证书请求文件CSR里）发给CA，CA使用签名算法和CA自己的私钥给这个公钥签名，也就是生成证书，那么客户端就可以使用CA的公钥来对服务端的证书进行验证</strong></p>
+<p>工作过程：</p>
+<ol>
+<li>根证书的基础是一个公钥和私钥对，这对密钥是 CA 用于签署其他证书的核心。这个过程包括：<ul>
+<li><strong>选择加密算法</strong>：常用的算法包括<code>RSA</code>和<code>ECC</code>。<code>RSA</code>通常使用 2048 位或更高的密钥长度，而<code>ECC</code>使用更短但安全性相当的密钥长度（如 256 位）。我们选择的是RSA加密算法。</li>
+<li><strong>生成密钥对</strong>：使用安全的硬件安全模块 (HSM) 或可信的软件工具生成公钥和私钥对。私钥必须严格保密，通常存储在 HSM 中，以防泄露。</li>
+</ul>
+</li>
+<li>CA自身生成证书请求文件，然后对其进行自签名，这个证书称为根证书，作为认证链的基础</li>
+<li>客户端生成证书请求文件.csr，发送给CA进行签名</li>
+<li>签名后返回客户端证书.crt</li>
+</ol>
+<h4 id="讲讲什么是公钥基础设施PKI和信任链"><a href="#讲讲什么是公钥基础设施PKI和信任链" class="headerlink" title="讲讲什么是公钥基础设施PKI和信任链"></a>讲讲什么是公钥基础设施PKI和信任链</h4><p>简单来说，PKI就是一套用于管理数字证书的体系结构。</p>
+<p>关于信任链的话，我们知道在建立SSL链接的时候需要使用证书进行身份验证，那么证书颁发机构的安全性又如何保证呢，其实很简单，让更高一级的CA对低一级的CA证书进行签名，这样一层一层的向下保证，<strong>只需要保证根CA的安全性即可</strong>。</p>
+<h4 id="讲一讲RSA加密算法"><a href="#讲一讲RSA加密算法" class="headerlink" title="讲一讲RSA加密算法"></a>讲一讲RSA加密算法</h4><p><code>RSA（Rivest-Shamir-Adleman）</code>算法是一种<strong>非对称加密算法</strong>，广泛应用于数字证书的颁发和验证过程中。<code>RSA</code>算法在证书颁发中的主要作用包括生成密钥对、加密和解密数据、以及数字签名和验证。<strong>RSA是公钥密码体制中的一个重要算法</strong>。</p>
+<p><strong>公钥</strong>：公开发布并包含在数字证书中，用于加密数据和验证数字签名。<strong>通过公钥我们就可以判断这个证书是否是受信任的CA颁发的。</strong></p>
+<p><strong>私钥</strong>：保密并由持有者妥善保管。<strong>在证书颁发过程中，CA 使用其私钥对证书进行数字签名。</strong></p>
+<p><strong>数学推导：</strong></p>
+<ul>
+<li><p>首先选取两个大素数$p,q$。这很重要，RSA的基础就是大素数分解困难问题</p>
+</li>
+<li><p>计算它们的乘积：$n&#x3D;p×q$​</p>
+</li>
+<li><p>计算欧拉函数：$ϕ(n)&#x3D;(p−1)×(q−1)$</p>
+</li>
+<li><p>选择一个与 $ϕ(n)$互质的整数 $e$​（通常选择较小的素数，如65537）</p>
+</li>
+<li><p>计算$d$使得$d$是$e$的模$ϕ(n)$逆元，即满足：<br>$$<br>d×e≡1 (mod ϕ(n))<br>$$<br>这个方程可以通过扩展欧几里得算法求解。</p>
+</li>
+<li><p>公钥是$(n,e)$，私钥是$(n,d)$​​。</p>
+</li>
+<li><p><strong>私钥签名</strong>：给定消息 $M$（其中$M$是一个整数，且$0≤M&lt;n$），签名过程为：<br>$$<br>C &#x3D; M^d \ (\text{mod} \ n)<br>$$</p>
+</li>
+<li><p><strong>公钥解密</strong>：给定密文$C$，解密过程为：</p>
+</li>
+</ul>
+<p>值得注意的是，<strong>RSA算法并不具有前向安全</strong>，因为它的公私钥是静态的，当黑客长期收集同一个私钥加密的数据时，一旦私钥泄露，那么之前被收集的加密数据均会被破解。</p>
+<h4 id="讲一讲DH算法"><a href="#讲一讲DH算法" class="headerlink" title="讲一讲DH算法"></a>讲一讲DH算法</h4><p>DH 算法又称“Diffie–Hellman 算法”，像往常的算法名字一样，这是用俩个数学牛人的名字来命名的算法，<strong>实现安全的密钥交换</strong>，通讯双方在完全没有对方任何预先信息的条件下通过不安全信道创建起一个密钥。</p>
+<p>下面讲一讲算法流程：</p>
+<ol>
+<li>Alice与Bob协定使用一个大素数$p$和一个$p$的整数模$n$乘法群及其原根$g$，$p,g$都公开</li>
+<li>Alice选择一个随机数$a$（私钥）并计算$A&#x3D;g^amodp$，并将$A$发送给Bob</li>
+<li>Bob选择一个随机数$b$（私钥）并计算$B&#x3D;g^bmodp$，并将$B$发送给Alice</li>
+<li>Alice计算$key&#x3D;A^amodp$</li>
+<li>Bob计算$key&#x3D;B^bmodp$</li>
+<li>Alice和Bob就同时协商出群元素$g^{ab}$，$(g^b)^a$和$(g^a)^b$因为群是乘法交换的。</li>
+</ol>
+<h4 id="讲一讲SSL协议的流程"><a href="#讲一讲SSL协议的流程" class="headerlink" title="讲一讲SSL协议的流程"></a>讲一讲SSL协议的流程</h4><p><a target="_blank" rel="noopener" href="https://blog.nsfocus.net/tls1-3/">绿盟科技文章</a></p>
+<p>SSL（Secure Sockets Layer）协议是为确保在计算机网络中进行安全通信而设计的加密协议。SSL协议在传输层之上，应用层之下</p>
+<ul>
+<li>第一步：client向server发出hello，并生成一个随机数random_A，将使用的SSL协议版本、加密算法、压缩方法以及random_A发送给服务端。</li>
+<li>第二步：<ul>
+<li>server向client回应hello，并生成一个随机数random_B，和客户端一样，在报文中包含SSL版本以及加密组件。服务器的加密组件内容是从接收到的客户端加密组件内筛选出来的。并将random_B发送给client</li>
+<li>server向client发送自己的证书用于身份验证</li>
+<li>server向client发送hellodone表示密钥协商阶段结束</li>
+</ul>
+</li>
+<li>第三步：<ul>
+<li>client验证服务器证书的有效性。通常，客户端会验证证书是否由受信任的CA签发，证书是否过期，证书链是否完整等。</li>
+<li>client如果发送了证书，也会通过签名证明其证书的有效性。</li>
+<li>client生成一个随机数random_C，client会使用证书中取出来的公钥对random_C进行加密，生成预主密钥，客户端以Client Key Exchange报文作为回应，其中包含预主密钥。</li>
+<li>client继续发送Change Cipher Spec报文。用于告知server，client已经切换到之前协商好的加密套件（Cipher Suite）的状态，准备使用之前协商好的加密套件加密数据并传输了。</li>
+<li>client发送Finished报文。该报文包含连接至今全部报文的整体校验值（也就是HASH值），用来供server校验。</li>
+</ul>
+</li>
+<li>第四步：<ul>
+<li>server接收到客户端的请求之后，使用私钥解密报文，把Pre-master secret取出来。接着，同样发送Change Cipher Spec报文。</li>
+<li>server同样发送Finished报文，用来供client校验。</li>
+<li>此时双方建立起SSL连接，开始使用HTTP通讯</li>
+</ul>
+</li>
+</ul>
+<style>.inMiddle{display: block; margin-left: auto; margin-right: auto; }</style><img src="/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-31-58.jpg" srcset="/img/loading.gif" lazyload class="inMiddle">
+
+<h4 id="讲一讲TLS协议"><a href="#讲一讲TLS协议" class="headerlink" title="讲一讲TLS协议"></a>讲一讲TLS协议</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/enoc/p/tls-handshake.html">一篇讲的很好的博客</a></p>
+<p>网景公司针对传输层协议（TCP&#x2F;UDP）并没有对传输的数据进行加密保护的缺陷，为自家浏览器设计了SSL协议，于1995年公开协议的2.0版本。1999年，IETF小组基于SSL 3.0设计了与SSL协议独立的TLS 1.0协议，正式成为互联网传输层加密的标准。</p>
+<p>SSL&#x2F;TLS提供了两种功能：</p>
+<ul>
+<li>建立一个安全的连接：对其中传输的数据提供加密保护，防止被中间人嗅探到可见明文；对数据提供完整性校验，防止传输的数据被中间人修改。</li>
+<li>建立一个可信的连接：对连接双方的实体提供身份认证。</li>
+</ul>
+<h5 id="TLS1-2"><a href="#TLS1-2" class="headerlink" title="TLS1.2"></a>TLS1.2</h5><p>其实就是修复了一些安全漏洞，然后将SSL（security socket layer）换了个名字TLS（transport layer security），具体流程和SSL类似。</p>
+<p>这里讲一下基于DH算法的握手流程的改动</p>
+<ul>
+<li>在证书中，不再是服务端的RSA公钥，而是DH中的p,g以及服务端的公钥$g^bmodp$。</li>
+<li>客户端在进行密钥协商时不再返回加密后的预主密钥，而是返回$g^amodp$。</li>
+</ul>
+<style>.inMiddle{display: block; margin-left: auto; margin-right: auto; }</style><img src="/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-33-44.jpg" srcset="/img/loading.gif" lazyload class="inMiddle">
+
+<h5 id="TLS1-3"><a href="#TLS1-3" class="headerlink" title="TLS1.3"></a>TLS1.3</h5><p><a target="_blank" rel="noopener" href="https://blog.nsfocus.net/tls1-3protocol/">绿盟博客TLS1.3详解</a></p>
+<p>TLS1.3总共有两层，分别是握手协议(handshake protocol)和记录协议(record protocol)，握手协议在记录协议的上层，记录协议是一个分层协议。其中握手协议中还包括了警告协议(alert protocol)。</p>
+<h6 id="往返时延上的改进"><a href="#往返时延上的改进" class="headerlink" title="往返时延上的改进"></a>往返时延上的改进</h6><p>我们先来简单回忆一下 Client 的密钥在 1.3 前的 DH(E) 算法下是怎么进行协商的：</p>
+<ol>
+<li>Client -&gt; Server：请求建立连接</li>
+<li>Server -&gt; Client：生成 𝑏 并计算出 𝐵 发向对方</li>
+<li>Client -&gt; Server：生成 𝑎 并计算出 𝐴 发向对方</li>
+<li>双方根据 𝑎⋅𝐵 或 𝑏⋅𝐴 计算出密钥 𝐾</li>
+</ol>
+<p>在客户端和服务器之间进行了两次往返（2-RTT）以完成握手。 平均而言，这需要0.25秒到0.5秒之间的时间。</p>
+<p>在这里我们可以看出 Client 向 Server 发送密钥是在收到 Server 的响应后的，这是因为密钥计算需要 𝑝 和 𝑔 ，而他们又在 Server 的证书里或被证书所签名，所以需要等到收到 Server 证书后才能计算。也就是说，只要我们能够提前得知 𝑝、𝑔 ，就能在第一个握手时就发送 𝐴。</p>
+<p><strong>TLS1.3 在握手上做了优化，只需要一次时延往返就可以建立连接（1-RTT）</strong></p>
+<p>那么它是怎么做的呢？</p>
+<p>其实具体的做法还是利用了扩展。客户端在 <code>Client Hello</code> 消息里直接用 <strong>supported_groups</strong> 带上支持的曲线，比如 P-256、x25519，用 <strong>key_share</strong> 带上曲线对应的客户端公钥参数，用 <strong>signature_algorithms</strong> 带上签名算法。</p>
+<p>服务器收到后在这些扩展里选定一个曲线和参数，再用 <code>key_share</code> 扩展返回服务器这边的公钥参数，就实现了双方的密钥交换。</p>
+<h6 id="握手流程"><a href="#握手流程" class="headerlink" title="握手流程"></a>握手流程</h6><ol>
+<li><p>Client 生成 𝑘𝑒𝑦𝑠ℎ𝑎𝑟𝑒向 Server 发送𝑘𝑒𝑦𝑠ℎ𝑎𝑟𝑒 的结构为一个列表，其中具有多个 &lt;密钥组名，通过$𝑎_n$和对应组使用的𝑝,𝑔生成的$A_n$&gt; 的数据项。</p>
+<ul>
+<li>为了安全起见，每一个数据项中的 𝑎 (Client 私钥) 都是不一样的</li>
+<li>以上包含的多个组中并不只有 DHE 类型的组，还有 ECDHE 类型，其值中的加密组件所需参数不同</li>
+</ul>
+</li>
+<li><p>Server 从多个密钥组中选择自己能够接受的密钥组；如果没有，则会直接响应自己能够接受的密钥组的组名，让 Client 重新生成对应的 𝐴 并发送（此时 1⋅𝑅𝑇𝑇 会退化为 2⋅𝑅𝑇𝑇 ）。</p>
+<ul>
+<li><p>在选定密钥组后，Server发送决定使用的密钥组的名称，同时使用该组的 𝑝,𝑔 和自己的𝑏计算出𝐵，紧接着根据密钥交换原理通过收到的𝐴计算出𝐾。</p>
+</li>
+<li><p>这里有个被忽略的过程，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/enoc/p/tls-handshake.html">这篇文章</a>讲了，非常感谢。在将”服务器端随机数”和 B𝐵 发送出去后，接下来，将通过 K𝐾 导出以下三个密钥：</p>
+<ul>
+<li>master secret𝑚𝑎𝑠𝑡𝑒𝑟 𝑠𝑒𝑐𝑟𝑒𝑡 ：主密钥</li>
+<li>客户端握手密钥：用来加密 Client -&gt; Server 的握手信息</li>
+<li>服务器端握手密钥：用来加密 Server -&gt; Client 的握手信息</li>
+</ul>
+<p>导出密钥后，接下的所有要发送的信息都将被对应的密钥进行加密。对于每个被导出的密钥，所参与的参数与过程都存在不同，且该过程中会使用到 [客户端随机数] 和 [服务器端随机数]，这两参数的交换过程也被省略。</p>
+<p><strong>导出的操作可理解为使用单向散列函数</strong>，以上导出的每个密钥中，参与导出的参数并不完全相同，所以导出的密钥的值也并不同的。</p>
+</li>
+</ul>
+</li>
+<li><p>Client 收到来自 Server 的服务器端随机数和公钥 𝐵 后，也进行以上的计算过程，并根据得出的”服务器端握手密钥”解密接下来收到的握手信息。</p>
+<p>在解密并验证完被加密的证书后，就能确保服务器的身份。同时仍会验证发过来的握手阶段的报文的摘要，确认握手过程未被篡改。</p>
+<p>在保证通信安全后，接下来会和 TLS 1.3 前一样发送握手阶段报文的摘要（当然，这会被”客户端握手密钥”加密）。</p>
+</li>
+<li><p>在两边做完自己的工作后，双方将从𝑚𝑎𝑠𝑡𝑒𝑟 𝑠𝑒𝑐𝑟𝑒𝑡中导出以下四个密钥：</p>
+<ul>
+<li><p>客户端通信密钥：用来加密 Client -&gt; Server 的通信信息</p>
+<p>（上文的两个用于握手报文加密的密钥将会被丢弃）</p>
+</li>
+<li><p>服务器端通信密钥：用来加密 Server -&gt; Client 的通信信息</p>
+</li>
+<li><p>恢复密钥：用来参与 PSK 的计算</p>
+</li>
+<li><p>导出密钥：用来参与默认的密钥导出计算</p>
+</li>
+</ul>
+</li>
+</ol>
+<style>.inMiddle{display: block; margin-left: auto; margin-right: auto; }</style><img src="/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/Snipaste_2024-06-28_22-35-20.jpg" srcset="/img/loading.gif" lazyload class="inMiddle">
+
+<h5 id="为什么TLS1-3会使用这么多的密钥"><a href="#为什么TLS1-3会使用这么多的密钥" class="headerlink" title="为什么TLS1.3会使用这么多的密钥"></a>为什么TLS1.3会使用这么多的密钥</h5><p>在 TLS 1.3 中，其密钥的导出函数叫做 HKDF，为一个基于 HMAC 的密钥导出函数(KDF)，它执行的主要方法是 “extract-then-expand”，也就是说，先从输入密钥与参数中提取一个固定长度的密钥，然后拓展为多个额外的密钥。重点在于，额外导出的密钥在密码学上是安全的，并且即使其中一个密钥被泄露，也不会导致其他由相同的密钥材料导出的密钥存在风险。</p>
+<p>简单来讲就是，”不要把鸡蛋放在同一个篮子里”。</p>
+<h4 id="讲讲什么是MITM"><a href="#讲讲什么是MITM" class="headerlink" title="讲讲什么是MITM"></a>讲讲什么是MITM</h4><p>MITM(Man-in-the-MiddleAttack) ，是指攻击者与通讯的两端分别创建独立的联系，并交换其所有收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个对话都被攻击者完全控制，在中间人攻击中，攻击者可以拦截通讯双方的通话并插入新的内容。一个中间人攻击能成功的前提条件是攻击者能够将自己伪装成每个参与会话的终端，并且不被其他终端识破。</p>
+<h4 id="讲一讲心脏滴血漏洞-CVE-2014-0160"><a href="#讲一讲心脏滴血漏洞-CVE-2014-0160" class="headerlink" title="讲一讲心脏滴血漏洞(CVE-2014-0160)"></a>讲一讲心脏滴血漏洞(CVE-2014-0160)</h4><p>一个出现在加密程序库OpenSSL的安全漏洞，该程序库广泛用于实现互联网的传输层安全（TLS）协议。此问题的原因是在实现TLS的心跳扩展时没有对输入进行适当验证（缺少边界检查），因此漏洞的名称来源于“心跳”（heartbeat）。该程序错误属于缓冲区过滤，即可以读取的数据比应该允许读取的还多。HeartBleed主要存在与OpenSSL的1.0.1版本到1.0.1f版本。利用该漏洞，攻击者可以远程读取服务器内存中64K的数据，获取内存中的敏感信息。</p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9D%82%E9%A1%B9/" class="category-chain-item">杂项</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%97%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF/" class="print-no-link">#数字认证技术</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>详解SSL/TLS</div>
+      <div>https://3xsh0re.github.io/2024/06/28/详解SSL-TLS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/22/leetcode530%E5%AD%A6%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode530学习二叉搜索树">
+                        <span class="hidden-mobile">leetcode530学习二叉搜索树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","appKey":"GoMWtP1iHSKKpwsbzBlVqJ7P","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

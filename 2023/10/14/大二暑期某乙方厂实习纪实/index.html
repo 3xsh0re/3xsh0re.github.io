@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/Redis_GETSHELL.jpg">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/%E6%8C%87%E6%8E%8C%E6%98%93%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94.jpg">
 <meta property="article:published_time" content="2023-10-14T15:14:28.000Z">
-<meta property="article:modified_time" content="2023-12-03T14:37:46.867Z">
+<meta property="article:modified_time" content="2024-06-29T02:36:12.557Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="实习">
 <meta name="twitter:card" content="summary_large_image">
@@ -313,7 +313,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月3日 晚上
+                    本文最后更新于：2024年6月29日 上午
                   
                 
               </p>
@@ -329,7 +329,8 @@
 <h3 id="Hvv之突破"><a href="#Hvv之突破" class="headerlink" title="Hvv之突破"></a>Hvv之突破</h3><p>​	继坐牢3天后，发现些许弱口令，但是都没有太大的突破。突然在一处靶标的边缘站点发现了一处弱口令，找到了百万条缴费数据信息，拿到了一些数据分（这么多才给1200多分🤣），有了开门红之后，好像相继就出现了一些可打的资产。</p>
 <p>​	在一处站点发现了弱口令，并且是<code>若依CMS</code>，直接用<code>Nday</code>下定时任务打出<code>RCE</code>，但是后面出现了一个问题，这网站跑在<code>docker</code>里的笑死，也不能虚拟化逃逸，最终只能乖乖就范，内网没戏了，只有一丢丢分啦，真的栓Q了是😅，只有一丢丢分啦。</p>
 <p>​	之后通过师傅的社工，社工到了一个站点的密码，然后发现不是站点密码，扫描端口发现有<code>Redis</code>服务，诶，用这密码给连上了，嘿嘿，然后快乐定时任务，弹个<code>shell</code>上来，直接拿下，后面内网就是师傅在弄了，反正就是搭个<code>frp</code>，做内网穿透就是。然后上<code>fscan</code>狂扫嘿嘿。这个站拿下了不少分还是。</p>
-<p><img src="/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/Redis_GETSHELL.jpg" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/Redis_GETSHELL.jpg" srcset="/img/loading.gif" lazyload class="">
+
 <p>​	然后后面几天确实就没啥收获了，该打的资产都打了，自己还是太菜了，不过也没关系啦，反正就是去玩一玩。</p>
 <h2 id="Part2——去公司当黑奴"><a href="#Part2——去公司当黑奴" class="headerlink" title="Part2——去公司当黑奴"></a>Part2——去公司当黑奴</h2><p>​	本来不是很想去的，但是想着去体验一把，还是去了，结果是去当黑奴的😅，咋就这么缺人呢，我就是一个实习生，都给我派的啥活真是</p>
 <h3 id="Lenovo三进三出——达成次次摸🐟成就"><a href="#Lenovo三进三出——达成次次摸🐟成就" class="headerlink" title="Lenovo三进三出——达成次次摸🐟成就"></a>Lenovo三进三出——达成次次摸🐟成就</h3><p>​	实现第三天就被派出去出任务了，第一天是联想，上午赶到公司都10点了，去联想食堂吃了顿饭，食堂真大捏，鼠鼠羡慕捏。任务就是有个啥系统，每年都在测，年年都是那个问题，没意思，然后就是带我的师傅水一水报告然后就完事，结果带我那个师傅说他很快就要离职去大厂了笑死，感觉这公司不太好待呀，然后就是摸了一天的🐟，美美回学校。</p>
@@ -345,7 +346,8 @@
 <p>​	具体手法分析出来，估计小黑子是先搭了一个隧道，访问到南京那边的服务器上存在的一个Jenkins应用，Jenkins用的是弱口令<code>a1234567</code>，被爆了，直接登陆进去，然后由于这个web应用自带执行脚本的功能，直接被小黑子种了🐎子。不要再用弱口令啦！😊😊</p>
 <p>​	然后小黑子通过南京那边的服务器以SSH私钥连接上了北京这边的文件共享服务器，我就很好奇这里，为啥在北京这边内网漫游的时候没发现，还得绕这么大一个圈子🤣，这小黑子真是。而且这SSH私钥是咋来的，不知道是不是那台服务器上泄露了还是怎么样，只有甲方自己清楚了。然后同样是中了相同的🐎子。</p>
 <p>​	下面就是整个攻击链路：</p>
-<p><img src="/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/%E6%8C%87%E6%8E%8C%E6%98%93%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94.jpg" srcset="/img/loading.gif" lazyload></p>
+<img src="/2023/10/14/%E5%A4%A7%E4%BA%8C%E6%9A%91%E6%9C%9F%E6%9F%90%E4%B9%99%E6%96%B9%E5%8E%82%E5%AE%9E%E4%B9%A0%E7%BA%AA%E5%AE%9E/%E6%8C%87%E6%8E%8C%E6%98%93%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94.jpg" srcset="/img/loading.gif" lazyload class="">
+
 <p>​	</p>
 <h2 id="Part3——实习感概"><a href="#Part3——实习感概" class="headerlink" title="Part3——实习感概"></a>Part3——实习感概</h2><p><strong>想上学，想读书，不想当黑奴！！！</strong></p>
 <p><strong>提升学历，做回自己！！！</strong></p>
