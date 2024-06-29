@@ -53,7 +53,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2022/12/09/%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Snipaste_2023-09-01_23-10-54.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2022/12/09/%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Snipaste_2023-09-01_23-19-57.png">
 <meta property="article:published_time" content="2022-12-09T02:01:49.000Z">
-<meta property="article:modified_time" content="2024-06-29T02:51:23.881Z">
+<meta property="article:modified_time" content="2024-06-29T08:41:58.570Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="Github博客搭建">
 <meta name="twitter:card" content="summary_large_image">
@@ -141,7 +141,119 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -279,7 +391,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.5k 字
         
       </span>
     
@@ -290,7 +402,7 @@
         
         
         
-          23 分钟
+          30 分钟
         
       </span>
     
@@ -340,7 +452,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月29日 上午
+                    本文最后更新于：2024年6月29日 下午
                   
                 
               </p>
@@ -417,7 +529,7 @@
 
 <img src="/2022/12/09/%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20230808162133409.png" srcset="/img/loading.gif" lazyload class="" title="image-20230808162133409">
 
-<p>创建成功后，编辑博客目录下 &#x2F;source&#x2F;about&#x2F;index.md，添加 layout 属性。</p>
+<p>创建成功后，编辑博客目录下 /source/about/index.md，添加 layout 属性。</p>
 <p>修改后的文件示例如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">title:</span> <span class="hljs-string">about</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2023-08-09 19:20:33</span><br><span class="hljs-attr">layout:</span> <span class="hljs-string">about</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
 
@@ -474,6 +586,30 @@
 
 <p>然后你就成功拥有一只小猫啦！</p>
 <img src="/2022/12/09/%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/Snipaste_2023-09-01_23-19-57.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><h4 id="步骤1-卸载hexo-math"><a href="#步骤1-卸载hexo-math" class="headerlink" title="步骤1:卸载hexo-math"></a>步骤1:卸载hexo-math</h4><p>  在你的Hexo框架的blog根目录下打开终端，输入以下指令:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">npm uninstall hexo-<span class="hljs-built_in">math</span> <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="步骤2-安装hexo-filter-mathjax"><a href="#步骤2-安装hexo-filter-mathjax" class="headerlink" title="步骤2:安装hexo-filter-mathjax"></a>步骤2:安装hexo-filter-mathjax</h4><p>  同样在你的blog根目录下，安装插件:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npm install hexo-<span class="hljs-attribute">filter</span>-mathjax  <span class="hljs-attr">--save</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="步骤3-在全局配置中配置公式渲染"><a href="#步骤3-在全局配置中配置公式渲染" class="headerlink" title="步骤3:在全局配置中配置公式渲染"></a>步骤3:在全局配置中配置公式渲染</h4><p>   在你的Hexo框架的blog根目录下打开<code>_config.yml</code>文件，在文件中加入如下内容:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">mathjax:</span><br>  <span class="hljs-attr">tags:</span> <span class="hljs-string">none</span> <span class="hljs-comment"># or 'ams' or 'all'</span><br>  <span class="hljs-attr">single_dollars:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># enable single dollar signs as in-line math delimiters</span><br>  <span class="hljs-attr">cjk_width:</span> <span class="hljs-number">0.9</span> <span class="hljs-comment"># relative CJK char width</span><br>  <span class="hljs-attr">normal_width:</span> <span class="hljs-number">0.6</span> <span class="hljs-comment"># relative normal (monospace) width</span><br>  <span class="hljs-attr">append_css:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># add CSS to pages rendered by MathJax</span><br>  <span class="hljs-attr">every_page:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># if true, every page will be rendered by MathJax regardless the `mathjax` setting in Front-matter</span><br></code></pre></td></tr></table></figure>
+
+<p>各个参数的用处可以看代码注释。没有特别需求基本不需要更改。</p>
+<h4 id="步骤4-需要公式的博客文章启用公式渲染器"><a href="#步骤4-需要公式的博客文章启用公式渲染器" class="headerlink" title="步骤4:需要公式的博客文章启用公式渲染器"></a>步骤4:需要公式的博客文章启用公式渲染器</h4><p>在你写的，需要使用公式的markdown文档的front-matter中添加一个参数：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">mathjax:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<p>以本博客的front-matter为例:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">在Github上搭建自己的个人博客</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2022-12-09 10:01:49</span><br><span class="hljs-attr">categories:</span> <span class="hljs-string">杂项</span><br><span class="hljs-attr">tags:</span> [<span class="hljs-string">Github博客搭建</span>]<br><span class="hljs-attr">mathjax:</span> <span class="hljs-literal">true</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<p>如果你认为给单独一篇文章加参数太麻烦，你也可以在<code>_config.yml</code>文件中刚刚添加的<code>mathjax</code>设定下，把<code>every_page</code>的参数改为<code>ture</code>。</p>
 
                 
               </div>
