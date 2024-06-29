@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
 <meta property="og:description" content="祖先节点QAQ">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9Snipaste_2024-06-14_21-33-06.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png">
 <meta property="article:published_time" content="2024-06-14T13:20:37.000Z">
-<meta property="article:modified_time" content="2024-06-29T03:04:13.586Z">
+<meta property="article:modified_time" content="2024-06-29T08:43:24.549Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9Snipaste_2024-06-14_21-33-06.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png">
   
   
   
@@ -364,7 +364,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          959 字
+          929 字
         
       </span>
     
@@ -425,7 +425,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月29日 上午
+                    本文最后更新于：2024年6月29日 下午
                   
                 
               </p>
@@ -437,7 +437,8 @@ mjx-container[display="true"] + br {
 <span id="more"></span>
 
 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>首先，题目是要找二叉树的最近公共祖先，给出的定义是：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。”</p>
-<p><img src="/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9Snipaste_2024-06-14_21-33-06.png" srcset="/img/loading.gif" lazyload></p>
+<img src="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/Snipaste_2024-06-14_21-33-06.png" srcset="/img/loading.gif" lazyload class="">
+
 <h3 id="祖先节点"><a href="#祖先节点" class="headerlink" title="祖先节点"></a>祖先节点</h3><p>一个节点的祖先我简单理解为，这个节点向上回溯过程中遇到的所有节点，直到根节点为止。</p>
 <p>两个节点的公共祖先节点我简单理解为，这两个节点回溯路径中重合的节点，直到根节点为止。</p>
 <p>最近的公共祖先节点我简单理解为，重合节点中高度最小（深度最大）的节点。在判断中，可以认为一个公共祖先节点的左右子节点均不再是公共祖先节点，那么这个节点就是最近的公共祖先节点。</p>
@@ -449,7 +450,7 @@ mjx-container[display="true"] + br {
 <li>当left为空时，说明p或q某一个在当前root节点右侧，且可以保证当p和q在同一侧时，返回的总是p、q中深度小的那个，反之right为空同理</li>
 <li>当两者均不为空时，因为是回溯的，所以第一次运行到最后的<code>return root</code>，说明当前的root节点是最近公共祖先节点</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">NULL</span> || root == p || root == q)<br>        &#123;<br>            <span class="hljs-keyword">return</span> root;<br>        &#125;<br>        TreeNode *left = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;left,p,q);<br>        TreeNode *right = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;right,p,q);<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span> &amp;&amp; right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> right;<br>        <span class="hljs-keyword">if</span> (right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> left;<br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">TreeNode* <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>{<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">NULL</span> || root == p || root == q)<br>        {<br>            <span class="hljs-keyword">return</span> root;<br>        }<br>        TreeNode *left = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;left,p,q);<br>        TreeNode *right = <span class="hljs-built_in">lowestCommonAncestor</span>(root-&gt;right,p,q);<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span> &amp;&amp; right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">if</span> (left == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> right;<br>        <span class="hljs-keyword">if</span> (right == <span class="hljs-literal">NULL</span>)<br>            <span class="hljs-keyword">return</span> left;<br>        <span class="hljs-keyword">return</span> root;<br>    }<br>};<br></code></pre></td></tr></table></figure>
 
 
                 
