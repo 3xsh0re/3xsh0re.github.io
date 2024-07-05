@@ -473,7 +473,7 @@ mjx-container[display="true"] + br {
 
 <p>至此，成功给文章添加分类，点击首页的“标签”可以看到该标签下的所有文章。当然，只有添加了<code>tags: xxx</code>的文章才会被收录到首页的“标签”中。</p>
 <h3 id="git提交文章报错"><a href="#git提交文章报错" class="headerlink" title="git提交文章报错"></a>git提交文章报错</h3><h4 id="OpenSSL-SSL-read-Connection-was-reset-errno-10054"><a href="#OpenSSL-SSL-read-Connection-was-reset-errno-10054" class="headerlink" title="OpenSSL SSL_read: Connection was reset, errno 10054"></a>OpenSSL SSL_read: Connection was reset, errno 10054</h4><p>在文件里<code>git bash here</code>，设置后关闭当前terminal窗口，重新打开再执行git操作</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global http.sslVerify &quot;false&quot; <br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global http.sslVerify "false" <br></code></pre></td></tr></table></figure>
 
 <h4 id="Failed-to-connect-to-github-com-port-443-Operation-timed-out"><a href="#Failed-to-connect-to-github-com-port-443-Operation-timed-out" class="headerlink" title="Failed to connect to github.com port 443:Operation timed out"></a>Failed to connect to github.com port 443:Operation timed out</h4><p>​	首先，你有全局的科学上网小猫猫，然后在git里执行更换代理即可，注意使用V2ray的默认端口是1080。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global http.proxy http://127.0.0.1:7890 <br>git config --global https.proxy http://127.0.0.1:7890<br></code></pre></td></tr></table></figure>

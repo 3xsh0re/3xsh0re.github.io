@@ -370,7 +370,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          709 字
+          659 字
         
       </span>
     
@@ -456,7 +456,7 @@ mjx-container[display="true"] + br {
 <img src="/2024/05/14/%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Snipaste_2024-05-14_13-02-46.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>单链表的定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">ListNode</span>&#123;<br>    <span class="hljs-type">int</span> val;<br>    ListNode *next;<br>    <span class="hljs-built_in">ListNode</span>(<span class="hljs-type">int</span> x) : <span class="hljs-built_in">val</span>(x), <span class="hljs-built_in">next</span>(<span class="hljs-literal">NULL</span>) &#123;&#125;  <span class="hljs-comment">// 节点的构造函数</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">ListNode</span>{<br>    <span class="hljs-type">int</span> val;<br>    ListNode *next;<br>    <span class="hljs-built_in">ListNode</span>(<span class="hljs-type">int</span> x) : <span class="hljs-built_in">val</span>(x), <span class="hljs-built_in">next</span>(<span class="hljs-literal">NULL</span>) {}  <span class="hljs-comment">// 节点的构造函数</span><br>};<br></code></pre></td></tr></table></figure>
 
 
 
@@ -479,18 +479,18 @@ mjx-container[display="true"] + br {
 <p><strong>双向链表</strong></p>
 <p>增加节点：新节点s，插入位置的前一个节点p，插入位置的后一个节点r</p>
 <ol>
-<li>s-&gt;next &#x3D; r</li>
-<li>p-&gt;next-&gt;prior &#x3D; s</li>
-<li>s-&gt;prior &#x3D; p</li>
-<li>p-&gt;next &#x3D; s</li>
+<li>s-&gt;next = r</li>
+<li>p-&gt;next-&gt;prior = s</li>
+<li>s-&gt;prior = p</li>
+<li>p-&gt;next = s</li>
 </ol>
 <p>上面的步骤可以交换，但是4必须在12之后</p>
 <img src="/2024/05/14/%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Snipaste_2024-05-14_13-28-06.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>删除节点：删除节点s，删除位置的前一个节点p</p>
 <ol>
-<li>p-&gt;next &#x3D; s-&gt;next</li>
-<li>s-&gt;next-&gt;prior &#x3D; p</li>
+<li>p-&gt;next = s-&gt;next</li>
+<li>s-&gt;next-&gt;prior = p</li>
 </ol>
 <img src="/2024/05/14/%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Snipaste_2024-05-14_13-36-27.png" srcset="/img/loading.gif" lazyload class="">
 
