@@ -16,12 +16,12 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="x64dbg的基本使用指南本篇是为了配合读书笔记，因为原书使用的都是32位的程序，但是目前都是x86-64的机器，所以就学习一下x64dbg。 在52的帖子里看到的一句话，现在还理解不透彻：破解的关键在于找到关键CALL">
+    <meta name="description" content="x64dbg基础使用指南">
 <meta property="og:type" content="article">
 <meta property="og:title" content="x64dbg基础使用指南">
 <meta property="og:url" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="x64dbg的基本使用指南本篇是为了配合读书笔记，因为原书使用的都是32位的程序，但是目前都是x86-64的机器，所以就学习一下x64dbg。 在52的帖子里看到的一句话，现在还理解不透彻：破解的关键在于找到关键CALL">
+<meta property="og:description" content="x64dbg基础使用指南">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Snipaste_2023-11-11_10-35-39.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Snipaste_2023-11-11_10-38-21.png">
@@ -41,9 +41,9 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Snipaste_2023-11-11_15-06-36.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Snipaste_2023-11-11_15-08-34.png">
 <meta property="article:published_time" content="2023-11-11T08:37:26.000Z">
-<meta property="article:modified_time" content="2024-07-08T06:58:38.155Z">
+<meta property="article:modified_time" content="2024-07-20T12:00:27.410Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="逆向工具">
+<meta property="article:tag" content="工具使用">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://3xsh0re.github.io/2023/11/11/x64dbg%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Snipaste_2023-11-11_10-35-39.png">
   
@@ -452,7 +452,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月8日 下午
+                    本文最后更新于：2024年7月20日 晚上
                   
                 
               </p>
@@ -460,10 +460,11 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <h2 id="x64dbg的基本使用指南"><a href="#x64dbg的基本使用指南" class="headerlink" title="x64dbg的基本使用指南"></a>x64dbg的基本使用指南</h2><p>本篇是为了配合读书笔记，因为原书使用的都是32位的程序，但是目前都是x86-64的机器，所以就学习一下x64dbg。</p>
-<p>在52的帖子里看到的一句话，现在还理解不透彻：<strong>破解的关键在于找到关键CALL</strong></p>
+                <p>x64dbg基础使用指南</p>
 <span id="more"></span>
 
+<h2 id="x64dbg的基本使用指南"><a href="#x64dbg的基本使用指南" class="headerlink" title="x64dbg的基本使用指南"></a>x64dbg的基本使用指南</h2><p>本篇是为了配合读书笔记，因为原书使用的都是32位的程序，但是目前都是x86-64的机器，所以就学习一下x64dbg。</p>
+<p>在52的帖子里看到的一句话，现在还理解不透彻：<strong>破解的关键在于找到关键CALL</strong></p>
 <p>本文参考文章：<a target="_blank" rel="noopener" href="https://www.52pojie.cn/forum.php?mod=viewthread&tid=1393075">1</a>，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/meowv/p/11428772.html">2</a></p>
 <p>X64dbg更新很快，但作者对于帮助文档却惜墨如金，有很多实用的强大功能，都需要自己去摸索。<br>刚才提到寻找关键CALL，IDA虽然F5生成伪码功能强大，并且可以生成函数调用图，但对于复杂的调用看起来就很不直观。并且IDA只能单个文件静态分析，对于跨模块调用就无能为力。</p>
 <h3 id="符号文件"><a href="#符号文件" class="headerlink" title="符号文件"></a>符号文件</h3><h4 id="什么是符号文件-pdb"><a href="#什么是符号文件-pdb" class="headerlink" title="什么是符号文件.pdb"></a>什么是符号文件.pdb</h4><p>​	符号文件（Symbol Files）是一个数据信息文件。 它包含了应用程序二进制文件（比如：EXE、DLL等）调试信息，专门用来作调试之用，最终生成的可执行文件在运行时并不需要这个符号文件，但<strong>你的程序中所有的变量信息都记录在这个文件中。 所以调试应用程序时，这个文件是非常重要的</strong>。</p>
@@ -562,7 +563,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E5%85%B7/" class="print-no-link">#逆向工具</a>
+        <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="print-no-link">#工具使用</a>
       
     </div>
   

@@ -16,25 +16,30 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="老是忘，浅浅记录一下">
+    <meta name="description" content="不知道为啥Ubuntu里docker拉取镜像很慢">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Anaconda安装与使用">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="虚拟机中docker配置代理">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="老是忘，浅浅记录一下">
+<meta property="og:description" content="不知道为啥Ubuntu里docker拉取镜像很慢">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/Snipaste_2024-05-21_13-56-15.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/Snipaste_2024-01-26_14-06-38.png">
-<meta property="article:published_time" content="2024-01-26T05:42:44.000Z">
-<meta property="article:modified_time" content="2024-07-20T12:00:53.190Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200640809.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200730608.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200925732.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201038704.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201135135.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201526542.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201625072.png">
+<meta property="article:published_time" content="2024-07-20T11:58:43.000Z">
+<meta property="article:modified_time" content="2024-07-20T12:16:38.234Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="工具使用">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/Snipaste_2024-05-21_13-56-15.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200640809.png">
   
   
   
-  <title>Anaconda安装与使用 - 3xsh0re&#39;Blog</title>
+  <title>虚拟机中docker配置代理 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -353,7 +358,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Anaconda安装与使用"></span>
+            <span id="subtitle" data-typed-text="虚拟机中docker配置代理"></span>
           
         </div>
 
@@ -364,8 +369,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-26 13:42" pubdate>
-          2024年1月26日 下午
+        <time datetime="2024-07-20 19:58" pubdate>
+          2024年7月20日 晚上
         </time>
       </span>
     
@@ -376,7 +381,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          616 字
         
       </span>
     
@@ -387,7 +392,7 @@ mjx-container[display="true"] + br {
         
         
         
-          8 分钟
+          4 分钟
         
       </span>
     
@@ -432,7 +437,7 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Anaconda安装与使用</h1>
+            <h1 id="seo-header">虚拟机中docker配置代理</h1>
             
               <p class="note note-info">
                 
@@ -445,30 +450,41 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>老是忘，浅浅记录一下</p>
+                <p>不知道为啥Ubuntu里docker拉取镜像很慢</p>
 <span id="more"></span>
 
-<h3 id="Anaconda安装配置"><a href="#Anaconda安装配置" class="headerlink" title="Anaconda安装配置"></a>Anaconda安装配置</h3><p>下载链接：</p>
-<p><a target="_blank" rel="noopener" href="https://www.anaconda.com/download/">官网</a></p>
-<p>双击anaconda.exe直接运行安装包，一直Next到下图位置：</p>
-<p>第一个选项是添加环境变量，默认是没有勾选的，请务必勾选上，如果这里不勾选，后续安装完成后要自行添加环境变量</p>
-<img src="/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/Snipaste_2024-05-21_13-56-15.png" srcset="/img/loading.gif" lazyload class="">
+<p>我这里的虚拟机是Ubuntu20.04</p>
+<p>安装docker的具体步骤我这里就不说了，可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Can-daydayup/p/16472375.html">这篇文章</a></p>
+<p><strong>这里主要说docker拉取镜像慢的问题</strong></p>
+<h3 id="配置虚拟机流量走物理机代理"><a href="#配置虚拟机流量走物理机代理" class="headerlink" title="配置虚拟机流量走物理机代理"></a>配置虚拟机流量走物理机代理</h3><p>这里使用的代理软件是Clash.for.Windows，在其中开启允许局域网连接</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200640809.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720200640809">
 
-<p>1.修改为清华源<br>直接打开cmd输入以下命令<br>conda config –add channels <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</a><br>conda config –add channels <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</a><br>conda config –add channels <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud//pytorch/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud//pytorch/</a><br>conda config –add channels <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/</a><br>conda config –set show_channel_urls yes<br>2.移除清华源<br>输入：conda config –remove channels <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/</a><br>这个命令是为了移除之前conda config –show channels显示的清华源。</p>
-<h3 id="Anaconda使用"><a href="#Anaconda使用" class="headerlink" title="Anaconda使用"></a>Anaconda使用</h3><p>主要用的两个为Anaconda Prompt 和Anaconda Navigator</p>
-<p><code>conda info</code>查看当前环境的信息</p>
-<p><code>conda</code>配置新环境</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">set</span> CONDA_FORCE_32BIT=1 <span class="hljs-comment"># 切换到32位</span><br><span class="hljs-built_in">set</span> CONDA_FORCE_32BIT=0 <span class="hljs-comment"># 切换到64位</span><br>conda create -n pytorch python=3.10<br>conda <span class="hljs-built_in">env</span> list<br>conda activate pytorch<br>conda install matplotlib<br></code></pre></td></tr></table></figure>
+<p>然查看一下物理机VM的NAT网卡的地址，</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200730608.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720200730608">
 
-<p><code>conda create -n xxx python=2.7</code>创建一个python2.7 名为xxx的虚拟环境，如要创建32位的python环境，先设置为32位在创建环境，这样创建好的环境即为32位的Python环境，先切换到创建好的环境中，然后输入python 检查下是否为32位的python2.7版本</p>
-<p>在<code>pycharm</code>中使用<code>conda</code>环境：</p>
-<p>在创建新的项目时，选择先前配置的解释器，然后选择自己已经配置好的<code>conda</code>环境即可。</p>
-<img src="/2024/01/26/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/Snipaste_2024-01-26_14-06-38.png" srcset="/img/loading.gif" lazyload class="">
+<p>在虚拟机中配置一下代理，</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720200925732.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720200925732">
 
-<h3 id="解决Powershell中无法切换环境问题"><a href="#解决Powershell中无法切换环境问题" class="headerlink" title="解决Powershell中无法切换环境问题"></a>解决Powershell中无法切换环境问题</h3><p>在terminal中输入然后重新打开</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">conda init powershell<br></code></pre></td></tr></table></figure>
+<p>配置一下HTTP和HTTPS一般就行了，然后填入物理机的局域网IP和你代理的端口号</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201038704.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720201038704">
 
-<h3 id="解决conda新环境pip出现SSLError"><a href="#解决conda新环境pip出现SSLError" class="headerlink" title="解决conda新环境pip出现SSLError"></a>解决conda新环境pip出现SSLError</h3><p>大概率是因为开了全局代理，证书不安全导致，关闭系统代理即可</p>
+<p>然后这里你的虚拟机流量就可以走物理机的代理了</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201135135.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720201135135">
+
+
+<h3 id="配置docker-pull的代理"><a href="#配置docker-pull的代理" class="headerlink" title="配置docker pull的代理"></a>配置docker pull的代理</h3><p>使用下面的命令创建配置文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">sudo <span class="hljs-built_in">mkdir</span> -p /etc/systemd/system/docker.service.d<br>sudo vim /etc/systemd/system/docker.service.d/http-proxy.conf<br></code></pre></td></tr></table></figure>
+
+<p>填充配置文件的内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">[Service]<br>Environment=<span class="hljs-string">"HTTP_PROXY=http://YOUR_PROXY_URL"</span><br>Environment=<span class="hljs-string">"HTTPS_PROXY=http://YOUR_PROXY_URL"</span><br>Environment=<span class="hljs-string">"NO_PROXY=localhost,127.0.0.1"</span><br></code></pre></td></tr></table></figure>
+
+<p>然后重新加载docker：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure>
+
+<p>然后就能愉快地拉取docker了</p>
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201526542.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720201526542">
+
+<img src="/2024/07/20/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%ADdocker%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/image-20240720201625072.png" srcset="/img/loading.gif" lazyload class="" title="image-20240720201625072">
 
                 
               </div>
@@ -514,8 +530,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Anaconda安装与使用</div>
-      <div>https://3xsh0re.github.io/2024/01/26/Anaconda安装与使用/</div>
+      <div>虚拟机中docker配置代理</div>
+      <div>https://3xsh0re.github.io/2024/07/20/虚拟机中docker配置代理/</div>
     </div>
     <div class="license-meta">
       
@@ -527,7 +543,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月26日</div>
+          <div>2024年7月20日</div>
         </div>
       
       
@@ -559,18 +575,12 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/12/Cpp%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82/" title="C++使用细节">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++使用细节</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" title="机器学习笔记1">
-                        <span class="hidden-mobile">机器学习笔记1</span>
+                      <a href="/2024/07/15/CVE-2023-46604%E5%88%86%E6%9E%90/" title="CVE-2023-46604分析">
+                        <span class="hidden-mobile">CVE-2023-46604分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
