@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>更换各种源的方法</title>
+    <link href="/2024/07/30/%E6%9B%B4%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <url>/2024/07/30/%E6%9B%B4%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>记录各种需要换源的应用</p><span id="more"></span><h2 id="更换yum源"><a href="#更换yum源" class="headerlink" title="更换yum源"></a>更换yum源</h2><p>替换为阿里源</p><p>备份</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">mv</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak<br></code></pre></td></tr></table></figure><p>替换</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo<br></code></pre></td></tr></table></figure><p>生成缓存</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">yum makecache<br></code></pre></td></tr></table></figure><p>更新软件列表</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">yum -y update<br></code></pre></td></tr></table></figure><img src="/2024/07/30/%E6%9B%B4%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/image-20240730205730178.png" class="" title="image-20240730205730178"><p>使用国内源就非常快了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具使用</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>工具使用</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>心脏滴血漏洞分析与复现</title>
     <link href="/2024/07/22/%E5%BF%83%E8%84%8F%E6%BB%B4%E8%A1%80%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/"/>
     <url>/2024/07/22/%E5%BF%83%E8%84%8F%E6%BB%B4%E8%A1%80%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/</url>
