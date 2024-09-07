@@ -16,22 +16,22 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+    <meta name="description" content="在Java安全方面的一个重要机制，著名的Spring框架也是基于此。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="免杀学习记录">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/06/15/%E5%85%8D%E6%9D%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="Java反射机制">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/06/17/Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:description" content="在Java安全方面的一个重要机制，著名的Spring框架也是基于此。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-15T05:06:17.000Z">
-<meta property="article:modified_time" content="2024-07-30T13:16:41.325Z">
+<meta property="article:published_time" content="2024-06-17T11:00:09.000Z">
+<meta property="article:modified_time" content="2024-09-07T12:09:28.233Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="免杀">
+<meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>免杀学习记录 - 3xsh0re&#39;Blog</title>
+  <title>Java反射机制 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -350,7 +350,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="免杀学习记录"></span>
+            <span id="subtitle" data-typed-text="Java反射机制"></span>
           
         </div>
 
@@ -361,8 +361,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-15 13:06" pubdate>
-          2024年6月15日 下午
+        <time datetime="2024-06-17 19:00" pubdate>
+          2024年6月17日 晚上
         </time>
       </span>
     
@@ -373,7 +373,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          17k 字
+          3.3k 字
         
       </span>
     
@@ -384,7 +384,7 @@ mjx-container[display="true"] + br {
         
         
         
-          109 分钟
+          21 分钟
         
       </span>
     
@@ -429,33 +429,94 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">免杀学习记录</h1>
+            <h1 id="seo-header">Java反射机制</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月30日 晚上
+                    本文最后更新于：2024年9月7日 晚上
                   
                 
               </p>
             
             
-              
-              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="65ac4630fb6837ff87e684cb9300934c913e4fbf242c91797ff370df4ae70586">80f7af2430a3dce6996ee26d1569b238162cc0d7b02137d8db319d02716fd0b96be3b741deae6419c18f062da5ae4e515c76c2b48d81b03637c910bb7ab2bdf0f0c4ad57ad5c02177d710752f6633266f3409b780a2f78d79551de20257f9554d494958ccfe87de21972a8f630f0623f5d747b0ab10da93cc35dcbf162e4f0e2a20cc830c0e82b2e211909f0ea8db2933ae8ea76ef461c80e43d4f7834fdb0661e6132305729c9fadefa4da472051f052e09cfe1efe0b180e16073ca885df960310871172437038a42ac71008c9525e0005fe3da9904d169d87512042032096f730351dcaf6099a37691a650fb58872a43a5754f7488990a031b1e5f98da95d5ba2911007202dfccb5c10d2b9b876060f761c1480164da789cc4a001ef6ddb1903c25a722ff26d1f1a159d33d66b2af52f957c50c1768c7f629b854b377432a8211496c294b596732b55d73ff1627b2a8592f777084cca83bce245b0cf2eb6d14116f578ebd9706756facfd5474fa82916648f2b5b110c35f9a9897b57bdd0e628c5fb7f96344a4c39cc1f12e4bb54538b87d2db8c8f8a83a29ea9134b2df478be95f2a330b90bef9fddcec7dfbc5bb560d8bc95ce606da553ce1a116d25779c7fc8a67d6ba30bf142dcb6148f52bbf7f6fc741076f5f435ca39370aa72e3b0fe827c79583d16507795c4d4263a4a0fe768893acc8a5725666830c30faf30c45766a16928d4a37a894328ff0311767492f18755f7364d8b0d77a818af96044b47fb6bbdeff16d8a12eeab129889fd949779028506332d032e1d7f9d4c58129fe8bf032e4477d6246a6ba4c54ed208b8221dc248f0285c550cb645cb283f1ecf49a38ee55585b9e23c39a5797033f275b2e17ba8bcb4a8bd0b37a5c24c57c3058376d0c589eeda92052eb9abd45923186ec1d794df8500ff09a2e3174bde39819c7fabdc12bb60a8d895a3983ab7d7254963ae04034f3d290df5fcb3f11c7daaa1cb451c43a7a74c2722d2f670402791e9f220b3d1a562371e628fdd96a1abe14935428856561f3f40be5da5c360c6ae115174d67d626cfc6cec8837a65ad4cb24448220ddcf50fe61c96254d65d4e91777840138afc329ddeaa479d0555dea1c5bd5d825b34365bfd83c3bc009c44f68f63ab759ebb48e4a7657f72c5ad360c29bdf94096a40ac3e89215b34263786f78d6ce95a97b24fec39ff85a827f5850b1e9a95d746487bf58b59c9631366d89c32953f0bf03700e6e42f89004e26870b214846dfcd2c84c51019de9d5b69871656c857bda486fa2ce837c17508208a3257b0725fc374fd6f3c1292548107a96e3fb00bff089b20a739bfb4707c0c245d86d7e0e53c85172f33d596db177e7feaab3d076a928a7b6b04468d6580b683640491a53f806f982ebbb3e4f69dc3c52195498f1317db33cf52c026d137495f89e4030d62b291dc4f1a80b49dc80bf611de0f01f42164ef62f1c8d167726edd69b465342006dc117fb6cfe19402be53fce4716be0a94d244854c617180c8a3e7e5bd1e89cb53427f32d4b7dcfacb48a3e4d49eebbdf770fb0f9d523eb6eb64dc67b65c6125882bc443e2a59081f28eb8b0f2ecc003149ba447e4e534e92e696014787ff77d338ab13bc81e2d39f22b35a7acf9ae763fb858ff4b3c7553e5523abd01b7921d477ea41b3823fcb552072b762b65bb737b7e5379f6ad79dd568e351fe688419ba5e773586174928a4499435086e4f521b5524c4421e609651c4930d90ef60ea1731e022d2b9943a7c668153fefbf5f2771db2370e16b586c288144d7c871139587bc0af35b4e325e15dec6623c683803dff5008f1fd800ecd94c472ba08de4eec805a0f6e42c40c0188f4bbcb845dc14fdbf201b926152f7856728ea43ebda4c2c3e7197ab13f1e79596aa69d25b0b7b71e5f4a365133e895a32dce8d8f27d516ea06ffd2655c2c610a488efae29c88457ce641377bd9f624ce8967d82e77cd839740d6adabc734edb58dc5e58d9e6a3afe7ca15309d06328b6427b70f97a2ce5778cde8dc0599b5e254ca758d62ca2053faa6dae459d088392000751c0d42c2be3b4c5e3436f453a7a0108e0d416209761c3541703918a7c04c429d1bbadbb7d2536d80f566a063e0e2de7a164411a90ebd495cfd78fcf9622ff2522dce03707b6c335f59240acf79c7a6d80a7f1f834d0bd81174e55627f81361246aeff3a1ce7803744e5f4ea9265bec2f1a766bf6bad743230d6ba1c561da250129c3e9306691bf3d0c379da1daa35f28c7d451e55781c58a7e515a0c468d6361aee289676b2a73d1f0c5bad0337100767430e88ec826300d2e3160280857e0a592a0d52972c4ac6077be509302cb717fc55af417c5fdcb380cf1d096ef99b0f80b678967191f8dbe8c01826e57652816a8fe8ef3bdc1ab7761b756415cd75cc8872ac92496a34edc7110eb056083fd09413fc5e92eb180b63915e601a99199fd0e294e27573747cca234c51a5b6d6243995106124f4d8521a43b686aaf1ac4685787fa365797db561b7760a51eb049e06c3c7d96cb383ac12df5e802c1fbc8dc52f64e402eee89caebc92e55bb4810cef86afc2d59bbd2f3facce442637762fba3551423b4a95615724149ce53a609644ecc845c55e1ef64c79c90e5f683837aa31932480daada1d76cfbce4fcf276e491c474e14130e5eb68c6cc010b5dc080491708f441f871efa3a64ac7622215d4db9247457e2f70afa9232abce5a126057938747eec9e6806fd216294092ccf8f22e95e7c0a8e81538381de7399489bc19fc387fc7f522b589c73034f7a2031656349317879ed02bc34351efe2643693a9e8a5fa199485bc6dd26d53340c8169c4eade0401d78503897bea826cb576b5efda1a14c4e9b290ad82542440b940b3c7269d2766257d65c3e5e6c803c5e91369e16326d0f564f8675ee7c66ba1cf760b7cd640df1508e5638e65e7087c8de69223bafb5d3c1d597ebbd0e6be23572edb1bfcabbb763b5e8f2d54d74cdcfc74674c20ecf58974b33a2089aaeda70244a97cec15783b0d1d8d209836490a96b43b4b66658256ca215fea831c29eaf51e5349c59f7880f69ab60d4526dae036467e3994e8044ab470d2c0dafd0133ef887f7561872c252ad182fe65b673c253f834b061368c692b8c05bde6c0e47340b02c98a658d4c3e84adc86ab6cbd4504186d7325002bd4fa085fc23e575c40f2dbe369eb14e83b68a9b17cffc3bbdff1a8ecdb9df82f9cfbeb8b037442b10be1c63ac2c818790f1300a6a06697a9945c7dcc00193a029987be958587de23a72cf6995769c366eae376e10077c0da8a944b54907bb9328a406a10bceb8a1ffa0ef5e52fab48051690d9b13f98b87df42f92114469d5ce7dfc179da9af009d027bc306f202557276c0ae5603ed71d8dcf4fd1d1dfe89360b5a55fb4b1f9747e79307ffd2e37a6bdbdc25830c01334b0ec3e23bcd722747108d050ed99b4f76f601fe12a600693066cd213926e9c6e1cea78ec6b5ce269d02f3eaed3d176dca13506e7a2ebece9b1ed8baf71258fe32571ef53bb58366928a682c3d127f12e4c61316a6f78ba76f92796f9950e973a359bf1689498615269834aa60b2d34e7ede49466e432cadccf180addcd9712467e982dd7a083261b9b6880a648a13d7b5af1416ba2bb92d8cee9319522d45e1bfc064a32fc649e22de4bf0be73b5f5272d1c49701e02537e7d7f9b0b5b2a61fe07db3f62ce67b508a7d44f63d3493ed453bf873fc4454903d33f32eb2bf9bc8deff426c96cc1fe876c01856fa28a84a5e92d4dab6dd53d84a1cc62e768c43d527a2e39642dbb9aa833361e0509bf65f59286088f4651e835da3e7c2c63a906300b1eb90a44ba21b5db9e11aa51639ab1915d6a12abe3ae2a2c35f3fe644d943e995617d2b8248313183c430f1399c793d05f44e9b4005812818601a0110ed54b9e1dc45e647c8df1fc2f85a8dc1dde5f0648b74cbd47d7a2e10ab72c4fcaa2b31e9619ca923784d51bcef0d9d94e84914cb2766ac892092fe7fb60712a60124814f1f2c9f16b958120172cf2b00668a3630224c783d8ccfd9a4060cfa1f089d35db04f9fb6e98116cdbd1ad310f9b117a7a15fbd7547fd0416ee7cf2623306240ed2f0c26049ce3d9cfc25cc7440c5309ebe0bda720a8f46ce19be3e73d3b01d9e812537e15c98745b4c71c8d2f7b34d9e951a79b71f2d6f1ee650a3fc247526c0ad9363f3e7886bcbf7c30852d8a4591b7f1107c56d668bd8a0c6b35f6891b8ebf82ba8d744ae0a6e40ce21491f61f222c61b3b8fdf7de16257829d4e3c7ae1bd64bd35bd80097bc30171ebf3fb3e617b9fb7111229f9906bfe46d8bd6da519fbb097091cbd3216f25d9bccaf04cb466b77442e122c2481f780c94d348ef69470fad3d197e84317e010de3c64c6e757d8a1b3b9e9bedacb2d3732ff564fdf2c1d68490a929b7c192e4d5791c831e0f513098161b41c6f7b8f9829e78df17a9ce462371b2e54a7c4dc992b3446ce3d6388658de04d1558c2cb80ef498f64d5c6ae85aba9895141b62af2391efc7224c9d792ba016f997449d7ba4fdb66aff0e599e800c684747bd94538344024631897a06e0b749732a46af80488f30287bc4885bc71dd235f46519f6afa4ba6aaee745eff3bca427ced5908c9f4c55818dce88d153937f60fa29033a4cf96d0c585371dad868a601e6c0232e1340dcadacb6af3c358041feab26edcc86100fc18151c55c59aabe2b3b571d35076e0ca2b3af13d8abf9f84fa84ff5d45bf3bee74b541444dfc79d80472aee39d1802b3773b42cff7877d20668b5697613c6176f382b6be8e1eaf81f347f75575bb4bb7377af480846aff6dc9d5e9835767a9a5fc7eb62fbc186aa2b7010f70029dfd59adcadc814f2693876a6d09604a29422214e98161aad064f7c5dda7e00ed77b7d9f9880ab3bb9fc9a1ad16d7238753f1d3d68a6f382753d5d0a33ded7dd0cf31ad4c44a073efe6616a01e1214325c3bb556f53a56078276b442f60114cc9878e8ee51b446928e2d48f83dec54ad55668103206636d3fc953cf4fd3dd94aae74f11f9e889235aa110523609bc60079e79cfb4458b2cf51cc11db347c403b10863b0725f13d8dbfa1408fa91cfba1e5cc07e0bfa4b9fe4bd77080e73ea920fde51b140139c0334cfadde29ea7d55d9ddf35d8624977056364cf54010ee7e9e5d8c061cc0f2734d38b9c59485b709aeff8d07b416729a8b0d7eec70a547d53e29480215b5e79215293ce3afa5c0169c7a83f749ae6ab5721afbdcd2701c1b479749936a4ccf73a0a13b316b9377f72089cd7445e46ed8df479380c632eef6962374ea762918f2669ee6f144fa462d1dafe12071ed0f9e5cd6f4264983df4410a8c0cb1e96e68f07e2bb415f6b14b0bb4704c878dedd78b5555d8d8d39000eb4971f8c0e108929512ec2e9de101e6c4525ef25a9804bd3a05efdfdf9ce5b1943e5d9981db425ffb4e7476eac13d39dff740f43161f3bb7f81a04142a28676d9795109ede45b4f2b4ec488b722255bf98364ba71d1ac7610d01cdcae39881a22483f966296d8eb13c9929d5dde8f7d82ac8ad2980d2db6b2d11e4b1cd3359ab957a50423a46077a6f106507936acb484f84c70130d7970733974f6eb0a89700f01dd4abcf541b648bdebb2e9ad77d90bccd3101d6bded59cfba0c48aebf9873a478f9a92231b58e23e319c1785c2aae9e8e85aa1500777065f0839faeabbde12f491a921f8feb54196678a1ea4f88e4d092d72a4e013deadf0d6de9a461d555d9d4a42afa9a8243baa040f4548e97709e5c93d8818cb3f3198f03586dab6c7cec248a7c908d38e5fd6b35e66dca9b90b0b975c5c8a46ed0121a00588f82f3308e7cf018199547e0b973d636d2975ee067f12eb7a7b208832a45b80986bf5cf683bf228686a974bd2d8cf6011548d46195ef79e8385abfde8bae04d51ff0c8ef710cea31c870018050b9ad1501232a2daf42c1aeecaaa2c012c1e1543e162ab198b86859b7baf0f50fdf7839fa9ed418f5a14ad35abf98cd053e65b54f4ad0ededddf33f6d64eaa7d4d866de45a8212034d448cd723be42fbe0351152b28d10907445f9423884d23c50a281cfd66aaab0cc70d1fe3215df674ebb59bb553b9812c14936f2882c9c617d6653680fe0335301f5296bfc9db9cc9c2b9fb44bbe1dcc515e68dc5299751fa2c795f339a4b7cea82ce8f0a21588a7f6689ef25ff3ebb9d2ee145bd5e38545cf2f542bd0c93f032e69580468a28c9f602fb41c123c28f5cf5ca1f5b154c76eb1d7a9ebfd6210cb1a0f3c8754842ce5cc71e7533068f7c97313df21e779f9a4389c3d3033580f20a9152332c91b66255ef99152f5e6a371b8f135c70d86f8e3ba919ae3d21150639072c9dd214502196fdf68e1dfd06c28a178123502a98ccb5ffbdec8990445430affd2a3c48102e15eb897ebbce8d62ba1c731131fa301395f6d7dfb16b48dfa779d08f302e68e07231d64c60bf8db243ace907a49a9ba7ad7708fc66b05b3c0d4f191b1d89e4d11042342abcab48fd42be60093f6bb3dba554fbfcc1f7189093fa73b065f141a7978158c5f9be9c91b72c466b879982c5418bd4c20b786978122411449ac76d685158f33dcbbbf2c5f0f15af1c96185db6659e6b98ce5c4e6f2b4504c2d5c91c4d5725fb43de8ac72d821ad421bf3e876e92a7ace3c07e360f7ea8c7d37561fcdefd63652249fe0c2a5b3821e237f4a9eae9e7a0ecc3249e4e7c0f2956d0394b789f6995194c386018fb1535a3bb48ce964134fffba2826eb72ee9e44dc337d33eb77dcb9ee17329cfc6183596d613aa70aa8c382754b71251795277c8ab7755b89c8142dca9f02d395212c4eb0508a0cac48219b51844cda5f20fe907c662433258131f9f7e72b2e981e8c6379c6638cea0ba9ec9f84fbcfb23fcc37d7619b4b4a72b87f0eb3d1039a85895e79503b1773c5a6b080adf173cfd3310228c63f08160f470e577dd849cf1a7b76b9f48b082d603bb6be7100d661a8195a088c45c92666418f7e92653fe4a10475524aeda675674bf651e0bf17a84c400b4a0a5e3e2b03aa44d0b9e41b805599cdd4f501483f7f7b07964d2613b4197a0caa781095003a910efe3128ce94c90f612d279ddbe3c91a3068658ea7806ecd331fdf43961c75806882d59044deda15b1e9242c4d931c36db9887b3c64db26fe0782bb0107c842afcf939102696bbbe107c6cd12e1a39855bdc46585e7d812e83b7144c53487aef2164ce8d3f6690484790b5c169bf844dacc63f9ec704f6981639dd24b33db7bcf9c3042aca42e9e602abd16e7a8684b8805f746f5e6ffc6b352a39ebe47b3e296b161f4172df20f94b7af7b6438c125a4d6238550a041c632e0ab550d273b852c2b65ae1c375a244f46dfa20bcc0bb72d08ef70839f215d753df14afc924c2f912e0ee91bc607bed04c9ebe477563f41f50fe148d32d6878adfe050b643b32a7106bd5886ac183c74ba7ccfe1ee939d2d5df15f864bbfc842d580ec86e8300f34af32d99d67492bef990a91ba52d48fe2df284cfa601add69fb0cbb94109228ef476f26179f15b0ae03dd1c30eb48e72a1718d5485afd4bf232644d0ae7c7701219d3dfac9b08b9190c3f622cdc4b152db2f343d4220a659f91e850aa18d3720f30d294573294992269f35341a5106eb0e2b6d9a59bf6d5dc5556c2a0e12c6570f8f9de261152096b63b0b7f4d67adecd0e39df2f492d4e54190068e95ad38652c0f5c8648157879926b42e12bb9f6e106d8d93853a76d47ec7ee0b75b5332ef93242198f2257e9a71efcb42e07f663f8264aadae02234b7e93dc685d89efc4923d8977709d2f71b095b0403624dfe3f279c38f5440fe8fa49cb764083f439d3e93e1d752d2381013382091325a1a697000e4f19e8d3f3e720a1fee5012fdd7d16aadd0772ac40ade269ab9336a746662b987341efee08e07a9cf3a89e2f5a5fcadfff67a9e7ba0876544031bf801f374b385b554e0d211cdb77e24bcdfc85b4fe561a25e8be2eb6cda3ee7b4442f7751e0583f09fdc88067346bb15aec2ffbc1a24002bfd2cc69060ba5983b21ddbbc1924b80829e3663eb9d31fa41ee58d75a741697327d3d6240180985774eaa017d911cc8785e1cb7b9c4665a4fab5329cbe12ae81abf54b6d382c15459c3320f981e436d9ac88fb9a2fc12f7e16c975f50b59022cc6c6c3e18bedc1c4705e08d1a44b39c34c908ca780dfdbdca77641ddfe8541ab5e8be186eae6210676eadc89af63009ce157a46121b8f7606ad3f1338a8eb1e8dd249dd656c543c09759ad5b94aaaf4a5ecc4cff140079c0cd621265e80704bd44e2f371c1eebf9f279cc1937e365e722707e37a88bf3883616ec9b0e34e2660083094ab9799d683df5bf10f37f2ad3b530ed5e5727284523070d90cd2c58492ffe42fde3c82e275ba436d94a9a1c9bb239474a7fb361aed42f020b07eb638a19b14f759883363da58fb4ce1412cabe34a375bbd7af5834ecf162ad20e27029377961dad51c098da8770cfa425c48ebf4a99c953d266449144b7f12decf6835befae8cfce71a915874493d730ef69ec6234af9c1564a3be1244916e1f237713419b807ab64fe3c9869cc665f4eda5863ff6aaf1c56fa3ff98bf7e38778a7886ce244d8068f4d3f663df4ca2b31fce142e85c28d8eb8ef392c78efbd21a2c522ab4256bfa3b76b7462b21dba97dcd7c6c45275d5527ffc3a0629a22689e5aacc5fa3b2d6f0dfd40ec320821ed9dca67f198a64edeb9c50c610e90e2aeee8abdb8a113d6041541364f16b11a99100be1a4928b5674b57a7a1884220a0da763c2640cb4698a011f1c8309d47faac08bc9772de250a1424327f7d7262495ccd7dd83738ed3c4a4780bdb796ac8f16ee2767436f90d56c961173b9a08a23ea3853da50612c1e913d11afde9919dca148c815157bc3ecd027241c8796b2d5331375e09848ea137c686cc0784883ed4b27efd1ca121616e955a133b7f8c243ddd740d3071d24ab3910c7856b92a88cb780aff1bab0e0c3163639859f903bc939042f9102a1cb0785b57820e62df764ef81c6d4a799cf7694bdce84e562ea0c679217eca2919a4b52ab2c94059cbf879020e1fee65f7043df4c6006c41d2671815a49491eb0866cda95599ff6defca5bf5a6cdba49f6b117617ee6faa47356b5e6c1fa498b760e39e8650908e0ac5ffc0e84f4370c7c9fbe385cbde4bf0c41381c5f74afd105734145b375d43128cb0e6448db25a1fec18c2df1336183d3f3217b2b086cfbc9c120bb37e47b1f0a73a1090c9d2357bf6348e437273b995bb6d79aa4d1615c25967fcdd64ddcdf2def0f644cf645e2f83fe73a3d7cddac369e139c8d9551ac07aed6ff7c76a49832a64cb190cec2346bd11e56b698efbf03289ddfc4db5f51a7737bd29d0144b3994e8be14cff6f54898db58624edccdae4d76303d86f89f697d02d3247882d6406e60c0e23443d200b6d5cf05ecac5c3f01a2e2ad7abe994cbbcb937bf59260584462586f2f07d00a2874d022e111a47d3be7ed69f9a8d97fa491f0b0189f808adec98eb9b8178d23cee88b1372102a2049ec3a3e847812c085c0204a42662d4cac0684432624ad2992b127fea2aeca761a4e3e9d3b7f6a2967d2e5b094556f10345354bcb855bf57dd7ac3694eeac1adb3ed421f13d511d55bd1a3248972590638ac3c9455184ca7cb8f436e2994cd5f0331c9bc05f13acaaa8e602919944baac6870099c6cbfdcdf55bb41c7cac6fa5a298c157fc378a1cd787a817c956ba9051fadc0bf67892e267da6dafc522d6c17f0519a3b37cf60cb927a3e1ce6c8fd6cf1e2f63ee38295c7c210cb182228f9568c1ca2f959dcabfdbf1784185baf14d2882fa6110eb7b7aec8fe9f5cc5f0f6451d2bf47c94077d69e4bad2767d2392e4bc509b1f4911d45d541df4d9c747d1dc4a67781007e6b3a41e8569777354eda17baa94a40e88a2486a0fd66e5c460b86fe09b58d6ef05853d6a03c2e8d0c911b28ddd55520db692fe98a2b4961f75ce989a2eafd5433551236583eb4b54c450b229e2b6688afb3be2776841a09350a47e02fc86271466384f95f4157276050e642cfbbb8d093464d6e25695f2038f740917474cccc9815c2886b31d3011621b4b98c2aed3546f386b841e54e2408c5baa360f8a924999ecc817f550f9185f6a9291a484fe10149b7b9d9e7919174a746b4b122b60b11350cc400e99ea582fb9e89fbc58388ba0bb8edb16cbdfb32ef6ef9f74f7f6965410ec1e387e3043b1b500c09eb77978dcc88f7034a935c3fc4e244e6f36134da94f83d7d62e365ec780160162702b2e96d99b2b5697e357b3c8d6fa7ba34a98d02474568193e9055f16a98f323e5eb0ebd4e8794ca16c0758f17c41c82addb5b6ca780f412301c8332547295b58c4dd954f40ee20659a0dc63a2f6b3baeeec6b587e44150aa0ff4871812b4428560d0cfc96a86d1f2b61a3953f66650a45ffef5abec2ef0a3004969792262daf555c7a6016f43ff85a0172007bec8509844e6721c7e794f23ce77f18223381227d538f53fbe3cf3c95332457f62572979f86bfe116fa699df16c2b1e55c6f2dc9984daa3577a8f7132fc8ec7b234547fb35f27a68cb46f36545685f68e5977b5d45022fd583588a5be85e02ab0823f5a338c3848a299c3c6774b68254ccc8775e570d687b0ae6372d59efd8c557efae0ea8abb76d99ed6e65d9903158750f865c6dad998c374e079e7d167c75d3ff9a3b4c76718521445140ef07fe950a5158518adae27a1a7083d64267196f7f0ffb053dff58ac4f2407268989d997df51065cd3df68d4a323b4a22499ab06633479577039ddc0fd24eae5f60da787c4b56c7f40ab80d197801254ab4ecd8941e41234f6dd253587dc38793726fd3efec73c74db4beba28139da4334a70167a534177e3b5427e3b42314a7c84dcd2da10873fe77cedd54fb455cbbe1b97fb5e3685dabdf56055b4f76dd374cae9adf3edf0c267deef3f7c0faeca093e5971633636a17f1f5f4c0a6bde7901c79a242c68e424adcb915b5d05751a24746fe5f2ddf9028bbe04cb13cbfe3cae16c47bfdd15e50b93c82901de7b8b41d14539e15c06fcddcb9f4c9ba28f31b208c61cdcd8368f425d40226f664e1ed4403b6b14fe4283dfacdabd1f8b2de140b3681d5fc43ceaf30caadfc98490484c87a0f3728202b417ad5d4f01ed0aede755013da98f3cb041399407bf69717675eace8b738806c59b558fe50b1cec8a81d8b38caa5f005ede77a837c8a5dcc27e92c1c25191b4f403fde5e5728cdc463fca86c6eb0a2b3021e0ffbb48422b57acdfcbe6e807d793bb80a8f8d42bac2132fc513cab90655dad5ca16879c35bf21723f5f3f62bf4bc1b24f1bf4987c76c3852557327f79457ab2ae9b002ffb13df69ae8461c22a2e7ced9da1063873e40dbe8f020869db2d955e55570f25057a1e1c28a2daccdaef605c6dc95c7b283f63b6d64f232f85ad447af60ffff5a04c423f2b7450e834c5732b4bad15fba769d42d462fc0d31c54c0a796989e6588981769d3a6a004bd39ecf9cae073f42f8ef2b996bb2e48e6770977789dafc376c6248280cf207e73d1ec47d666670aa54ffedf9398879c98097889ed97fc42ceea7a3d98c186298835015775bcf61ee002efa3841c7251292ddd8f8b1048fe6d1c4d8d2d04a7c48e1f2169017157e73c27e4f32425709feeffa5bca980804dc53c0d9b12ad689d2c57752006c652ea4d76c5184f8f4670683285ba83eb9efdc106b6d608d68fd171c15d92e95001fed38e1ddb486544ca854cad70a1e93877c76d6465709e83213276ae077243855a13f8d8ff428c2cc66935a4e7be05fb0e2570f9ba4e0d1d400054b4b7f57b658b4223f19af52e622a02099c9a0e2dafd398fb53ad15c63439ec89cdb57166db9294abe2976509420bc74673eac25314347494d41302a5a4fa0f00cd8dc673959d3fffc5eb7361b2ed7feae9a02300584e763ad75e77ac0a9766100330dbcaf6c1de8fa747f3c3bd2bf9b73f582d7a46cdb27637a75123235a438b9083479bc07501152045556874617e66806c2fa927db842ebe245e9034e207a5a5428906fb9ebf0bad808048892ab15ecd1046b0e0b466baed8aaa0c92e85e35e88a6792fedd6010aef9994a94f1ca</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
-              
+              <div class="markdown-body">
+                
+                <p>在Java安全方面的一个重要机制，著名的Spring框架也是基于此。</p>
+<span id="more"></span>
 
-              
+<p>Java反射(<code>Reflection</code>)是Java非常重要的动态特性，通过使用反射我们不仅可以获取到任何类的成员方法(<code>Methods</code>)、成员变量(<code>Fields</code>)、构造方法(<code>Constructors</code>)等信息，还可以动态创建Java类实例、调用任意的类方法、修改任意的类成员变量值等。</p>
+<p>Java的大部分框架都是采用了反射机制来实现的(如:<code>Spring MVC</code>、<code>ORM框架</code>等)，Java反射在编写漏洞利用代码、代码审计、绕过RASP方法限制等中起到了至关重要的作用。</p>
+<h3 id="获取Class对象"><a href="#获取Class对象" class="headerlink" title="获取Class对象"></a>获取Class对象</h3><p>首先我们需要知道的是，在Java中一切皆对象，“类”本身也是被抽象成为一个类，称为<code>Class</code>类，每个类都会有一个类对象，每当编译一个新类就产生一个<code>Class</code>对象，也就是<code>Class</code>类的实例。</p>
+<p><code>Class</code> 类只有一个私有的构造方法，不能通过 <code>new</code> 关键字来创建，而是在类加载的时候由 <code>Java</code> 虚拟机以及类加载器来自动构造的。</p>
+<p>Java反射操作的基础就是<code>java.lang.Class</code>对象，通常有如下3种方法：</p>
+<ol>
+<li><code>类名.class</code></li>
+<li><code>Class.forName("com.example.test")</code></li>
+<li><code>classLoader.loadClass("com.example.test")</code></li>
+</ol>
+<p>对于数组类型的Class对象需要特殊注意,需要使用Java类型的描述符方式，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Class&lt;?&gt; doubleArray = Class.forName(<span class="hljs-string">"[D"</span>);<span class="hljs-comment">//相当于double[].class</span><br>Class&lt;?&gt; cStringArray = Class.forName(<span class="hljs-string">"[[Ljava.lang.String;"</span>);<span class="hljs-comment">// 相当于String[][].class</span><br></code></pre></td></tr></table></figure>
+
+<p>当需要调用内部类时，使用<code>$</code>代替<code>.</code>，比如test类有一个内部类t，那么这样获取：</p>
+<p><code>Class t = class.forName("com.example.test$t")</code></p>
+<h3 id="反射执行系统命令"><a href="#反射执行系统命令" class="headerlink" title="反射执行系统命令"></a>反射执行系统命令</h3><p>在Java中，执行系统命令通常使用<code>java.lang.Runtime</code>库中的<code>exec</code>函数实现，那么通过反射执行系统命令需要以下几个步骤：</p>
+<ol>
+<li>获取<code>Runtime.class</code></li>
+<li>创建<code>Runtime.class</code>的构造方法，创建实例</li>
+<li>获取<code>Runtime</code>类的函数<code>exec</code></li>
+<li>通过<code>invoke</code>函数执行<code>exec</code>函数</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 获取Runtime类对象</span><br><span class="hljs-type">Class</span> <span class="hljs-variable">rC</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">"java.lang.Runtime"</span>);<br><span class="hljs-comment">// 获取构造方法</span><br><span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> rC.getDeclaredConstructor();<br>constructor.setAccessible(<span class="hljs-literal">true</span>);<br><span class="hljs-comment">// 创建Runtime类示例，等价于 Runtime rt = new Runtime();</span><br><span class="hljs-type">Object</span> <span class="hljs-variable">runtimeInstance</span> <span class="hljs-operator">=</span> constructor.newInstance();<br><span class="hljs-comment">// 获取Runtime的exec(String cmd)方法</span><br><span class="hljs-type">Method</span> <span class="hljs-variable">runtimeMethod</span> <span class="hljs-operator">=</span> rC.getMethod(<span class="hljs-string">"exec"</span>, String.class);<br><span class="hljs-comment">// 调用exec方法，等价于 rt.exec(cmd);</span><br><span class="hljs-type">Process</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> (Process) runtimeMethod.invoke(runtimeInstance, <span class="hljs-string">"whoami"</span>);<br><span class="hljs-comment">// 获取命令执行结果</span><br><span class="hljs-type">InputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> p.getInputStream();<br><span class="hljs-comment">// 输出命令执行结果</span><br>System.out.println(org.apache.commons.io.IOUtils.toString(in, <span class="hljs-string">"UTF-8"</span>));<br></code></pre></td></tr></table></figure>
+
+<h3 id="反射创建类实例"><a href="#反射创建类实例" class="headerlink" title="反射创建类实例"></a>反射创建类实例</h3><p>在Java的<code>任何一个类都必须有一个或多个构造方法</code>，如果代码中没有创建构造方法那么在类编译的时候会自动创建一个无参数的构造方法。</p>
+<p>在反射机制中，有两个函数可以获取到类构造器：</p>
+<ol>
+<li><code>getDeclaredConstructor</code>：可以获取到类的私有构造方法</li>
+<li><code>getConstructor</code>：只能获取公有的构造器</li>
+</ol>
+<p>如果构造方法有一个或多个参数的情况下，应该在获取构造方法时候传入对应的参数类型数组。</p>
+<p>如：<code>clazz.getDeclaredConstructor(String.class, String.class)</code>。</p>
+<p>获取类的所有构造方法：<code>clazz.getDeclaredConstructors</code>来获取一个<code>Constructor</code>数组。</p>
+<p>当我们没有访问构造方法权限时我们应该调用<code>constructor.setAccessible(true)</code>修改访问权限就可以成功的创建出类实例了。</p>
+<p>获取到构造器之后，可以使用<code>constructor.newInstance()</code>来创建类实例。</p>
+<h3 id="反射调用类的方法"><a href="#反射调用类的方法" class="headerlink" title="反射调用类的方法"></a>反射调用类的方法</h3><p><code>Class</code>对象提供了一个获取某个类的所有的成员方法的方法，也可以通过方法名和方法参数类型来获取指定成员方法。</p>
+<p><strong>获取当前类所有的成员方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Method[] methods = clazz.getDeclaredMethods()<br></code></pre></td></tr></table></figure>
+
+<p><strong>获取当前类指定的成员方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getDeclaredMethod(<span class="hljs-string">"方法名"</span>);<br><span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getDeclaredMethod(<span class="hljs-string">"方法名"</span>, 参数类型如String.class，多个参数用<span class="hljs-string">","</span>号隔开);<br></code></pre></td></tr></table></figure>
+
+<p><code>getMethod</code>和<code>getDeclaredMethod</code>都能够获取到类成员方法，区别在于<code>getMethod</code>只能获取到<code>当前类和父类</code>的所有有权限的方法(如：<code>public</code>)，而<code>getDeclaredMethod</code>能获取到当前类的所有成员方法(不包含父类)。</p>
+<p><strong>反射调用方法</strong></p>
+<p>获取到<code>java.lang.reflect.Method</code>对象以后我们可以通过<code>Method</code>的<code>invoke</code>方法来调用类方法。</p>
+<p><strong>调用类方法代码片段：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">method.invoke(方法实例对象, 方法参数值，多个参数值用<span class="hljs-string">","</span>隔开);<br></code></pre></td></tr></table></figure>
+
+<p><code>method.invoke</code>的第一个参数必须是类实例对象，<strong>如果调用的是<code>static</code>方法那么第一个参数值可以传<code>null</code>，因为在java中调用静态方法是不需要有类实例的</strong>，因为可以直接<code>类名.方法名(参数)</code>的方式调用。</p>
+<p><code>method.invoke</code>的第二个参数不是必须的，如果当前调用的方法没有参数，那么第二个参数可以不传，<strong>如果有参数那么就必须严格的依次传入对应的参数类型</strong>。</p>
+<h3 id="反射调用成员变量"><a href="#反射调用成员变量" class="headerlink" title="反射调用成员变量"></a>反射调用成员变量</h3><p>这个其实在Java安全领域没有太大的作用，姑且列在这里，毕竟开发才是大头。</p>
+<p>Java反射不但可以获取类所有的成员变量名称，还可以无视权限修饰符实现修改对应的值。</p>
+<p><strong>获取当前类的所有成员变量：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Field</span> <span class="hljs-variable">fields</span> <span class="hljs-operator">=</span> clazz.getDeclaredFields();<br></code></pre></td></tr></table></figure>
+
+<p><strong>获取当前类指定的成员变量：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Field</span> <span class="hljs-variable">field</span>  <span class="hljs-operator">=</span> clazz.getDeclaredField(<span class="hljs-string">"变量名"</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>getField</code>和<code>getDeclaredField</code>的区别同<code>getMethod</code>和<code>getDeclaredMethod</code>。</p>
+<p><strong>获取成员变量值：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> field.get(类实例对象);<br></code></pre></td></tr></table></figure>
+
+<p><strong>修改成员变量值：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">field.set(类实例对象, 修改后的值);<br></code></pre></td></tr></table></figure>
+
+<p>同理，当我们没有修改的成员变量权限时可以使用: <code>field.setAccessible(true)</code>的方式修改为访问成员变量访问权限。</p>
+<p>如果我们需要修改被<code>final</code>关键字修饰的成员变量，那么我们需要先修改方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 反射获取Field类的modifiers</span><br><span class="hljs-type">Field</span> <span class="hljs-variable">modifiers</span> <span class="hljs-operator">=</span> field.getClass().getDeclaredField(<span class="hljs-string">"modifiers"</span>); <br><span class="hljs-comment">// 设置modifiers修改权限</span><br>modifiers.setAccessible(<span class="hljs-literal">true</span>);<br><span class="hljs-comment">// 修改成员变量的Field对象的modifiers值</span><br>modifiers.setInt(field, field.getModifiers() &amp; ~Modifier.FINAL);<br><span class="hljs-comment">// 修改成员变量值</span><br>field.set(类实例对象, 修改后的值);<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
             
             <hr/>
             <div>
@@ -471,7 +532,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/" class="category-chain-item">红蓝对抗</a>
+  <a href="/categories/Java%E5%AE%89%E5%85%A8/" class="category-chain-item">Java安全</a>
   
   
 
@@ -486,7 +547,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%85%8D%E6%9D%80/" class="print-no-link">#免杀</a>
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
       
     </div>
   
@@ -498,8 +559,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>免杀学习记录</div>
-      <div>https://3xsh0re.github.io/2024/06/15/免杀学习记录/</div>
+      <div>Java反射机制</div>
+      <div>https://3xsh0re.github.io/2024/06/17/Java反射机制/</div>
     </div>
     <div class="license-meta">
       
@@ -511,7 +572,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月15日</div>
+          <div>2024年6月17日</div>
         </div>
       
       
@@ -543,9 +604,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/17/Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" title="Java反射机制">
+                      <a href="/2024/06/22/leetcode530%E5%AD%A6%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="leetcode530学习二叉搜索树">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java反射机制</span>
+                        <span class="hidden-mobile">leetcode530学习二叉搜索树</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -553,8 +614,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/14/leetcode236%E5%A4%8D%E4%B9%A0%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/" title="leetcode236复习二叉树的祖先节点">
-                        <span class="hidden-mobile">leetcode236复习二叉树的祖先节点</span>
+                      <a href="/2024/06/15/%E5%85%8D%E6%9D%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="免杀学习记录">
+                        <span class="hidden-mobile">免杀学习记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -779,23 +840,6 @@ mjx-container[display="true"] + br {
   
 
 
-
-
-  
-  <script defer>
-    if (document.getElementById('hbePass') || document.querySelector('hbe-prefix')) {
-      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
-        var hbePrefix = document.querySelector('hbe-prefix');
-        hbePrefix.parentElement.classList.add('markdown-body');
-        Fluid.utils.retry(function() {
-          if (Fluid.boot && Fluid.boot.refresh) {
-            Fluid.boot.refresh();
-            return true;
-          }
-        }, 100, 10);
-      })
-    }
-  </script>
 
 
   
