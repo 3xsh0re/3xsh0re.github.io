@@ -16,33 +16,32 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一条简单的反序列化链">
+    <meta name="description" content="闲来无事，花了1h水了两道MISC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="URLDNS链分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="长城杯初赛MISC">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="一条简单的反序列化链">
+<meta property="og:description" content="闲来无事，花了1h水了两道MISC">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153145840.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153240256.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153356053.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153803170.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904154018970.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151737711.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904152213420.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904155628133.png">
-<meta property="article:published_time" content="2024-09-04T06:17:36.000Z">
-<meta property="article:modified_time" content="2024-09-04T08:00:50.409Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144626790.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145107227.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145130507.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145359904.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145558396.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145622231.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145754345.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908150018532.png">
+<meta property="article:published_time" content="2024-09-08T07:31:16.000Z">
+<meta property="article:modified_time" content="2024-09-08T07:13:42.917Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="漏洞分析">
-<meta property="article:tag" content="Java安全">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png">
   
   
   
-  <title>URLDNS链分析 - 3xsh0re&#39;Blog</title>
+  <title>长城杯初赛MISC - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -361,7 +360,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="URLDNS链分析"></span>
+            <span id="subtitle" data-typed-text="长城杯初赛MISC"></span>
           
         </div>
 
@@ -372,8 +371,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-04 14:17" pubdate>
-          2024年9月4日 下午
+        <time datetime="2024-09-08 15:31" pubdate>
+          2024年9月8日 下午
         </time>
       </span>
     
@@ -384,7 +383,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          3.3k 字
         
       </span>
     
@@ -395,7 +394,7 @@ mjx-container[display="true"] + br {
         
         
         
-          7 分钟
+          21 分钟
         
       </span>
     
@@ -440,12 +439,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">URLDNS链分析</h1>
+            <h1 id="seo-header">长城杯初赛MISC</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月4日 下午
+                    本文最后更新于：2024年9月8日 下午
                   
                 
               </p>
@@ -453,47 +452,52 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>一条简单的反序列化链</p>
+                <p>闲来无事，花了1h水了两道MISC</p>
 <span id="more"></span>
 
-<h2 id="URLDNS链"><a href="#URLDNS链" class="headerlink" title="URLDNS链"></a>URLDNS链</h2><p>从<code>ysoserial</code>的源码开始调试，直接在Github下载其源码导入IDEA，Maven会自动加载需要的包。</p>
-<p>直接看到URLDNS.java的文件，我们关注<code>getObject</code>函数里面的这两个代码，说明使用的是<code>HashMap</code>，并且将URL作为其中的键值对造成的反序列化问题</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904151237155">
+<h2 id="漏洞探踪-流量解密"><a href="#漏洞探踪-流量解密" class="headerlink" title="漏洞探踪&流量解密"></a>漏洞探踪&amp;流量解密</h2><h3 id="一阶段"><a href="#一阶段" class="headerlink" title="一阶段"></a>一阶段</h3><p>在流量包中一共有3个IP：</p>
+<p>192.168.30.132；192.168.30.128；192.168.40.141</p>
+<p>明显的是141是web服务的IP</p>
+<p><code>http.response.code==200</code>过滤包，追踪HTTP流，发现存在webshell上传：</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>为了方便调试，做一下准备，首先进入URL类中，找到hashCode函数，然后点击<code>handler.hashCode()</code>进去，</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153145840.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153145840">
+<p>使用文件包含实现的getShell</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144626790.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>在353行处打下断点，这也真是请求DNS解析的地方</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153240256.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153240256">
+<p>但攻击的发起方是128的IP，却对不上密码；132的IP仅存在目录扫描的行为，也对不上密码。说明还有其他的IP。</p>
+<p>去OA的访问日志找：先把128和132的IP替换为空白，发现存在流量包中没有的IP：233、234、235，全部试了，发现密码是234</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145107227.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>然后回到URLDNS.java中，修改main函数为下面这样：</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153356053.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153356053">
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145130507.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>然后我们进行调试，<strong>可以发现会多次进入我们打断点的地方但没有发出请求，这是为什么呢，是因为ysoserial自己重写了这个地方</strong>，修改返回值为null所以无事发生。</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153803170.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153803170">
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">192.168.30.234</span> - - <span class="hljs-string">[04/Sep/2024:22:53:38 +0800]</span> <span class="hljs-string">"<span class="hljs-keyword">POST</span> /ispirit/im/upload.php HTTP/1.1"</span> <span class="hljs-number">200</span> <span class="hljs-number">104</span> <span class="hljs-string">"-"</span> <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296"</span> <span class="hljs-string">"127.0.0.1"</span><br><span class="hljs-number">192.168.30.234</span> - - <span class="hljs-string">[04/Sep/2024:22:54:38 +0800]</span> <span class="hljs-string">"<span class="hljs-keyword">POST</span> /ispirit/interface/gateway.php HTTP/1.1"</span> <span class="hljs-number">200</span> <span class="hljs-number">39</span> <span class="hljs-string">"-"</span> <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296"</span> <span class="hljs-string">"127.0.0.1"</span><br></code></pre></td></tr></table></figure>
 
-<p>大概3次步进，再次到我们打断点的地方，查看调用栈：</p>
-<p><code>HashMap.readObject()-&gt;HashMap.hash()-&gt;URL.hashCode()-&gt;URLStreamHandler.hashCode()</code></p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904154018970.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904154018970">
+<h3 id="二阶段"><a href="#二阶段" class="headerlink" title="二阶段"></a>二阶段</h3><p><code>http</code>过滤</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145359904.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>于是我们查看HashMap类，我们知道Java反序列化问题的造成都是因为不安全的重写<code>readObject</code>函数造成的，所以搜索<code>readObject</code>函数</p>
-<p>都是会先调用一个默认的<code>readObject</code>然后后面写自己的逻辑，</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151737711.png" srcset="/img/loading.gif" lazyload class="">
+<p>追踪<code>/key</code>和<code>raw</code>，找到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/key bdb8e21eace81d5fd21ca445ccb35071<br>/raw bdb8e21eace81d5fd21ca445ccb350715a76f6751576dbe1af49328aa1d2d2bea16ef62afa3a7c616dbdb8e21eace81d5fd21ca445ccb35071<br></code></pre></td></tr></table></figure>
 
-<p>在1397行的位置，可以看到使用了<code>putVal(hash(key), key, value, false, false);</code>这个语句，对key进行了hash运算，我们这里的key就是URL类，在此处下断点，重新调试。</p>
-<p>步进查看<code>hash</code>这个方法，它是继续调用了<code>key.hashCode()</code>来计算，也就是我们这里的<code>URL.hashCode()</code></p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904152213420.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904152213420">
+<p>找到提示：RC4解密</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145558396.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>于是继续触发<code>URLStreamHandler.hashCode()</code>，最终到<code>URLStreamHandler.getHostAddress()</code>就发出了DNS请求。</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904155628133.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904155628133">
+<p>得到<code>flag:{welcome to beijing}</code></p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145622231.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>总的来说，这条链子很简单但很重要，因为它<strong>不需要依赖其他包，仅仅使用了原生的Java包，主要是用来检测是否存在反序列化漏洞</strong>。</p>
-<p><code>HashMap.readObject()</code></p>
-<p><code>-&gt;HashMap.hash()</code></p>
-<p><code>-&gt;URL.hashCode()</code></p>
-<p><code>-&gt;URLStreamHandler.hashCode()</code></p>
-<p><code>-&gt;URLStreamHandler.getHostAddress()</code></p>
-<p><code>-&gt;InetAddress.getByName()</code></p>
+<h2 id="最安全的加密方式"><a href="#最安全的加密方式" class="headerlink" title="最安全的加密方式"></a>最安全的加密方式</h2><p><code>http</code>过滤，追踪流：发现上传了压缩包</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145754345.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>dump出来为：</p>
+<p><code>526172211a070100f3e182eb0b0105070006010180808000304975875502033cc00404a409200e4bdc6b80030008666c61672e747874300100030f20aa2d8a1090a74b0805879d959b353a374086eb57dd537cb6f521a5a480c716e3082ebc4d37a7f19b6a9ec60a03026948f03614dfd8014b71dba6d90e06233df22ec419e4f92b03d420d1bdb94ddb1d9d5bee64e8ff0db02e6e088026d7090ede5c8322965d931c698c7d8609250881833b36ab727fe2977bb2083a3c9a609807cc5abaa1ee9bacab805acf585fa8e4787898ba61cdc9b09f07b6591681802a7329d8a1fb78279db017816c29c53e8808ca2262fe511ef3b7a6d5024ef27170d3242a670da7e0c54273a6710153e7b91a2569036d8ba46750feee6240c21e2868ac203b6ed4a6936ae34dd06bc701141d31c20df791594dc2373dab700a869bc5bb7f1a50c2c0dde5508d2aea3f50f188bef6c0d46c6f22a662ecef8cd81dc405f29117c1dd7cabeee6e78fd29b461c59a63d693c8c72799f505d542d1e350d30679d6fc79476c92ab12096bc863c0d367a014118e96734d712b2544639120228d0c10ffe3deba07fa31ba870342aec44f09afb4b3cddc762fafbecdf0c1e31bc9cb63d4f224b6d477e3056e34ff4365b6d66f2b49ff009d424e0423e0c36ff3eff94726299bb2c22bd5cb4a05f92b6bb761ae1ea4ecd4c24528bb4f064dfc8fcf021364cec02c5c93a7d31828d04cea7cf83e64a9fa4a8f1ba6f755f737725330e4d5247a22374914ab6bea70db52a279a443d194cbfb1e0e7fc339c7a6bc4fc9afb7812dd00dc0623db4cb18e60b72c3ce2969100a9723695de1017062e539448a1d2104beb43969266ef860fe9c95dd9667b90dd81a11f42d549592e32e1ae003f1ae7267c4a66d5b3789776037f4baf82de057a71076c99fad1a309b4ae5301c76fb4b7b851a46b903e7c500ce395607b1cd9da8e1d77565103050400</code></p>
+<p>转换为.rar：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'rar.txt'</span>, <span class="hljs-string">'r'</span>) <span class="hljs-keyword">as</span> file:<br>    hex_string = file.read().strip()<br><span class="hljs-comment"># 将每两个字符表示的16进制转换为字节</span><br>byte_data = <span class="hljs-built_in">bytes</span>.fromhex(hex_string)<br><span class="hljs-comment"># 将字节写入新的二进制文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'output.rar'</span>, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> file:<br>    file.write(byte_data)<br></code></pre></td></tr></table></figure>
+
+<p>解压缩需要密码：25ming@</p>
+<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908150018532.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>得到一个flag.txt，发现是MD5压缩字符，爆破得到：<code>flag{The_m0st_2ecUre_eNcrYption!!!}</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> hashlib<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">md5_hash</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(s.encode()).hexdigest()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_md5_table</span>(<span class="hljs-params">char_set</span>):<br>    md5_table = {}<br>    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> char_set:<br>        md5_value = md5_hash(char)<br>        md5_table[md5_value] = char  <span class="hljs-comment"># 将每个字符的MD5值存入字典</span><br>    <span class="hljs-keyword">return</span> md5_table<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">crack_md5_file</span>(<span class="hljs-params">input_file, md5_table</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_file, <span class="hljs-string">'r'</span>, encoding=<span class="hljs-string">'utf-8'</span>) <span class="hljs-keyword">as</span> infile:<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> infile:<br>            hash_value = line.strip()  <span class="hljs-comment"># 读取每行的MD5哈希值并去掉换行符</span><br>            <span class="hljs-comment"># 在字典中查找MD5值</span><br>            <span class="hljs-keyword">if</span> hash_value <span class="hljs-keyword">in</span> md5_table:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f"<span class="hljs-subst">{md5_table[hash_value]}</span>"</span>,end=<span class="hljs-string">""</span>)<br><span class="hljs-comment"># 字符集：0-9, a-z, A-Z, 和特殊字符!{}_</span><br>char_set = <span class="hljs-string">'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!{}_'</span><br>crack_md5_file(<span class="hljs-string">"flag.txt"</span>, generate_md5_table(char_set))<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -512,7 +516,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
   
   
 
@@ -527,9 +531,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
-      
-        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
       
     </div>
   
@@ -541,8 +543,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>URLDNS链分析</div>
-      <div>https://3xsh0re.github.io/2024/09/04/URLDNS链分析/</div>
+      <div>长城杯初赛MISC</div>
+      <div>https://3xsh0re.github.io/2024/09/08/长城杯初赛MISC/</div>
     </div>
     <div class="license-meta">
       
@@ -554,7 +556,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月4日</div>
+          <div>2024年9月8日</div>
         </div>
       
       
@@ -586,18 +588,12 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/" title="长城杯初赛MISC">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">长城杯初赛MISC</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/30/%E6%9B%B4%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90%E7%9A%84%E6%96%B9%E6%B3%95/" title="更换各种源的方法">
-                        <span class="hidden-mobile">更换各种源的方法</span>
+                      <a href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="URLDNS链分析">
+                        <span class="hidden-mobile">URLDNS链分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
