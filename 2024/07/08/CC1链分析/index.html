@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711150233063.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711152007941.png">
 <meta property="article:published_time" content="2024-07-08T06:50:49.000Z">
-<meta property="article:modified_time" content="2024-08-14T03:33:26.382Z">
+<meta property="article:modified_time" content="2024-09-13T07:51:28.094Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="漏洞分析">
 <meta property="article:tag" content="Java安全">
@@ -448,7 +448,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年8月14日 中午
+                    本文最后更新于：2024年9月13日 下午
                   
                 
               </p>
@@ -496,10 +496,10 @@ mjx-container[display="true"] + br {
 
 <h3 id="构造序列化链"><a href="#构造序列化链" class="headerlink" title="构造序列化链"></a>构造序列化链</h3><p>当然在实际的漏洞中，不可能直接就这么触发，一定是经过了多层调用，当恶意payload执行到这里才会造成RCE。我们就这么盲目地去找吗，当然不是，我们这里是反序列化漏洞，所以最顶层的调用一定是某个readObject()方法。</p>
 <p>特地提到这个方法是因为在反序列化漏洞中它起到了关键作用，readObject()方法被重写的的话，反序列化该类时调用便是重写后的readObject()方法，如果该方法书写不当的话就有可能引发恶意代码的执行。</p>
-<p>那么接下来我们继续分析，按住ctrl单击transform函数查看调用它的函数，我们跳转到TransformedMap类的transform函数中</p>
+<p>那么接下来我们继续分析，按住ctrl单击transform函数查看调用它的函数，我们跳转到<code>TransformedMap</code>类的<code>transform</code>函数中</p>
 <img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710104121758.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710104121758">
 
-<p>可以发现是一个叫checkSetValue的函数，就一行很简单直接调用了transform，我们接着查看对它的调用</p>
+<p>可以发现是一个叫<code>checkSetValue</code>的函数，就一行很简单直接调用了transform，我们接着查看对它的调用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> Object <span class="hljs-title function_">checkSetValue</span><span class="hljs-params">(Object value)</span> {<br>    <span class="hljs-keyword">return</span> valueTransformer.transform(value);<br>}<br></code></pre></td></tr></table></figure>
 
 <p>发现对它的调用只有一处，直接跳转了，在AbstractInputCheckedMapDecorator中的setValue函数</p>
@@ -530,8 +530,8 @@ mjx-container[display="true"] + br {
 <p>然后在IDEA中项目属性里添加源码路径，CTRL+shift+alt+s打开</p>
 <img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710142224933.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710142224933">
 
-<p>ok，现在你已经可以找到我们的最后的入口函数了，可以发现readObject正好符合我们的调用方式，用构造的恶意序列化流进入这处readObject就可以完成CC1链了😋，但是有一个问题，AnnotationInvocationHandler类不是公开的，仅可在同一个包下可访问也就是在外面无法通过名字来调用，因此<strong>只可以用反射获取这个类</strong>。</p>
-<p>这个类的构造方法为，也就是说需要一个注解类和一个Map类，这个注解类的选取是有讲究的，后面再探，先设置为Override注解🙈</p>
+<p>ok，现在你已经可以找到我们的最后的入口函数了，可以发现readObject正好符合我们的调用方式，用构造的恶意序列化流进入这处readObject就可以完成CC1链了，但是有一个问题，AnnotationInvocationHandler类不是公开的，仅可在同一个包下可访问也就是在外面无法通过名字来调用，因此<strong>只可以用反射获取这个类</strong>。</p>
+<p>这个类的构造方法为，也就是说需要一个注解类和一个Map类，这个注解类的选取是有讲究的，后面再探，先设置为Override注解</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">AnnotationInvocationHandler(Class&lt;? <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Annotation</span>&gt; type, <br>                            Map&lt;String, Object&gt; memberValues)<br></code></pre></td></tr></table></figure>
 
 <p>然后我们通过反射调用readObject方法，</p>
