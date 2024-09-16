@@ -24,7 +24,7 @@
 <meta property="og:description" content="有时候Google也能搜出许多有用的信息">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-14T06:01:50.000Z">
-<meta property="article:modified_time" content="2024-09-09T07:58:35.545Z">
+<meta property="article:modified_time" content="2024-09-14T16:10:29.510Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="SRC">
 <meta property="article:tag" content="技巧">
@@ -374,7 +374,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          21k 字
         
       </span>
     
@@ -385,7 +385,7 @@ mjx-container[display="true"] + br {
         
         
         
-          126 分钟
+          129 分钟
         
       </span>
     
@@ -435,7 +435,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月9日 下午
+                    本文最后更新于：2024年9月15日 凌晨
                   
                 
               </p>
@@ -451,7 +451,7 @@ mjx-container[display="true"] + br {
 <p>这些就是Google的常用语法，也是Google Hack的必用语法。虽然这只是Google语法中很小的部分，但是合理使用这些语法将产生意想不到的效果。</p>
 <h3 id="GoogleHacking"><a href="#GoogleHacking" class="headerlink" title="GoogleHacking"></a>GoogleHacking</h3><h4 id="寻找登陆页面"><a href="#寻找登陆页面" class="headerlink" title="寻找登陆页面"></a>寻找登陆页面</h4><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">inurl:</span>Login <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">intitle:</span>后台登录管理员 <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">intext:</span>后台登录 <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">inurl:</span><span class="hljs-keyword">/admin/</span>login.php <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">inurl:</span><span class="hljs-keyword">/phpmyadmin/</span>index.php 将返回含有phpmyadmin后台的网页<br><br>组合拳：<br><span class="hljs-symbol">intext:</span>后台登录  inurl:login.php<br><span class="hljs-symbol">intext:</span>后台登录  inurl:login.php -canvas<br></code></pre></td></tr></table></figure>
 
-<h4 id="eduSRC"><a href="#eduSRC" class="headerlink" title="eduSRC"></a>eduSRC</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim">intext:职业学院 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:职业学院管理后台 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:管理后台 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:中学 inur<span class="hljs-variable">l:login</span>.php<br>intext:中学 +后台管理 inur<span class="hljs-variable">l:login</span><br></code></pre></td></tr></table></figure>
+<h4 id="eduSRC"><a href="#eduSRC" class="headerlink" title="eduSRC"></a>eduSRC</h4><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs coq">intext:中学管理 inurl:login<br>intext:幼儿园管理后台<br>intext:职业学院 inurl:edu.cn<br>intext:职业学院管理后台 inurl:edu.cn<br>intext:管理后台 inurl:edu.cn<br>intext:中学 inurl:login.php<br>intext:中学 +后台管理 inurl:login<br>title=<span class="hljs-string">"职业技术"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"小学"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"初中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"高中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"附属中学"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"一中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"二中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"中学"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"中等专业学校"</span> &amp;&amp; country=<span class="hljs-string">"CN"</span> &amp;&amp; region!=<span class="hljs-string">"HK"</span><br>title=<span class="hljs-string">"大学"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"职业技术"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"初中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"学校"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"高中"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"中学"</span> |<span class="hljs-type">| title</span>=<span class="hljs-string">"中等专业学校"</span> |<span class="hljs-type">| org</span>=<span class="hljs-string">"China Education and Research Network Center"</span> &amp;&amp; country=<span class="hljs-string">"CN"</span> &amp;&amp; region!=<span class="hljs-string">"HK"</span><br>title=<span class="hljs-string">"后台"</span>&amp;&amp;((title=<span class="hljs-string">"小学"</span>|<span class="hljs-type">|title</span>=<span class="hljs-string">"初中"</span>|<span class="hljs-type">|title</span>=<span class="hljs-string">"高中"</span>|<span class="hljs-type">|title</span>=<span class="hljs-string">"中学"</span>))<br></code></pre></td></tr></table></figure>
 
 <h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">site:http://baidu.<span class="hljs-keyword">com</span> <span class="hljs-keyword">filetype</span>:pdf 将只返回http://baidu.<span class="hljs-keyword">com</span>站点上文件类型为pdf的网页<br></code></pre></td></tr></table></figure>
 
