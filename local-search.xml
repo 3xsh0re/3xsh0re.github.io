@@ -959,19 +959,6 @@
   
   
   <entry>
-    <title>罕见的登录框出现SQL注入</title>
-    <link href="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/"/>
-    <url>/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/</url>
-    
-    <content type="html"><![CDATA[<p>幸运儿，登陆框发现SQL注入，乐</p><span id="more"></span><h3 id="Google语法找目标"><a href="#Google语法找目标" class="headerlink" title="Google语法找目标"></a>Google语法找目标</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apl">intext:后台登录  inurl:login.php -canvas -十合一全网营销方案<br></code></pre></td></tr></table></figure><h3 id="发现登录页面"><a href="#发现登录页面" class="headerlink" title="发现登录页面"></a>发现登录页面</h3><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-16-54.png" class=""><p>抓包，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-22-15.png" class=""><p>首先测试弱口令爆破，</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-18-37.png" class=""><p>没有🤣</p><h3 id="发现存在SQL注入"><a href="#发现存在SQL注入" class="headerlink" title="发现存在SQL注入"></a>发现存在SQL注入</h3><p>通过手工测试发现存在SQL语句报错，传统艺能之跑<code>sqlmap</code>，保存请求包到txt文件，使用命令：<code>python sqlmap.py -r "./test.txt" --threads=10 --tamper=between --time-sec=2 --dbms=mysql --union-char=a --dbs</code>，还真跑出来了😎</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-23-17.png" class=""><p>跑个数据名和表名作为证据：</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-20_18-25-55.png" class=""><p>点到为止就可以提交到平台</p><p>一个妥妥的高危😊😊</p><img src="/2023/08/20/%E7%BD%95%E8%A7%81%E7%9A%84%E7%99%BB%E5%BD%95%E6%A1%86%E5%87%BA%E7%8E%B0SQL%E6%B3%A8%E5%85%A5/Snipaste_2023-08-31_23-04-41.png" class="">]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>GO学习笔记</title>
     <link href="/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <url>/2023/08/15/GO%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
