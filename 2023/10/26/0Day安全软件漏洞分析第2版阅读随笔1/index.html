@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-55-57.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-59-46.png">
 <meta property="article:published_time" content="2023-10-26T15:00:22.000Z">
-<meta property="article:modified_time" content="2024-09-27T08:38:49.912Z">
+<meta property="article:modified_time" content="2024-11-06T14:41:45.238Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="软件与系统安全">
@@ -387,7 +387,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          2.9k 字
         
       </span>
     
@@ -448,7 +448,7 @@ mjx-container[display="true"] + br {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月27日 下午
+                    本文最后更新于：2024年11月6日 晚上
                   
                 
               </p>
@@ -512,10 +512,10 @@ mjx-container[display="true"] + br {
 <h3 id="crack-me1"><a href="#crack-me1" class="headerlink" title="crack_me1"></a>crack_me1</h3><p>实验代码来源于原书</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PASSWORD <span class="hljs-string">"1234567"</span> </span><br><span class="hljs-type">int</span> <span class="hljs-title function_">verify_password</span> <span class="hljs-params">(<span class="hljs-type">char</span> *password)</span> <br>{ <br>    <span class="hljs-type">int</span> authenticated; <br>    authenticated=<span class="hljs-built_in">strcmp</span>(password,PASSWORD); <br>    <span class="hljs-keyword">return</span> authenticated; <br>} <br><br>main() <br>{ <br>    <span class="hljs-type">int</span> valid_flag=<span class="hljs-number">0</span>; <br>    <span class="hljs-type">char</span> password[<span class="hljs-number">1024</span>]; <br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) <br>    { <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"please input password: "</span>); <br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,password); <br>        valid_flag = verify_password(password); <br>        <span class="hljs-keyword">if</span>(valid_flag) <br>        { <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"incorrect password!\n\n"</span>); <br>        } <br>        <span class="hljs-keyword">else</span> <br>        { <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Congratulation! You have passed the verification!\n"</span>); <br>            <span class="hljs-keyword">break</span>; <br>        } <br>    } <br>}<br></code></pre></td></tr></table></figure>
 
-<p>使用命令<code>gcc -o crack_me.exe test.c</code>编译为64位的exe文件，当然如果你不是<code>x86-64</code>架构，那么命令有所变化，需要编为32位的程序😋。</p>
+<p>使用命令<code>gcc -o crack_me.exe test.c</code>编译为64位的exe文件，当然如果你不是<code>x86-64</code>架构，那么命令有所变化，需要编为32位的程序。</p>
 <img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-35-25.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>接下来，使用IDA查看文件结构，这个时候假装我们不知道代码是自己写的😁</p>
+<p>接下来，使用IDA查看文件结构，</p>
 <p>可以看到如下的文件结构：</p>
 <img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-37-10.png" srcset="/img/loading.gif" lazyload class="">
 
@@ -526,13 +526,13 @@ mjx-container[display="true"] + br {
 <p>使用了一个<code>jz</code>指令，这里我们需要知道这条指令由状态标志寄存器的ZF位决定，为1则跳转</p>
 <p>ZF表示结果运算是否为0，如果为0则置1，反之置0。</p>
 <p>所以这里我只需要让ZF=1即可</p>
-<p>将程序拖进x64dbg里，然后程序会自动运行，这里读者不知道为什么会自动中断😂，这里直接继续运行</p>
+<p>将程序拖进x64dbg里，然后程序会自动运行，这里读者不知道为什么会自动中断，这里直接继续运行</p>
 <img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-46-55.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>到需要我们输入密码即可，这里我们需要寻找之前分析出来的判断位置，然后下断点，修改标志位即可破解成功！</p>
 <img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-49-19.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>我们可以通过调用堆栈窗口，查看crack_me.exe的调用，然后查找出来位置，然后在即将跳转的那个指令处打下断点，可以发现这里<code>x64gbd</code>汇编出来是<code>je</code>指令，笔者这里还不清楚为什么会这样😭。当然这里效果和jz是一样，破解方法不变。</p>
+<p>我们可以通过调用堆栈窗口，查看crack_me.exe的调用，然后查找出来位置，然后在即将跳转的那个指令处打下断点，可以发现这里<code>x64gbd</code>汇编出来是<code>je</code>指令，笔者这里还不清楚为什么会这样。当然这里效果和jz是一样，破解方法不变。</p>
 <img src="/2023/10/26/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%941/Snipaste_2023-10-26_21-51-51.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>然后在terminal里输入密码，就会在断点处停下，在视图右侧会显示当前CPU的一些寄存器的状态，修改ZF=1再单步调试到输出即可。</p>
