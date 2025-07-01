@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701220327346.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701203307879.png">
 <meta property="article:published_time" content="2025-06-30T12:49:18.000Z">
-<meta property="article:modified_time" content="2025-07-01T14:04:41.551Z">
+<meta property="article:modified_time" content="2025-07-01T14:18:46.524Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="JS逆向">
 <meta name="twitter:card" content="summary_large_image">
@@ -485,7 +485,11 @@ mjx-container[display="true"] + br {
 <h2 id="核心代码分析"><a href="#核心代码分析" class="headerlink" title="核心代码分析"></a>核心代码分析</h2><p>这个方法很明显是发送<code>image</code>请求的地方，发现有3个参数需要生成<code>captchaKey</code>、<code>token</code>、<code>iv</code>，根据输出的值可以明显看出<code>_0x4c771b</code>这个方法是输出的哈希值，猜测为<code>MD5()</code></p>
 <img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214158223.png" srcset="/img/loading.gif" lazyload class="">
 
+
+
 <img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214753023.png" srcset="/img/loading.gif" lazyload class="">
+
+
 
 <img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214828264.png" srcset="/img/loading.gif" lazyload class="">
 
