@@ -1,0 +1,944 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="3xsh0re">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目标：aHR0cHM6Ly92OC5jaGFveGluZy5jb20v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="某网站登陆滑块逆向-2">
+<meta property="og:url" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/index.html">
+<meta property="og:site_name" content="3xsh0re&#39;Blog">
+<meta property="og:description" content="目标：aHR0cHM6Ly92OC5jaGFveGluZy5jb20v">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701131743481.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132351066.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132421717.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132938465.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701195709592.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214158223.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214753023.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214828264.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701215747335.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701220327346.png">
+<meta property="og:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701203307879.png">
+<meta property="article:published_time" content="2025-06-30T12:49:18.000Z">
+<meta property="article:modified_time" content="2025-07-01T14:04:41.551Z">
+<meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="JS逆向">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://3xsh0re.github.io/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701131743481.png">
+  
+  
+  
+  <title>某网站登陆滑块逆向-2 - 3xsh0re&#39;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","app_key":"GoMWtP1iHSKKpwsbzBlVqJ7P","server_url":"https://oynuspoo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>3xsh0re&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="某网站登陆滑块逆向-2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-30 20:49" pubdate>
+          2025年6月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">某网站登陆滑块逆向-2</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2025年7月1日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>目标：aHR0cHM6Ly92OC5jaGFveGluZy5jb20v</p>
+<span id="more"></span>
+
+<h2 id="初步调试"><a href="#初步调试" class="headerlink" title="初步调试"></a>初步调试</h2><p>访问网站，查看网络，发现第一张图片是访问时直接加载进来的，主要通过两个接口<code>conf</code>和<code>image</code></p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701131743481.png" srcset="/img/loading.gif" lazyload class="">
+
+<p><code>conf</code>接口是得到了一个时间戳<code>t</code>，暂时不知道干嘛的；<code>captchaId</code>这个参数是写死的，不变的，可以多调试几次就发现了</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132351066.png" srcset="/img/loading.gif" lazyload class="">
+
+<p><code>image</code>接口返回的就比较明显了，两个图片的地址，所以解决问题的关键在这个接口发出的代码上</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132421717.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>携带的参数如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json">params = <span class="hljs-punctuation">{</span><br>    <span class="hljs-attr">"callback"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"cx_captcha_function"</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"captchaId"</span><span class="hljs-punctuation">:</span> captchaId<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"slide"</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.1.20"</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"captchaKey"</span><span class="hljs-punctuation">:</span> captchaKey<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"token"</span><span class="hljs-punctuation">:</span> c_token<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"referer"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://v8.chaoxing.com/"</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"iv"</span><span class="hljs-punctuation">:</span> iv<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">"_"</span><span class="hljs-punctuation">:</span> timestamp<br><span class="hljs-punctuation">}</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来查看<code>image</code>接口的调用堆栈，关键方法打上断点</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701132938465.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>调试到<code>_0x46287f()</code>这个方法上，从这里发出<code>conf</code>请求，</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701195709592.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>从这个方法开始我始终没有找到核心的代码入口，没有找到<code>image</code>请求是从哪里发出来的，后面单步调试发现在这个方法的一条很长的语句中调用了，就是发出<code>conf</code>请求的上一句</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">_0x10e8ea &amp;&amp; <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x23b</span>)](<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x132</span>)) &amp;&amp; <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-string">'getItem'</span>](<span class="hljs-string">'serverTime'</span>) &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x3b2</span>)]() - <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x23b</span>)](<span class="hljs-string">'localTime'</span>) &lt; <span class="hljs-number">0x3a980</span> ? <span class="hljs-title function_">_0x35a33e</span>(<span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-string">'getItem'</span>](<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x287</span>))) : (_0x27e462 = _0x10e8ea,_0x10e8ea = <span class="hljs-title function_">_0x46cf2d</span>(_0x36bc0c, _0x3831d5, _0x4015b8[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x24d</span>)][<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x311</span>)]),<br></code></pre></td></tr></table></figure>
+
+<p>整理一下：大致是判断<code>session</code>过期时间的，如果没过期就直接调用方法获取图片，如果过期了要重新请求时间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">_0x10e8ea <br>&amp;&amp; <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x23b</span>)](<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x132</span>)) <br>&amp;&amp; <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-string">'getItem'</span>](<span class="hljs-string">'serverTime'</span>) <br>&amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x3b2</span>)]() - <span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x23b</span>)](<span class="hljs-string">'localTime'</span>) &lt; <span class="hljs-number">0x3a980</span> ? <span class="hljs-title function_">_0x35a33e</span>(<span class="hljs-variable language_">sessionStorage</span>[<span class="hljs-string">'getItem'</span>](<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x287</span>))) : <br>(<br>    _0x27e462 = _0x10e8ea,<br>    _0x10e8ea = <span class="hljs-title function_">_0x46cf2d</span>(<br>        _0x36bc0c, _0x3831d5, _0x4015b8[<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x24d</span>)][<span class="hljs-title function_">_0x423663</span>(<span class="hljs-number">0x311</span>)]<br>    ),<br></code></pre></td></tr></table></figure>
+
+<p>下面分析<code>_0x35a33e()</code>这个方法</p>
+<h2 id="核心代码分析"><a href="#核心代码分析" class="headerlink" title="核心代码分析"></a>核心代码分析</h2><p>这个方法很明显是发送<code>image</code>请求的地方，发现有3个参数需要生成<code>captchaKey</code>、<code>token</code>、<code>iv</code>，根据输出的值可以明显看出<code>_0x4c771b</code>这个方法是输出的哈希值，猜测为<code>MD5()</code></p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214158223.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214753023.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701214828264.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>验证后确实为<code>MD5</code>计算，再看需要用到的<code>_0x11dbad()</code>方法，通过调试后的结果可以明显看出这是返回一个<code>uuid</code>字符串，下面是混淆后的代码经过整理，生成的是<code>uuid4</code>风格。</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701215747335.png" srcset="/img/loading.gif" lazyload class="">
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">_0x11dbad</span>(<span class="hljs-params"></span>) {<br>    <span class="hljs-keyword">var</span> _0x5c52a4 = _0x2e675c;<br>    <span class="hljs-comment">// _0x12474f 是一个字符串（如 '0123456789abcdef'）</span><br>    <span class="hljs-keyword">var</span> _0x12474f = <span class="hljs-title function_">_0x5c52a4</span>(<span class="hljs-number">0x2f9</span>); <span class="hljs-comment">// 即一个十六进制字符集</span><br>    <span class="hljs-keyword">var</span> _0x55977e = [];<br>    <span class="hljs-comment">// 生成长度为 36（含 `-`）的 uuid 字符数组</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">36</span>; i++) {<br>        _0x55977e[i] = _0x12474f.<span class="hljs-title function_">substr</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-number">16</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>()), <span class="hljs-number">1</span>);<br>    }<br>    <span class="hljs-comment">// 手动调整为符合 UUID v4 的标准格式</span><br>    _0x55977e[<span class="hljs-number">14</span>] = <span class="hljs-string">'4'</span>;  <span class="hljs-comment">// UUID 版本位，必须为 '4'</span><br>    _0x55977e[<span class="hljs-number">19</span>] = _0x12474f.<span class="hljs-title function_">substr</span>((<span class="hljs-built_in">parseInt</span>(_0x55977e[<span class="hljs-number">19</span>], <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0x3</span> | <span class="hljs-number">0x8</span>), <span class="hljs-number">1</span>);<br>    <span class="hljs-comment">// 第 19 位：高 2 位设为 10（variant）</span><br>    <span class="hljs-comment">// 插入4个连字符，位置固定</span><br>    _0x55977e[<span class="hljs-number">8</span>] = _0x55977e[<span class="hljs-number">13</span>] = _0x55977e[<span class="hljs-number">18</span>] = _0x55977e[<span class="hljs-number">23</span>] = <span class="hljs-string">'-'</span>;<br>    <span class="hljs-keyword">return</span> _0x55977e.<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);<br>}<br></code></pre></td></tr></table></figure>
+
+<p>用<code>python</code>生成等效字符串只需要：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> uuid<br>uuid_str = <span class="hljs-built_in">str</span>(uuid.uuid4())<br></code></pre></td></tr></table></figure>
+
+<p>多次调试就可以总结需要的三个参数的生成规则：<code>_0x4e0309</code>是传入值实际上就是使用<code>conf</code>接口传回来的时间戳，<code>_0x3fedba</code>是常量<code>captchaId</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">captchaKey = <span class="hljs-title function_">_0x4c771b</span>(_0x4e0309 + <span class="hljs-title function_">_0x11dbad</span>()) <br>           = <span class="hljs-title class_">MD5</span>(timestamp + <span class="hljs-title function_">uuid</span>())<br><br>token = _0x4e0309 = <span class="hljs-title function_">_0x4c771b</span>(_0x4e0309 + _0x3fedba + _0x589b78 + _0x422ded) + <span class="hljs-string">':'</span> + (<span class="hljs-built_in">parseInt</span>(_0x4e0309) + <span class="hljs-number">0x493e0</span>) || <span class="hljs-string">''</span><br>      = <span class="hljs-title class_">MD5</span>(timestamp + captchaId + <span class="hljs-string">'slide'</span> + captchaKey) + <span class="hljs-string">':'</span> + <span class="hljs-title function_">int</span>(timestamp) + <span class="hljs-number">300000</span><br>            <br>iv = _0x4015b8[<span class="hljs-string">'IMAGE_VERIFY_TAG'</span>] <br>   = <span class="hljs-title function_">_0x4c771b</span>(_0x3fedba + _0x589b78 + <span class="hljs-title class_">Date</span>[<span class="hljs-title function_">_0x5876dc</span>(<span class="hljs-number">0x3d5</span>)]() + <span class="hljs-title function_">_0x11dbad</span>())<br>   = <span class="hljs-title class_">MD5</span>(<span class="hljs-string">'qDG21VMg9qS5Rcok4cfpnHGnpf5LhcAv'</span> + <span class="hljs-string">'slide'</span> + time.<span class="hljs-title function_">time</span>() + <span class="hljs-title function_">uuid</span>())<br></code></pre></td></tr></table></figure>
+
+<p>到这里就分析完了，最后流程很简单，<code>conf</code>接口获取一个服务器返回的时间戳，<code>image</code>通过时间戳生成各种参数获取图片地址和一个<code>token</code>，最后通过<code>result</code>请求发起验证。</p>
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701220327346.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这次代码比较简短就贴了出来，仅供参考</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># target: aHR0cHM6Ly92OC5jaGFveGluZy5jb20v</span><br><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> io<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> uuid<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image, ImageDraw<br><span class="hljs-keyword">from</span> ddddocr <span class="hljs-keyword">import</span> DdddOcr<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getTimestamp</span>() -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(<span class="hljs-built_in">int</span>(time.time() * <span class="hljs-number">1000</span>))<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getUUID</span>():<br>    u = uuid.uuid4()<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(u)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getMD5</span>(<span class="hljs-params">input_str: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    res = hashlib.md5(input_str.encode(<span class="hljs-string">'utf-8'</span>)).hexdigest()<br>    <span class="hljs-keyword">return</span> res<br><br><br><span class="hljs-comment"># 获取服务器返回时间</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getServerTime</span>() -&gt; <span class="hljs-built_in">str</span>:<br>    params1 = {<br>        <span class="hljs-string">'callback'</span>: <span class="hljs-string">'cx_captcha_function'</span>,<br>        <span class="hljs-string">'captchaId'</span>: captchaId,<br>        <span class="hljs-string">'_'</span>: <span class="hljs-built_in">int</span>(now_time),<br>    }<br>    response1 = requests.get(<span class="hljs-string">"https://captcha.chaoxing.com/captcha/get/conf"</span>, params=params1, headers=headers).text<br>    res = re.findall(<span class="hljs-string">r'cx_captcha_function\((.*)\)'</span>, response1)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(json.loads(res[<span class="hljs-number">0</span>])[<span class="hljs-string">'t'</span>])<br><br><br><span class="hljs-comment"># 获取图片地址和验证token</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getVerifyParams</span>() -&gt; (<span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>):<br>    server_time = getServerTime()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 获取到的服务器时间: <span class="hljs-subst">{server_time}</span>"</span>)<br><br>    <span class="hljs-comment"># 先计算captchaKey</span><br>    captchaKey = getMD5(server_time + getUUID())<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 计算得到的captchaKey: <span class="hljs-subst">{captchaKey}</span>"</span>)<br>    <span class="hljs-comment"># 再计算token</span><br>    c_token = getMD5(server_time + captchaId + <span class="hljs-string">"slide"</span> + captchaKey) + <span class="hljs-string">':'</span> + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">int</span>(server_time) + <span class="hljs-number">300000</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 计算得到的c_token: <span class="hljs-subst">{c_token}</span>"</span>)<br>    <span class="hljs-comment"># 最后计算iv</span><br>    iv = getMD5(captchaId + <span class="hljs-string">"slide"</span> + now_time + getUUID())<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 计算得到的iv: <span class="hljs-subst">{iv}</span>"</span>)<br><br>    params = {<br>        <span class="hljs-string">"callback"</span>: <span class="hljs-string">"cx_captcha_function"</span>,<br>        <span class="hljs-string">"captchaId"</span>: captchaId,<br>        <span class="hljs-string">"type"</span>: <span class="hljs-string">"slide"</span>,<br>        <span class="hljs-string">"version"</span>: <span class="hljs-string">"1.1.20"</span>,<br>        <span class="hljs-string">"captchaKey"</span>: captchaKey,<br>        <span class="hljs-string">"token"</span>: c_token,<br>        <span class="hljs-string">"referer"</span>: <span class="hljs-string">"https://v8.chaoxing.com/"</span>,<br>        <span class="hljs-string">"iv"</span>: iv,<br>        <span class="hljs-string">"_"</span>: <span class="hljs-built_in">int</span>(now_time) + <span class="hljs-number">2</span><br>    }<br><br>    response = requests.get(<br>        url=<span class="hljs-string">"https://captcha.chaoxing.com/captcha/get/verification/image"</span>,<br>        params=params,<br>        headers=headers,<br>        cookies=cookies<br>    ).text<br>    <span class="hljs-comment"># 提取 JSON 内容</span><br>    json_data = json.loads(re.search(<span class="hljs-string">r'cx_captcha_function\((\{.*\})\)'</span>, response).group(<span class="hljs-number">1</span>))<br>    v_token = json_data[<span class="hljs-string">"token"</span>]<br>    shade_image = json_data[<span class="hljs-string">"imageVerificationVo"</span>][<span class="hljs-string">"shadeImage"</span>]<br>    cutout_image = json_data[<span class="hljs-string">"imageVerificationVo"</span>][<span class="hljs-string">"cutoutImage"</span>]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 获取得到的用于验证的v_token: <span class="hljs-subst">{v_token}</span>"</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 获取得到的背景图片地址: <span class="hljs-subst">{shade_image}</span>"</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 获取得到的滑块图片地址: <span class="hljs-subst">{cutout_image}</span>"</span>)<br>    <span class="hljs-keyword">return</span> iv, v_token, shade_image, cutout_image<br><br><br><span class="hljs-comment"># 计算得到滑动距离</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getDistance</span>(<span class="hljs-params">save_path=<span class="hljs-string">"2_temp_rsult.jpg"</span></span>) -&gt; (<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>):<br>    iv, v_token, shade_image, cutout_image = getVerifyParams()<br>    bg_image = requests.get(url=shade_image, cookies=cookies, headers=headers).content<br>    slice_image = requests.get(cutout_image, cookies=cookies, headers=headers).content<br>    det = DdddOcr(det=<span class="hljs-literal">False</span>, ocr=<span class="hljs-literal">False</span>, show_ad=<span class="hljs-literal">False</span>)<br>    res = det.slide_match(slice_image, bg_image, simple_target=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">if</span> save_path <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># 将背景图片的二进制数据加载为Pillow Image对象</span><br>        left, top, right, bottom = res[<span class="hljs-string">'target'</span>][<span class="hljs-number">0</span>], res[<span class="hljs-string">'target'</span>][<span class="hljs-number">1</span>], res[<span class="hljs-string">'target'</span>][<span class="hljs-number">2</span>], res[<span class="hljs-string">'target'</span>][<span class="hljs-number">3</span>]<br>        bg_image = Image.<span class="hljs-built_in">open</span>(io.BytesIO(bg_image))<br>        draw = ImageDraw.Draw(bg_image)<br>        draw.rectangle([left, top, right, bottom], outline=<span class="hljs-string">"red"</span>, width=<span class="hljs-number">2</span>)<br>        bg_image.save(<span class="hljs-string">"2_temp_rsult.jpg"</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 已保存标注后的图片到: <span class="hljs-subst">{save_path}</span>"</span>)<br>        <span class="hljs-keyword">return</span> iv, v_token, res[<span class="hljs-string">"target"</span>][<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> res<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">passVerify</span>():<br>    iv, v_token, distance = getDistance()<br>    <span class="hljs-comment"># 模拟滑动轨迹等参数（举例）</span><br>    params = {<br>        <span class="hljs-string">"callback"</span>: <span class="hljs-string">"cx_captcha_function"</span>,<br>        <span class="hljs-string">"captchaId"</span>: captchaId,<br>        <span class="hljs-string">"type"</span>: <span class="hljs-string">"slide"</span>,<br>        <span class="hljs-string">"token"</span>: v_token,<br>        <span class="hljs-string">"textClickArr"</span>: <span class="hljs-string">'[{"x":'</span> + <span class="hljs-built_in">str</span>(distance) + <span class="hljs-string">'}]'</span>,<br>        <span class="hljs-string">"coordinate"</span>: <span class="hljs-string">'[]'</span>,<br>        <span class="hljs-string">"runEnv"</span>: <span class="hljs-string">"10"</span>,<br>        <span class="hljs-string">"version"</span>: <span class="hljs-string">"1.1.20"</span>,<br>        <span class="hljs-string">"t"</span>: <span class="hljs-string">"a"</span>,<br>        <span class="hljs-string">"iv"</span>: iv,<br>        <span class="hljs-string">"_"</span>: now_time<br>    }<br>    response = requests.get(<br>        url=<span class="hljs-string">"https://captcha.chaoxing.com/captcha/check/verification/result"</span>,<br>        cookies=cookies,<br>        headers=headers,<br>        params=params<br>    ).text<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f"[+] 验证结果: <span class="hljs-subst">{response}</span>"</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:<br>    headers = {<br>        <span class="hljs-string">"User-Agent"</span>: <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "</span><br>                      <span class="hljs-string">"Chrome/138.0.0.0"</span><br>                      <span class="hljs-string">"Safari/537.36"</span>,<br>        <span class="hljs-string">"Referer"</span>: <span class="hljs-string">"https://v8.chaoxing.com/"</span>,<br>        <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"text/plain;charset=UTF-8"</span>,<br>        <span class="hljs-string">"Sec-Ch-Ua-Platform"</span>: <span class="hljs-string">"Windows"</span>,<br>        <span class="hljs-string">"Accept"</span>: <span class="hljs-string">"*/*"</span><br>    }<br>    <span class="hljs-comment"># 获取服务器返回的 cookie（字典格式）</span><br>    cookies = requests.get(url=<span class="hljs-string">"https://v8.chaoxing.com/"</span>, headers=headers).cookies.get_dict()<br>    captchaId = <span class="hljs-string">"qDG21VMg9qS5Rcok4cfpnHGnpf5LhcAv"</span><br>    now_time = getTimestamp()<br>    passVerify()<br></code></pre></td></tr></table></figure>
+
+<img src="/2025/06/30/%E6%9F%90%E7%BD%91%E7%AB%99%E7%99%BB%E9%99%86%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-2/image-20250701203307879.png" srcset="/img/loading.gif" lazyload class="">
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JS%E9%80%86%E5%90%91/" class="category-chain-item">JS逆向</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JS%E9%80%86%E5%90%91/" class="print-no-link">#JS逆向</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>某网站登陆滑块逆向-2</div>
+      <div>https://3xsh0re.github.io/2025/06/30/某网站登陆滑块逆向-2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>3xsh0re</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/27/%E6%9F%90%E7%BD%91%E7%AB%99%E6%BB%91%E5%9D%97%E9%80%86%E5%90%91-1/" title="某网站滑块逆向-1">
+                        <span class="hidden-mobile">某网站滑块逆向-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"3xsh0re/Blog_Comment","repo-id":"R_kgDOMZnVkQ","category":"Announcements","category-id":"DIC_kwDOMZnVkc4ChFCz","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a target="_blank" rel="nofollow noopener"><span>博客由Hexo驱动~</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
