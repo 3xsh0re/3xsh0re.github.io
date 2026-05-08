@@ -1,21 +1,11 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=zh>
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="3xsh0re">
-  <meta name="keywords" content="">
-  
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="闲来无事，花了1h水了两道MISC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="长城杯初赛MISC">
@@ -33,94 +23,49 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145754345.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908150018532.png">
 <meta property="article:published_time" content="2024-09-08T07:31:16.000Z">
-<meta property="article:modified_time" content="2024-09-08T07:13:42.917Z">
+<meta property="article:modified_time" content="2026-05-08T07:32:36.184Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="CTF">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png">
-  
-  
-  
-  <title>长城杯初赛MISC - 3xsh0re&#39;Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","app_key":"GoMWtP1iHSKKpwsbzBlVqJ7P","server_url":"https://oynuspoo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-
-  
-    <!-- Google tag (gtag.js) -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '');
-        });
-      }
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
     
-  
+    
+      
+        
+          <link rel="shortcut icon" href="/images/logo2.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/logo2.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo2.png">
+        
+      
+    
+    <!-- title -->
+    <title>长城杯初赛MISC</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
+    <!-- Umami Analytics -->
 
-  
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
@@ -235,707 +180,288 @@ mjx-container[display="true"] + br {
 }
 </style></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&text=长城杯初赛MISC"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&is_video=false&description=长城杯初赛MISC"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=长城杯初赛MISC&body=Check out this article: https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&name=长城杯初赛MISC&description=&lt;p&gt;闲来无事，花了1h水了两道MISC&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&t=长城杯初赛MISC"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8E%A2%E8%B8%AA-%E6%B5%81%E9%87%8F%E8%A7%A3%E5%AF%86"><span class="toc-number">1.</span> <span class="toc-text">漏洞探踪&amp;流量解密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E6%AE%B5"><span class="toc-number">1.1.</span> <span class="toc-text">一阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">二阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">最安全的加密方式</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        长城杯初赛MISC
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>3xsh0re&#39;s Blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">3xsh0re</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-09-08T07:31:16.000Z" class="dt-published" itemprop="datePublished">2024-09-08</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="长城杯初赛MISC"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-08 15:31" pubdate>
-          2024年9月8日 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          3.3k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          21 分钟
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="leancloud-page-views"></span> 次
-        </span>
-        
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">长城杯初赛MISC</h1>
-            
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：2024年9月8日 下午
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <p>闲来无事，花了1h水了两道MISC</p>
+  <div class="content e-content" itemprop="articleBody">
+    <p>闲来无事，花了1h水了两道MISC</p>
 <span id="more"></span>
 
 <h2 id="漏洞探踪-流量解密"><a href="#漏洞探踪-流量解密" class="headerlink" title="漏洞探踪&流量解密"></a>漏洞探踪&amp;流量解密</h2><h3 id="一阶段"><a href="#一阶段" class="headerlink" title="一阶段"></a>一阶段</h3><p>在流量包中一共有3个IP：</p>
 <p>192.168.30.132；192.168.30.128；192.168.40.141</p>
 <p>明显的是141是web服务的IP</p>
 <p><code>http.response.code==200</code>过滤包，追踪HTTP流，发现存在webshell上传：</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144511444.png"></p>
 <p>使用文件包含实现的getShell</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144626790.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908144626790.png"></p>
 <p>但攻击的发起方是128的IP，却对不上密码；132的IP仅存在目录扫描的行为，也对不上密码。说明还有其他的IP。</p>
 <p>去OA的访问日志找：先把128和132的IP替换为空白，发现存在流量包中没有的IP：233、234、235，全部试了，发现密码是234</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145107227.png" srcset="/img/loading.gif" lazyload class="">
-
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145130507.png" srcset="/img/loading.gif" lazyload class="">
-
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">192.168.30.234</span> - - <span class="hljs-string">[04/Sep/2024:22:53:38 +0800]</span> <span class="hljs-string">"<span class="hljs-keyword">POST</span> /ispirit/im/upload.php HTTP/1.1"</span> <span class="hljs-number">200</span> <span class="hljs-number">104</span> <span class="hljs-string">"-"</span> <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296"</span> <span class="hljs-string">"127.0.0.1"</span><br><span class="hljs-number">192.168.30.234</span> - - <span class="hljs-string">[04/Sep/2024:22:54:38 +0800]</span> <span class="hljs-string">"<span class="hljs-keyword">POST</span> /ispirit/interface/gateway.php HTTP/1.1"</span> <span class="hljs-number">200</span> <span class="hljs-number">39</span> <span class="hljs-string">"-"</span> <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296"</span> <span class="hljs-string">"127.0.0.1"</span><br></code></pre></td></tr></table></figure>
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145107227.png"></p>
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145130507.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.30.234 - - [04/Sep/2024:22:53:38 +0800] "POST /ispirit/im/upload.php HTTP/1.1" 200 104 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296" "127.0.0.1"</span><br><span class="line">192.168.30.234 - - [04/Sep/2024:22:54:38 +0800] "POST /ispirit/interface/gateway.php HTTP/1.1" 200 39 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Outlook/16.0.13929.20296" "127.0.0.1"</span><br></pre></td></tr></table></figure>
 
 <h3 id="二阶段"><a href="#二阶段" class="headerlink" title="二阶段"></a>二阶段</h3><p><code>http</code>过滤</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145359904.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145359904.png"></p>
 <p>追踪<code>/key</code>和<code>raw</code>，找到</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/key bdb8e21eace81d5fd21ca445ccb35071<br>/raw bdb8e21eace81d5fd21ca445ccb350715a76f6751576dbe1af49328aa1d2d2bea16ef62afa3a7c616dbdb8e21eace81d5fd21ca445ccb35071<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/key bdb8e21eace81d5fd21ca445ccb35071</span><br><span class="line">/raw bdb8e21eace81d5fd21ca445ccb350715a76f6751576dbe1af49328aa1d2d2bea16ef62afa3a7c616dbdb8e21eace81d5fd21ca445ccb35071</span><br></pre></td></tr></table></figure>
 
 <p>找到提示：RC4解密</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145558396.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145558396.png"></p>
 <p>得到<code>flag:{welcome to beijing}</code></p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145622231.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145622231.png"></p>
 <h2 id="最安全的加密方式"><a href="#最安全的加密方式" class="headerlink" title="最安全的加密方式"></a>最安全的加密方式</h2><p><code>http</code>过滤，追踪流：发现上传了压缩包</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145754345.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908145754345.png"></p>
 <p>dump出来为：</p>
 <p><code>526172211a070100f3e182eb0b0105070006010180808000304975875502033cc00404a409200e4bdc6b80030008666c61672e747874300100030f20aa2d8a1090a74b0805879d959b353a374086eb57dd537cb6f521a5a480c716e3082ebc4d37a7f19b6a9ec60a03026948f03614dfd8014b71dba6d90e06233df22ec419e4f92b03d420d1bdb94ddb1d9d5bee64e8ff0db02e6e088026d7090ede5c8322965d931c698c7d8609250881833b36ab727fe2977bb2083a3c9a609807cc5abaa1ee9bacab805acf585fa8e4787898ba61cdc9b09f07b6591681802a7329d8a1fb78279db017816c29c53e8808ca2262fe511ef3b7a6d5024ef27170d3242a670da7e0c54273a6710153e7b91a2569036d8ba46750feee6240c21e2868ac203b6ed4a6936ae34dd06bc701141d31c20df791594dc2373dab700a869bc5bb7f1a50c2c0dde5508d2aea3f50f188bef6c0d46c6f22a662ecef8cd81dc405f29117c1dd7cabeee6e78fd29b461c59a63d693c8c72799f505d542d1e350d30679d6fc79476c92ab12096bc863c0d367a014118e96734d712b2544639120228d0c10ffe3deba07fa31ba870342aec44f09afb4b3cddc762fafbecdf0c1e31bc9cb63d4f224b6d477e3056e34ff4365b6d66f2b49ff009d424e0423e0c36ff3eff94726299bb2c22bd5cb4a05f92b6bb761ae1ea4ecd4c24528bb4f064dfc8fcf021364cec02c5c93a7d31828d04cea7cf83e64a9fa4a8f1ba6f755f737725330e4d5247a22374914ab6bea70db52a279a443d194cbfb1e0e7fc339c7a6bc4fc9afb7812dd00dc0623db4cb18e60b72c3ce2969100a9723695de1017062e539448a1d2104beb43969266ef860fe9c95dd9667b90dd81a11f42d549592e32e1ae003f1ae7267c4a66d5b3789776037f4baf82de057a71076c99fad1a309b4ae5301c76fb4b7b851a46b903e7c500ce395607b1cd9da8e1d77565103050400</code></p>
 <p>转换为.rar：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'rar.txt'</span>, <span class="hljs-string">'r'</span>) <span class="hljs-keyword">as</span> file:<br>    hex_string = file.read().strip()<br><span class="hljs-comment"># 将每两个字符表示的16进制转换为字节</span><br>byte_data = <span class="hljs-built_in">bytes</span>.fromhex(hex_string)<br><span class="hljs-comment"># 将字节写入新的二进制文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'output.rar'</span>, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> file:<br>    file.write(byte_data)<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'rar.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> file:</span><br><span class="line">    hex_string = file.read().strip()</span><br><span class="line"><span class="comment"># 将每两个字符表示的16进制转换为字节</span></span><br><span class="line">byte_data = <span class="built_in">bytes</span>.fromhex(hex_string)</span><br><span class="line"><span class="comment"># 将字节写入新的二进制文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'output.rar'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> file:</span><br><span class="line">    file.write(byte_data)</span><br></pre></td></tr></table></figure>
 
 <p>解压缩需要密码：25ming@</p>
-<img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908150018532.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/image-20240908150018532.png"></p>
 <p>得到一个flag.txt，发现是MD5压缩字符，爆破得到：<code>flag{The_m0st_2ecUre_eNcrYption!!!}</code></p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> hashlib<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">md5_hash</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(s.encode()).hexdigest()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_md5_table</span>(<span class="hljs-params">char_set</span>):<br>    md5_table = {}<br>    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> char_set:<br>        md5_value = md5_hash(char)<br>        md5_table[md5_value] = char  <span class="hljs-comment"># 将每个字符的MD5值存入字典</span><br>    <span class="hljs-keyword">return</span> md5_table<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">crack_md5_file</span>(<span class="hljs-params">input_file, md5_table</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_file, <span class="hljs-string">'r'</span>, encoding=<span class="hljs-string">'utf-8'</span>) <span class="hljs-keyword">as</span> infile:<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> infile:<br>            hash_value = line.strip()  <span class="hljs-comment"># 读取每行的MD5哈希值并去掉换行符</span><br>            <span class="hljs-comment"># 在字典中查找MD5值</span><br>            <span class="hljs-keyword">if</span> hash_value <span class="hljs-keyword">in</span> md5_table:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f"<span class="hljs-subst">{md5_table[hash_value]}</span>"</span>,end=<span class="hljs-string">""</span>)<br><span class="hljs-comment"># 字符集：0-9, a-z, A-Z, 和特殊字符!{}_</span><br>char_set = <span class="hljs-string">'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!{}_'</span><br>crack_md5_file(<span class="hljs-string">"flag.txt"</span>, generate_md5_table(char_set))<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">md5_hash</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(s.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_md5_table</span>(<span class="params">char_set</span>):</span><br><span class="line">    md5_table = {}</span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> char_set:</span><br><span class="line">        md5_value = md5_hash(char)</span><br><span class="line">        md5_table[md5_value] = char  <span class="comment"># 将每个字符的MD5值存入字典</span></span><br><span class="line">    <span class="keyword">return</span> md5_table</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">crack_md5_file</span>(<span class="params">input_file, md5_table</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(input_file, <span class="string">'r'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> infile:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> infile:</span><br><span class="line">            hash_value = line.strip()  <span class="comment"># 读取每行的MD5哈希值并去掉换行符</span></span><br><span class="line">            <span class="comment"># 在字典中查找MD5值</span></span><br><span class="line">            <span class="keyword">if</span> hash_value <span class="keyword">in</span> md5_table:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"<span class="subst">{md5_table[hash_value]}</span>"</span>,end=<span class="string">""</span>)</span><br><span class="line"><span class="comment"># 字符集：0-9, a-z, A-Z, 和特殊字符!{}_</span></span><br><span class="line">char_set = <span class="string">'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!{}_'</span></span><br><span class="line">crack_md5_file(<span class="string">"flag.txt"</span>, generate_md5_table(char_set))</span><br></pre></td></tr></table></figure>
 
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>长城杯初赛MISC</div>
-      <div>https://3xsh0re.github.io/2024/09/08/长城杯初赛MISC/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>3xsh0re</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年9月8日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/09/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BB%8EFastAdmin%E5%88%B0GetShell/" title="记一次从FastAdmin到GetShell">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记一次从FastAdmin到GetShell</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/09/04/URLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="URLDNS链分析">
-                        <span class="hidden-mobile">URLDNS链分析</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-    <div id="giscus" class="giscus"></div>
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#giscus', function() {
-        var options = {"repo":"3xsh0re/Blog_Comment","repo-id":"R_kgDOMZnVkQ","category":"Announcements","category-id":"DIC_kwDOMZnVkc4ChFCz","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
-        var attributes = {};
-        for (let option in options) {
-          if (!option.startsWith('theme-')) {
-            var key = option.startsWith('data-') ? option : 'data-' + option;
-            attributes[key] = options[option];
-          }
-        }
-        var light = 'light';
-        var dark = 'dark';
-        window.GiscusThemeLight = light;
-        window.GiscusThemeDark = dark;
-        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
-        for (let attribute in attributes) {
-          var value = attributes[attribute];
-          if (value === undefined || value === null || value === '') {
-            delete attributes[attribute];
-          }
-        }
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://giscus.app/client.js');
-        s.setAttribute('crossorigin', 'anonymous');
-        for (let attribute in attributes) {
-          s.setAttribute(attribute, attributes[attribute]);
-        }
-        var ss = document.getElementsByTagName('script');
-        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
-        e.parentNode.insertBefore(s, e.nextSibling);
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8E%A2%E8%B8%AA-%E6%B5%81%E9%87%8F%E8%A7%A3%E5%AF%86"><span class="toc-number">1.</span> <span class="toc-text">漏洞探踪&amp;流量解密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E6%AE%B5"><span class="toc-number">1.1.</span> <span class="toc-text">一阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">二阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">最安全的加密方式</span></a></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&text=长城杯初赛MISC"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&is_video=false&description=长城杯初赛MISC"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=长城杯初赛MISC&body=Check out this article: https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&title=长城杯初赛MISC"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&name=长城杯初赛MISC&description=&lt;p&gt;闲来无事，花了1h水了两道MISC&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2024/09/08/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%88%9D%E8%B5%9BMISC/&t=长城杯初赛MISC"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2016-2026
+    3xsh0re
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a target="_blank" rel="nofollow noopener"><span>博客由Hexo驱动~</span></a> 
     </div>
-  
-  
-    <div class="statistics">
-  
-  
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
 
   
-    
-      <span id="leancloud-site-pv-container" style="display: none">
-        总访问量 
-        <span id="leancloud-site-pv"></span>
-         次
-      </span>
-    
-    
-      <span id="leancloud-site-uv-container" style="display: none">
-        总访客数 
-        <span id="leancloud-site-uv"></span>
-         人
-      </span>
-    
-    
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
-</div>
-
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script defer src="/js/leancloud.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>

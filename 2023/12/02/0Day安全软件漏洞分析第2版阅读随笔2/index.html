@@ -1,21 +1,11 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=zh>
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="3xsh0re">
-  <meta name="keywords" content="">
-  
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="0Day安全软件漏洞分析第2版阅读随笔2程序中所使用的缓冲区可以是堆区、栈区和存放静态变量的数据区。本章主要介绍在系统栈中发生溢出的情形。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0Day安全软件漏洞分析第2版阅读随笔2">
@@ -50,95 +40,50 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-23-02.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-24-55.png">
 <meta property="article:published_time" content="2023-12-02T14:41:54.000Z">
-<meta property="article:modified_time" content="2024-11-06T14:43:33.758Z">
+<meta property="article:modified_time" content="2026-05-08T07:33:48.337Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="软件与系统安全">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-10-30_10-13-07.png">
-  
-  
-  
-  <title>0Day安全软件漏洞分析第2版阅读随笔2 - 3xsh0re&#39;Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"3xsh0re.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"OYnUsPOOxWtnPXQH1Dxz9wjM-gzGzoHsz","app_key":"GoMWtP1iHSKKpwsbzBlVqJ7P","server_url":"https://oynuspoo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-
-  
-    <!-- Google tag (gtag.js) -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '');
-        });
-      }
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
     
-  
+    
+      
+        
+          <link rel="shortcut icon" href="/images/logo2.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/logo2.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo2.png">
+        
+      
+    
+    <!-- title -->
+    <title>0Day安全软件漏洞分析第2版阅读随笔2</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
+    <!-- Umami Analytics -->
 
-  
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
@@ -253,224 +198,114 @@ mjx-container[display="true"] + br {
 }
 </style></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2023/12/09/HTTPS%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%97%E8%AE%A4%E8%AF%81%E5%8E%9F%E7%90%86/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/11/13/CTF-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-WEB-WP/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&text=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&is_video=false&description=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=0Day安全软件漏洞分析第2版阅读随笔2&body=Check out this article: https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&name=0Day安全软件漏洞分析第2版阅读随笔2&description=&lt;h1 id=&#34;0Day安全软件漏洞分析第2版阅读随笔2&#34;&gt;&lt;a href=&#34;#0Day安全软件漏洞分析第2版阅读随笔2&#34; class=&#34;headerlink&#34; title=&#34;0Day安全软件漏洞分析第2版阅读随笔2&#34;&gt;&lt;/a&gt;0Day安全软件漏洞分析第2版阅读随笔2&lt;/h1&gt;&lt;p&gt;程序中所使用的缓冲区可以是堆区、栈区和存放静态变量的数据区。本章主要介绍在系统栈中发生溢出的情形。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&t=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942"><span class="toc-number">1.</span> <span class="toc-text">0Day安全软件漏洞分析第2版阅读随笔2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.1.</span> <span class="toc-text">第二章-栈溢出原理与实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A0%88%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">系统栈的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E5%AD%98"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">操作系统的内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A0%88%E3%80%81%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">系统栈、函数栈帧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%B4%E7%95%8C%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">修改临界变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me2"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">crack_me2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">控制程序执行的流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me3"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">crack_me3</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BC%93%E5%86%B2%E5%8C%BA%E6%A4%8D%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.4.</span> <span class="toc-text">在缓冲区植入代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me4"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">crack_me4</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        0Day安全软件漏洞分析第2版阅读随笔2
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>3xsh0re&#39;s Blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">3xsh0re</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-12-02T14:41:54.000Z" class="dt-published" itemprop="datePublished">2023-12-02</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a>, <a class="p-category" href="/tags/%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" rel="tag">软件与系统安全</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/an1.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="0Day安全软件漏洞分析第2版阅读随笔2"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-02 22:41" pubdate>
-          2023年12月2日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          5.5k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          35 分钟
-        
-      </span>
-    
-
-    
-    
-      
-        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="leancloud-page-views"></span> 次
-        </span>
-        
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">0Day安全软件漏洞分析第2版阅读随笔2</h1>
-            
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：2024年11月6日 晚上
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="0Day安全软件漏洞分析第2版阅读随笔2"><a href="#0Day安全软件漏洞分析第2版阅读随笔2" class="headerlink" title="0Day安全软件漏洞分析第2版阅读随笔2"></a>0Day安全软件漏洞分析第2版阅读随笔2</h1><p>程序中所使用的缓冲区可以是堆区、栈区和存放静态变量的数据区。本章主要介绍在系统栈中发生溢出的情形。</p>
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="0Day安全软件漏洞分析第2版阅读随笔2"><a href="#0Day安全软件漏洞分析第2版阅读随笔2" class="headerlink" title="0Day安全软件漏洞分析第2版阅读随笔2"></a>0Day安全软件漏洞分析第2版阅读随笔2</h1><p>程序中所使用的缓冲区可以是堆区、栈区和存放静态变量的数据区。本章主要介绍在系统栈中发生溢出的情形。</p>
 <span id="more"></span>
 
 <h2 id="第二章-栈溢出原理与实践"><a href="#第二章-栈溢出原理与实践" class="headerlink" title="第二章-栈溢出原理与实践"></a>第二章-栈溢出原理与实践</h2><h3 id="系统栈的工作原理"><a href="#系统栈的工作原理" class="headerlink" title="系统栈的工作原理"></a>系统栈的工作原理</h3><h4 id="操作系统的内存"><a href="#操作系统的内存" class="headerlink" title="操作系统的内存"></a>操作系统的内存</h4><p>进程使用内存可以按照功能可以非常简单地分为以下4个部分（实际上的内存远没有这么简单）：</p>
@@ -487,8 +322,7 @@ mjx-container[display="true"] + br {
 <h4 id="系统栈、函数栈帧"><a href="#系统栈、函数栈帧" class="headerlink" title="系统栈、函数栈帧"></a>系统栈、函数栈帧</h4><p>​	首先栈是一种数据结构，两种操作，PUSH和POP，存在栈顶TOP和栈底BASE，一般来说，TOP是动态的，BASE是静态的。</p>
 <p>​	内存中的栈区实际上就是系统栈，是系统实现的一种管理函数调用的数据结构，由系统自动维护。</p>
 <p>​	不同的操作系统在函数调用的规定上是不同的，如果要明确使用某一种调用约定，需要在函数前加上调用约定的声明。默认情况下，采用<code>_stdcall</code>这种方式。</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-10-30_10-13-07.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-10-30_10-13-07.png"></p>
 <p>​	而函数的调用就是通过系统栈的来实现的，当一个新的函数被调用时，会为其开辟一个新的栈帧，OS会进行以下操作：</p>
 <ol>
 <li>按规定顺序压入函数参数</li>
@@ -499,7 +333,7 @@ mjx-container[display="true"] + br {
 <li>ESP=ESP-所需空间</li>
 </ol>
 <p>汇编伪代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs assembly">PUSH arg3;<br>PUSH arg2;<br>PUSH arg1;<br>CALL func; //此时压入返回地址，代码区转换<br>PUSH EBP;<br>MOV  EBP,ESP;<br>SUB  ESP,EBX;//假设EBX为需要的内存大小,静态变量使用内存大小的确定在编译器编译时就已经确定了<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUSH arg3;</span><br><span class="line">PUSH arg2;</span><br><span class="line">PUSH arg1;</span><br><span class="line">CALL func; //此时压入返回地址，代码区转换</span><br><span class="line">PUSH EBP;</span><br><span class="line">MOV  EBP,ESP;</span><br><span class="line">SUB  ESP,EBX;//假设EBX为需要的内存大小,静态变量使用内存大小的确定在编译器编译时就已经确定了</span><br></pre></td></tr></table></figure>
 
 <p>当函数调用完成时，</p>
 <ol>
@@ -509,52 +343,40 @@ mjx-container[display="true"] + br {
 <li>函数返回值addr弹回，EIP=addr</li>
 </ol>
 <p>汇编伪代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">ADD  ESP,EBX;<br>MOV  EBP,(EBP);<br>POP  EBP;<br>RETN; <br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ADD  ESP,EBX;</span><br><span class="line">MOV  EBP,(EBP);</span><br><span class="line">POP  EBP;</span><br><span class="line">RETN; </span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://gitbook.coder.cat/function-call-principle/content/storage-of-local-variables.html">关于局部变量的存储</a>，这里书里没有讲，寄存器和内存都可以用来存放<code>函数执行时</code>所需的<code>数据</code>。寄存器的存取速度比内存快很多，所以通常会优先把数据存入寄存器中。但是由于寄存器数量有限，因此当寄存器不够用时会将数据存放在栈内存中。</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-10-30_11-14-28.png" srcset="/img/loading.gif" lazyload class="">
-
-
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-10-30_11-14-28.png"></p>
 <h3 id="修改临界变量"><a href="#修改临界变量" class="headerlink" title="修改临界变量"></a>修改临界变量</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>在系统栈中存在某一种可能的情况，局部变量紧挨着排列，当局部变量中存在数组之类的缓冲区时，并且在赋值时数组可以发生越界，那么越界的数组元素可能破坏相邻变量的值，甚至当紧挨着<code>EBP</code>时，从而修改<code>EBP</code>、返回地址等等。</p>
 <h4 id="crack-me2"><a href="#crack-me2" class="headerlink" title="crack_me2"></a>crack_me2</h4><p>人为制造溢出：</p>
 <p>注意<code>buffer</code>的声明位置</p>
 <p>我们的目标是溢出到返回值，让其返回1</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PASSWORD <span class="hljs-string">"3xsh0re"</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> FLAG     <span class="hljs-string">"flag{stack_overflow_right?}"</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">verify_password</span> <span class="hljs-params">(<span class="hljs-type">char</span> *password)</span> <br>{ <br>    <span class="hljs-type">int</span> authenticated; <br>    <span class="hljs-type">char</span> buffer[<span class="hljs-number">8</span>];<span class="hljs-comment">// add local buffto be overflowed </span><br>    authenticated=<span class="hljs-built_in">strcmp</span>(password,PASSWORD); <br>    <span class="hljs-built_in">strcpy</span>(buffer,password);<span class="hljs-comment">//over flowed here! </span><br>    <span class="hljs-keyword">return</span> authenticated; <br>} <br>main() <br>{ <br>    <span class="hljs-type">int</span> valid_flag=<span class="hljs-number">0</span>; <br>    <span class="hljs-type">char</span> password[<span class="hljs-number">1024</span>]; <br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) <br>    { <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"please input password: "</span>); <br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,password); <br>        valid_flag = verify_password(password); <br>        <span class="hljs-keyword">if</span>(valid_flag) <br>        { <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"incorrect password!\n\n"</span>); <br>        } <br>   		<span class="hljs-keyword">else</span> <br>        { <br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Congratulation! You have got the flag:%s\n"</span>,FLAG); <br>            <span class="hljs-keyword">break</span>; <br>        } <br>    } <br>} <br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PASSWORD <span class="string">"3xsh0re"</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FLAG     <span class="string">"flag{stack_overflow_right?}"</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">verify_password</span> <span class="params">(<span class="type">char</span> *password)</span> </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> authenticated; </span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">8</span>];<span class="comment">// add local buffto be overflowed </span></span><br><span class="line">    authenticated=<span class="built_in">strcmp</span>(password,PASSWORD); </span><br><span class="line">    <span class="built_in">strcpy</span>(buffer,password);<span class="comment">//over flowed here! </span></span><br><span class="line">    <span class="keyword">return</span> authenticated; </span><br><span class="line">} </span><br><span class="line">main() </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> valid_flag=<span class="number">0</span>; </span><br><span class="line">    <span class="type">char</span> password[<span class="number">1024</span>]; </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) </span><br><span class="line">    { </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"please input password: "</span>); </span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,password); </span><br><span class="line">        valid_flag = verify_password(password); </span><br><span class="line">        <span class="keyword">if</span>(valid_flag) </span><br><span class="line">        { </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"incorrect password!\n\n"</span>); </span><br><span class="line">        } </span><br><span class="line">   		<span class="keyword">else</span> </span><br><span class="line">        { </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Congratulation! You have got the flag:%s\n"</span>,FLAG); </span><br><span class="line">            <span class="keyword">break</span>; </span><br><span class="line">        } </span><br><span class="line">    } </span><br><span class="line">} </span><br></pre></td></tr></table></figure>
 
 <p>此时笔者转去学习<code>x64dbg</code>了，不然用起来很不顺手🤣，如果需要了解简单的用法，见上一篇博客</p>
 <p>浅浅学习归来，</p>
 <p>首先将程序拖进<code>x64dbg</code>，然后寻找验证函数的位置，在此模块搜索字符串，然后定位到大致位置</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-30-13.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-30-13.png"></p>
 <p>分析一下：大概在读取输入之后，调用了地址<code>0000000000401550</code>处的函数，找到该处</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-32-16.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-32-16.png"></p>
 <p>挺近的，可以发现<code>push rbp</code>压入栈底，然后在call完<code>strcpy</code>函数后打下断点</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-34-18.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-34-18.png"></p>
 <p>那么我们先运行程序到输入密码处，然后输入密码，开始调试程序</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-01_21-22-37.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-01_21-22-37.png"></p>
 <p>进入断点，此时我们知道存在一个<code>strcpy</code>函数，那么之后会有一个返回值，在内存中找到返回值的地方，选中上断点的反汇编代码，然后在详细信息表格中双击将要写入eax寄存器的那个内存的地址，然后会在内存试图里显示，由于我这里输入的是<code>xxxxxxx</code>，所以值是1，当然不能通过验证</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-52-58.png" srcset="/img/loading.gif" lazyload class="">
-
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-58-52.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-52-58.png"></p>
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-58-52.png"></p>
 <p>如果我们输入8个<code>x</code>呢，可以发现，返回标志被溢出的换行符替换为0了，即可通过验证！</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-56-38.png" srcset="/img/loading.gif" lazyload class="">
-
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_16-00-03.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_15-56-38.png"></p>
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_16-00-03.png"></p>
 <p>至于为什么是8个<code>x</code>，其实很好理解，因为定义的是一个8个字符的数组哒！刚好最后一个截断字符溢出哒！</p>
 <p>刚好我们人为制造的字符数组和Auth相邻哒！</p>
 <p>但是你会意外的发现，如果输入字符串小于<code>3xsh0re</code>，即使输入8个字符也不能冲破验证，这是因为小于则<code>strcmp</code>函数的返回值为-1，那么就会导致Auth的值为0xFFFFFFFF，就算淹没了两个字节变为0xFFFFFF00也无济于事的🤣</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_16-17-24.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-11_16-17-24.png"></p>
 <p>当然笔者这里还有一个办法，想办法在输入中跟上7个截断字符，刚好淹没所有的Auth，当然这里在命令行里输入不太方便，然后笔者发现在之后的crack实验，我们通过文件读取的方式可以实现！😎</p>
 <h3 id="控制程序执行的流程"><a href="#控制程序执行的流程" class="headerlink" title="控制程序执行的流程"></a>控制程序执行的流程</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>​	我们通过上面的学习，已经知道利用栈溢出可以修改邻接变量，更通用、更强大的攻击通过缓冲区溢出改写的目标往往不是某一个变量，而是瞄准栈帧最下方的 EBP 和函数返回地址等栈帧状态值。</p>
 <h4 id="crack-me3"><a href="#crack-me3" class="headerlink" title="crack_me3"></a>crack_me3</h4><p>​	用键盘输入字符的 ASCII 表示范围有限，很多值（如 0x11、0x12 等符号）无法直接用键盘输入，所以我们把用于实验的代码稍作改动，将程序的输入由键盘改为从文件中读取字符串。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PASSWORD <span class="hljs-string">"3xsh0re"</span> </span><br><span class="hljs-type">int</span> <span class="hljs-title function_">verify_password</span> <span class="hljs-params">(<span class="hljs-type">char</span> *password)</span> <br>{ <br>    <span class="hljs-type">int</span> authenticated; <br>    <span class="hljs-type">char</span> buffer[<span class="hljs-number">8</span>]; <br>    authenticated=<span class="hljs-built_in">strcmp</span>(password,PASSWORD); <br>    <span class="hljs-built_in">strcpy</span>(buffer,password);<span class="hljs-comment">//over flowed here! </span><br>    <span class="hljs-keyword">return</span> authenticated; <br>} <br>main() <br>{ <br>    <span class="hljs-type">int</span> valid_flag=<span class="hljs-number">0</span>; <br>    <span class="hljs-type">char</span> password[<span class="hljs-number">1024</span>]; <br>    FILE * fp; <br>    <span class="hljs-keyword">if</span>(!(fp=fopen(<span class="hljs-string">"password.txt"</span>,<span class="hljs-string">"rw+"</span>))) <br>    { <br>    	<span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>); <br>    } <br>    <span class="hljs-built_in">fscanf</span>(fp,<span class="hljs-string">"%s"</span>,password); <br>    valid_flag = verify_password(password); <br>    <span class="hljs-keyword">if</span>(valid_flag) <br>    { <br>   		<span class="hljs-built_in">printf</span>(<span class="hljs-string">"incorrect password!\n"</span>); <br>    } <br>    <span class="hljs-keyword">else</span> <br>    { <br>    	<span class="hljs-built_in">printf</span>(<span class="hljs-string">"Congratulation! You have passed the verification!\n"</span>); <br>    } <br>    fclose(fp); <br>}<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PASSWORD <span class="string">"3xsh0re"</span> </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">verify_password</span> <span class="params">(<span class="type">char</span> *password)</span> </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> authenticated; </span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">8</span>]; </span><br><span class="line">    authenticated=<span class="built_in">strcmp</span>(password,PASSWORD); </span><br><span class="line">    <span class="built_in">strcpy</span>(buffer,password);<span class="comment">//over flowed here! </span></span><br><span class="line">    <span class="keyword">return</span> authenticated; </span><br><span class="line">} </span><br><span class="line">main() </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> valid_flag=<span class="number">0</span>; </span><br><span class="line">    <span class="type">char</span> password[<span class="number">1024</span>]; </span><br><span class="line">    FILE * fp; </span><br><span class="line">    <span class="keyword">if</span>(!(fp=fopen(<span class="string">"password.txt"</span>,<span class="string">"rw+"</span>))) </span><br><span class="line">    { </span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">0</span>); </span><br><span class="line">    } </span><br><span class="line">    <span class="built_in">fscanf</span>(fp,<span class="string">"%s"</span>,password); </span><br><span class="line">    valid_flag = verify_password(password); </span><br><span class="line">    <span class="keyword">if</span>(valid_flag) </span><br><span class="line">    { </span><br><span class="line">   		<span class="built_in">printf</span>(<span class="string">"incorrect password!\n"</span>); </span><br><span class="line">    } </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    { </span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"Congratulation! You have passed the verification!\n"</span>); </span><br><span class="line">    } </span><br><span class="line">    fclose(fp); </span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
 <p>将上面的代码编译为exe，然后在同级目录下创建password.txt文件。</p>
 <p>在动手之前，理清思路：</p>
@@ -563,499 +385,183 @@ mjx-container[display="true"] + br {
 <p>3.通过文件缓冲区溢出在返回地址处填上地址</p>
 <p>通过x64dbg打开之前的编译好的文件，找到验证通过的指令地址。可以通过右键查找用户模块字符串快速找到。</p>
 <p>可以得到地址为0x0000 0000 0040 161B，这里因为是在x86-64下，地址为64位，不同于书上是32位的。那么我们之后覆盖的返回值地址就是这里了😋</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_11-14-28.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_11-14-28.png"></p>
 <p>然后我们找到缓冲区的位置，首先在password.txt里输入“1234”，然后在通过调试在验证函数的下面这个地方打上断点：</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_18-11-03.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_18-11-03.png"></p>
 <p>然后在堆栈区找到我们的缓冲区地址：我们这里是0000 0000 0061 F9D0，可以发现其中填充的是“34333231”，正是我们的输入。</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_18-13-46.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_18-13-46.png"></p>
 <p>接下来就是制作我们的payload了，从上面的图可以发现，要淹没返回值需要5*4个无效字节加上构造的返回值地址，这里为什么是5个不是6个，因为对于双字数据，在内存中的存放按照从地址低到高这里也就是1234，而在作为数值时是从高到低的，这是由于调试器的原因会在堆栈区按数值显示，也就是对于00..061F9D0的偏移在栈中是7-&gt;0，所以是填充6个。</p>
 <p>使用winhex编辑txt文件的16进制，内容如下：</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-19-01.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-19-01.png"></p>
 <p>然后运行，成功！</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-21-12.png" srcset="/img/loading.gif" lazyload class="">
-
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-20-10.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-21-12.png"></p>
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-20-10.png"></p>
 <h3 id="在缓冲区植入代码"><a href="#在缓冲区植入代码" class="headerlink" title="在缓冲区植入代码"></a>在缓冲区植入代码</h3><h4 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h4><p>我们已经完成修改返回地址的壮举！那么我们为何不将返回地址改到我们自己的输入上呢，这样不就可以执行我们自己的代码了，那么我们的代码放哪，放缓冲区噻，之前填充的是无用的数值，填充指令不就可以了。</p>
 <h4 id="crack-me4"><a href="#crack-me4" class="headerlink" title="crack_me4"></a>crack_me4</h4><p>和实验3一样通过文件读取，不过改了缓冲区大小，加入了包含窗口调用dll。目的是在缓冲区填充弹窗的代码！</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;windows.h&gt;</span> <span class="hljs-comment">//包含user32.dll</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PASSWORD <span class="hljs-string">"3xsh0re"</span> </span><br><span class="hljs-type">int</span> <span class="hljs-title function_">verify_password</span> <span class="hljs-params">(<span class="hljs-type">char</span> *password)</span> <br>{ <br>    <span class="hljs-type">int</span> authenticated; <br>    <span class="hljs-type">char</span> buffer[<span class="hljs-number">44</span>]; <br>    authenticated=<span class="hljs-built_in">strcmp</span>(password,PASSWORD); <br>    <span class="hljs-built_in">strcpy</span>(buffer,password);<span class="hljs-comment">//over flowed here! </span><br>    <span class="hljs-keyword">return</span> authenticated; <br>} <br>main() <br>{ <br>    <span class="hljs-type">int</span> valid_flag=<span class="hljs-number">0</span>; <br>    <span class="hljs-type">char</span> password[<span class="hljs-number">1024</span>]; <br>    FILE * fp; <br>    LoadLibrary(<span class="hljs-string">"user32.dll"</span>);<span class="hljs-comment">//prepare for messagebox </span><br>    <span class="hljs-keyword">if</span>(!(fp=fopen(<span class="hljs-string">"password.txt"</span>,<span class="hljs-string">"rw+"</span>))) <br>    { <br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>); <br>    } <br>    <span class="hljs-built_in">fscanf</span>(fp,<span class="hljs-string">"%s"</span>,password); <br>    valid_flag = verify_password(password); <br>    <span class="hljs-keyword">if</span>(valid_flag) <br>    {<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"incorrect password!\n"</span>); <br>    } <br>    <span class="hljs-keyword">else</span> <br>    { <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Congratulation! You have passed the verification!\n"</span>); <br>    } <br>    fclose(fp); <br>}<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span> <span class="comment">//包含user32.dll</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PASSWORD <span class="string">"3xsh0re"</span> </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">verify_password</span> <span class="params">(<span class="type">char</span> *password)</span> </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> authenticated; </span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">44</span>]; </span><br><span class="line">    authenticated=<span class="built_in">strcmp</span>(password,PASSWORD); </span><br><span class="line">    <span class="built_in">strcpy</span>(buffer,password);<span class="comment">//over flowed here! </span></span><br><span class="line">    <span class="keyword">return</span> authenticated; </span><br><span class="line">} </span><br><span class="line">main() </span><br><span class="line">{ </span><br><span class="line">    <span class="type">int</span> valid_flag=<span class="number">0</span>; </span><br><span class="line">    <span class="type">char</span> password[<span class="number">1024</span>]; </span><br><span class="line">    FILE * fp; </span><br><span class="line">    LoadLibrary(<span class="string">"user32.dll"</span>);<span class="comment">//prepare for messagebox </span></span><br><span class="line">    <span class="keyword">if</span>(!(fp=fopen(<span class="string">"password.txt"</span>,<span class="string">"rw+"</span>))) </span><br><span class="line">    { </span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>); </span><br><span class="line">    } </span><br><span class="line">    <span class="built_in">fscanf</span>(fp,<span class="string">"%s"</span>,password); </span><br><span class="line">    valid_flag = verify_password(password); </span><br><span class="line">    <span class="keyword">if</span>(valid_flag) </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"incorrect password!\n"</span>); </span><br><span class="line">    } </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    { </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Congratulation! You have passed the verification!\n"</span>); </span><br><span class="line">    } </span><br><span class="line">    fclose(fp); </span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
 <p>和之前一样需要获得函数调用在内存中的返回返回到缓冲区的地址，打开x64dbg，开调！</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-56-32.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-27_22-56-32.png"></p>
 <p>根据之前的调试方法，我们可以找到缓冲区的地址：0000 0000 0061 F9B0，接下来就需要我们编写password.txt里的内容了，肯定是要淹没到返回地址的位置的，看看上面的堆栈信息，可以发现我们需要设置7*12345678+缓冲区地址。在Winhex里编辑如下：</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-29-16.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-29-16.png"></p>
 <p>调试一下，发现成功淹没</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-31-00.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-31-00.png"></p>
 <p>接下来就是编写我们植入的代码，我们需要定位到内存中MessageBox的地址，这里不沿用书的方法，我们直接在x64dbg中查看符号文件，搜索即可得到地址为：0x00007FFB294DA000</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-25-41.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-11-28_10-25-41.png"></p>
 <p>然后编写shellcode：这里笔者花了大量的时间来写shellcode，</p>
 <p><strong>第一个问题是一开始没有调高栈顶，也就是没有对rsp进行修改，导致运行时新入栈的值淹没了我的shellcode，所以调高了栈顶</strong></p>
 <p><strong>第二个问题是发现无法在堆栈中执行命令，尝试在系统中关闭了DEP，但是还是不行，然后在调试器中，右键转到内存，然后右键该区域，内存权限，修改为可执行权限即可</strong></p>
 <p><strong>第三个问题是发现64位的地址中会有0x00，不可避免，选择使用逻辑移位的方式构造跳转地址。</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs assembly">SUB 	rsp,64;调高栈顶，防止栈帧破坏shellcode<br>XOR		ebx,ebx;得0<br>PUSH	ebx<br>MOV 	rax,0x3378736830726521;!er0hsx3<br>PUSH	rax<br>MOV		rax,rsp;将字符串指针给rax<br>PUSH	ebx;压入函数参数<br>PUSH	rax<br>PUSH	rax<br>PUSH	ebx<br>MOV		rax,0x7FFB294DA0;防止0x00被截断，使用移位的方式构造函数地址<br>SHL		rax,24<br>SHR		rax,16<br>CALL	rax;call MessageBoxA<br>ADD		rsp,64;回收栈顶<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SUB 	rsp,64;调高栈顶，防止栈帧破坏shellcode</span><br><span class="line">XOR		ebx,ebx;得0</span><br><span class="line">PUSH	ebx</span><br><span class="line">MOV 	rax,0x3378736830726521;!er0hsx3</span><br><span class="line">PUSH	rax</span><br><span class="line">MOV		rax,rsp;将字符串指针给rax</span><br><span class="line">PUSH	ebx;压入函数参数</span><br><span class="line">PUSH	rax</span><br><span class="line">PUSH	rax</span><br><span class="line">PUSH	ebx</span><br><span class="line">MOV		rax,0x7FFB294DA0;防止0x00被截断，使用移位的方式构造函数地址</span><br><span class="line">SHL		rax,24</span><br><span class="line">SHR		rax,16</span><br><span class="line">CALL	rax;call MessageBoxA</span><br><span class="line">ADD		rsp,64;回收栈顶</span><br></pre></td></tr></table></figure>
 
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-06-05.png" srcset="/img/loading.gif" lazyload class="">
-
-<p>·<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-21-16.png" srcset="/img/loading.gif" lazyload class=""></p>
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-06-05.png"></p>
+<p>·<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-21-16.png"></p>
 <p>右键修改可执行权限</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-22-12.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-22-12.png"></p>
 <p>全选然后设置权限</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-23-02.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-23-02.png"></p>
 <p>发现已经执行到MessageBoxA函数处😁：</p>
-<img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-24-55.png" srcset="/img/loading.gif" lazyload class="">
-
+<p><img src="/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/Snipaste_2023-12-01_21-24-55.png"></p>
 <p>最后一个问题没有解决！为什么不弹窗！为什么！</p>
 <p>第二章就结束了，虽然最后有个小遗憾，但是笔者已经花了大量的时间动手去完成任务，并且效果还不错，所以就不纠结于弹窗了哈哈😀</p>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
-      
-        <a href="/tags/%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" class="print-no-link">#软件与系统安全</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>0Day安全软件漏洞分析第2版阅读随笔2</div>
-      <div>https://3xsh0re.github.io/2023/12/02/0Day安全软件漏洞分析第2版阅读随笔2/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>3xsh0re</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2023年12月2日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2023/12/09/HTTPS%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%97%E8%AE%A4%E8%AF%81%E5%8E%9F%E7%90%86/" title="HTTPS中的数字认证原理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">HTTPS中的数字认证原理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2023/11/13/CTF-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-WEB-WP/" title="CTF-攻防世界-WEB-WP">
-                        <span class="hidden-mobile">CTF-攻防世界-WEB-WP</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-    <div id="giscus" class="giscus"></div>
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#giscus', function() {
-        var options = {"repo":"3xsh0re/Blog_Comment","repo-id":"R_kgDOMZnVkQ","category":"Announcements","category-id":"DIC_kwDOMZnVkc4ChFCz","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
-        var attributes = {};
-        for (let option in options) {
-          if (!option.startsWith('theme-')) {
-            var key = option.startsWith('data-') ? option : 'data-' + option;
-            attributes[key] = options[option];
-          }
-        }
-        var light = 'light';
-        var dark = 'dark';
-        window.GiscusThemeLight = light;
-        window.GiscusThemeDark = dark;
-        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
-        for (let attribute in attributes) {
-          var value = attributes[attribute];
-          if (value === undefined || value === null || value === '') {
-            delete attributes[attribute];
-          }
-        }
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://giscus.app/client.js');
-        s.setAttribute('crossorigin', 'anonymous');
-        for (let attribute in attributes) {
-          s.setAttribute(attribute, attributes[attribute]);
-        }
-        var ss = document.getElementsByTagName('script');
-        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
-        e.parentNode.insertBefore(s, e.nextSibling);
-      });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942"><span class="toc-number">1.</span> <span class="toc-text">0Day安全软件漏洞分析第2版阅读随笔2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.1.</span> <span class="toc-text">第二章-栈溢出原理与实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A0%88%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">系统栈的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E5%AD%98"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">操作系统的内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%A0%88%E3%80%81%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">系统栈、函数栈帧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%B4%E7%95%8C%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">修改临界变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me2"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">crack_me2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">控制程序执行的流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me3"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">crack_me3</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BC%93%E5%86%B2%E5%8C%BA%E6%A4%8D%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.4.</span> <span class="toc-text">在缓冲区植入代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#crack-me4"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">crack_me4</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&text=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&is_video=false&description=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=0Day安全软件漏洞分析第2版阅读随笔2&body=Check out this article: https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&title=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&name=0Day安全软件漏洞分析第2版阅读随笔2&description=&lt;h1 id=&#34;0Day安全软件漏洞分析第2版阅读随笔2&#34;&gt;&lt;a href=&#34;#0Day安全软件漏洞分析第2版阅读随笔2&#34; class=&#34;headerlink&#34; title=&#34;0Day安全软件漏洞分析第2版阅读随笔2&#34;&gt;&lt;/a&gt;0Day安全软件漏洞分析第2版阅读随笔2&lt;/h1&gt;&lt;p&gt;程序中所使用的缓冲区可以是堆区、栈区和存放静态变量的数据区。本章主要介绍在系统栈中发生溢出的情形。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2023/12/02/0Day%E5%AE%89%E5%85%A8%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%AC2%E7%89%88%E9%98%85%E8%AF%BB%E9%9A%8F%E7%AC%942/&t=0Day安全软件漏洞分析第2版阅读随笔2"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2016-2026
+    3xsh0re
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a target="_blank" rel="nofollow noopener"><span>博客由Hexo驱动~</span></a> 
     </div>
-  
-  
-    <div class="statistics">
-  
-  
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
 
   
-    
-      <span id="leancloud-site-pv-container" style="display: none">
-        总访问量 
-        <span id="leancloud-site-pv"></span>
-         次
-      </span>
-    
-    
-      <span id="leancloud-site-uv-container" style="display: none">
-        总访客数 
-        <span id="leancloud-site-uv"></span>
-         人
-      </span>
-    
-    
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
-</div>
-
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script defer src="/js/leancloud.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":-15,"vOffset":-15},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>
