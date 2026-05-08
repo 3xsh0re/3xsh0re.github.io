@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="写一些博弈相关的东西">
+    <meta name="description" content="写一些博弈论相关的东西">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博弈程序编写">
 <meta property="og:url" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="写一些博弈相关的东西">
+<meta property="og:description" content="写一些博弈论相关的东西">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/image-20240905164925237.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/image-20240905165026155.png">
@@ -20,10 +20,9 @@
 <meta property="og:image" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/Snipaste_2024-06-09_15-06-01.png">
 <meta property="og:image" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/Snipaste_2024-06-09_16-11-01.png">
 <meta property="article:published_time" content="2023-04-24T04:24:29.000Z">
-<meta property="article:modified_time" content="2026-05-08T07:32:35.913Z">
+<meta property="article:modified_time" content="2026-05-08T08:06:46.892Z">
 <meta property="article:author" content="3xsh0re">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="博弈论">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/image-20240905164925237.png">
     
@@ -231,7 +230,7 @@ mjx-container[display="true"] + br {
   <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&name=博弈程序编写&description=&lt;p&gt;写一些博弈相关的东西&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&name=博弈程序编写&description=&lt;p&gt;写一些博弈论相关的东西&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&t=博弈程序编写"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
@@ -282,7 +281,7 @@ mjx-container[display="true"] + br {
 
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/" rel="tag">博弈论</a>, <a class="p-category" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+        <a class="p-category" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
     </div>
 
 
@@ -291,7 +290,7 @@ mjx-container[display="true"] + br {
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>写一些博弈相关的东西</p>
+    <p>写一些博弈论相关的东西</p>
 <span id="more"></span>
 
 <h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>点格棋由$6<em>6<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="11.312ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 5000 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">的</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">点</text></g><g data-mml-node="mi" transform="translate(2000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">位</text></g><g data-mml-node="mi" transform="translate(3000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">构</text></g><g data-mml-node="mi" transform="translate(4000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">成</text></g></g></g></svg></mjx-container>5</em>5$的格子，整个局面一共25个格子和60条边。</p>
@@ -386,7 +385,7 @@ mjx-container[display="true"] + br {
   <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&title=博弈程序编写"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&name=博弈程序编写&description=&lt;p&gt;写一些博弈相关的东西&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&name=博弈程序编写&description=&lt;p&gt;写一些博弈论相关的东西&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://3xsh0re.github.io/2023/04/24/%E5%8D%9A%E5%BC%88%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80/&t=博弈程序编写"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
