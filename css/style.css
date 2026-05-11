@@ -1062,6 +1062,34 @@ body {
   margin-left: 0;
   list-style-type: none;
 }
+.post-list .post-item .post-item-main {
+  min-width: 0;
+}
+.post-list .post-item .post-item-main > span {
+  display: block;
+  line-height: 1.35;
+}
+.post-list .post-item .post-item-main > span > a {
+  font-size: 1.28rem;
+  font-weight: 500;
+}
+.post-list .post-item .post-item-taxonomy {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+}
+.post-list .post-item .post-item-taxonomy .article-tag,
+.post-list .post-item .post-item-taxonomy .article-category {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+.post-list .post-item .post-item-taxonomy a,
+.post-list .post-item .post-item-taxonomy i {
+  font-size: 0.72rem;
+}
+.post-list .post-item .post-item-taxonomy .article-tag i,
+.post-list .post-item .post-item-taxonomy .article-category i {
+  margin-right: 0.2rem;
+}
 .post-list .post-item .meta {
   display: block;
   margin-right: 16px;
@@ -1073,6 +1101,9 @@ body {
   .post-list .post-item {
     display: flex;
     margin-bottom: 5px;
+  }
+  .post-list .post-item .post-item-main {
+    flex: 1;
   }
   .post-list .post-item .meta {
     text-align: left;
@@ -1126,6 +1157,17 @@ article .content video {
   margin: auto;
   max-width: 100%;
   height: auto;
+}
+article .content img.zoomable-image {
+  cursor: zoom-in;
+  transition: opacity 0.2s ease;
+}
+article .content img.zoomable-image:hover {
+  opacity: 0.92;
+}
+article .content img.zoomable-image:focus {
+  outline: 1px solid #d480aa;
+  outline-offset: 4px;
 }
 article .content .video-container {
   position: relative;
@@ -1200,25 +1242,61 @@ article .content .caption {
   text-align: center;
   font-size: 0.9em;
 }
+#image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+#image-lightbox.is-active {
+  display: flex;
+}
+#image-lightbox .image-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+}
+#image-lightbox .image-lightbox-img {
+  position: relative;
+  z-index: 1;
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: 6px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+  cursor: zoom-out;
+}
+body.image-lightbox-open {
+  overflow: hidden;
+}
 .posttitle {
   text-transform: none;
   font-size: 1.5em;
   line-height: 1.25;
 }
-.article-tag .tag-link {
-  background-image: linear-gradient(transparent, transparent 10px, #d480aa 10px, #d480aa);
-  background-position: bottom;
-  background-size: 100% 6px;
-  background-repeat: repeat-x;
+.article-tag .tag-link,
+.article-tag .p-category {
+  background: none;
+  text-decoration: none;
 }
-.article-tag .tag-link:before {
+.article-tag .tag-link:before,
+.article-tag .p-category:before {
   content: "#";
 }
+.article-tag .tag-link:hover,
+.article-tag .p-category:hover {
+  background: none;
+  color: #d480aa;
+}
 .article-category .category-link {
-  background-image: linear-gradient(transparent, transparent 10px, #d480aa 10px, #d480aa);
-  background-position: bottom;
-  background-size: 100% 6px;
-  background-repeat: repeat-x;
+  background: none;
+  text-decoration: none;
+}
+.article-category .category-link:hover {
+  background: none;
+  color: #d480aa;
 }
 @media (min-width: 480px) {
   .article-tag,
@@ -1241,6 +1319,34 @@ article .content .caption {
   margin-left: 0;
   list-style-type: none;
 }
+#archive .post-list .post-item .post-item-main {
+  min-width: 0;
+}
+#archive .post-list .post-item .post-item-main > span {
+  display: block;
+  line-height: 1.35;
+}
+#archive .post-list .post-item .post-item-main > span > a {
+  font-size: 1.28rem;
+  font-weight: 500;
+}
+#archive .post-list .post-item .post-item-taxonomy {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+}
+#archive .post-list .post-item .post-item-taxonomy .article-tag,
+#archive .post-list .post-item .post-item-taxonomy .article-category {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+#archive .post-list .post-item .post-item-taxonomy a,
+#archive .post-list .post-item .post-item-taxonomy i {
+  font-size: 0.72rem;
+}
+#archive .post-list .post-item .post-item-taxonomy .article-tag i,
+#archive .post-list .post-item .post-item-taxonomy .article-category i {
+  margin-right: 0.2rem;
+}
 #archive .post-list .post-item .meta {
   display: block;
   margin-right: 16px;
@@ -1253,6 +1359,9 @@ article .content .caption {
     display: flex;
     margin-bottom: 5px;
     margin-left: 1rem;
+  }
+  #archive .post-list .post-item .post-item-main {
+    flex: 1;
   }
   #archive .post-list .post-item .meta {
     text-align: left;
