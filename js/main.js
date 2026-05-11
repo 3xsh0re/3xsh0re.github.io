@@ -11,6 +11,46 @@ if (!!$.prototype.justifiedGallery) {
 }
 
 $(document).ready(function() {
+  function ensureImageLightbox() {
+    if ($("#image-lightbox").length) return $("#image-lightbox");
+
+    var lightbox = $(
+      '<div id="image-lightbox" aria-hidden="true">' +
+        '<div class="image-lightbox-backdrop"></div>' +
+        '<img class="image-lightbox-img" alt="preview" />' +
+      '</div>'
+    );
+
+    $("body").append(lightbox);
+
+    lightbox.on("click", function(event) {
+      if ($(event.target).is(".image-lightbox-img")) return;
+      closeImageLightbox();
+    });
+
+    $(document).on("keydown", function(event) {
+      if (event.key === "Escape" && lightbox.hasClass("is-active")) {
+        closeImageLightbox();
+      }
+    });
+
+    return lightbox;
+  }
+
+  function openImageLightbox(src, alt) {
+    var lightbox = ensureImageLightbox();
+    lightbox.find(".image-lightbox-img").attr("src", src).attr("alt", alt || "preview");
+    lightbox.addClass("is-active").attr("aria-hidden", "false");
+    $("body").addClass("image-lightbox-open");
+  }
+
+  function closeImageLightbox() {
+    var lightbox = $("#image-lightbox");
+    if (!lightbox.length) return;
+
+    lightbox.removeClass("is-active").attr("aria-hidden", "true");
+    $("body").removeClass("image-lightbox-open");
+  }
 
   /**
    * Shows the responsive navigation menu on mobile.
@@ -25,6 +65,26 @@ $(document).ready(function() {
    * for Desktop, tablet and mobile.
    */
   if ($(".post").length) {
+    $(".post .content img").each(function() {
+      var img = $(this);
+      if (img.closest("a").length || img.closest("#image-lightbox").length) return;
+
+      img.addClass("zoomable-image");
+      img.attr("tabindex", "0");
+      img.attr("role", "button");
+
+      img.on("click", function() {
+        openImageLightbox(img.attr("src"), img.attr("alt"));
+      });
+
+      img.on("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openImageLightbox(img.attr("src"), img.attr("alt"));
+        }
+      });
+    });
+
     var menu = $("#menu");
     var nav = $("#menu > #nav");
     var menuIcon = $("#menu-icon, #menu-icon-tablet");
