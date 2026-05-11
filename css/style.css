@@ -1070,7 +1070,7 @@ body {
   line-height: 1.35;
 }
 .post-list .post-item .post-item-main > span > a {
-  font-size: 1.28rem;
+  font-size: 1.12rem;
   font-weight: 500;
 }
 .post-list .post-item .post-item-taxonomy {
@@ -1327,7 +1327,7 @@ body.image-lightbox-open {
   line-height: 1.35;
 }
 #archive .post-list .post-item .post-item-main > span > a {
-  font-size: 1.28rem;
+  font-size: 1.12rem;
   font-weight: 500;
 }
 #archive .post-list .post-item .post-item-taxonomy {
