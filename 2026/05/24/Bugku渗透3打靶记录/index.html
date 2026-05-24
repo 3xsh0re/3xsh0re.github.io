@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="存在ssrf：  直接伪协议读取passwd：www-data、nginx  发送file:&#x2F;&#x2F;&#x2F;etc&#x2F;hosts查看内网IP：192.168.0.2 1234567127.0.0.1	localhost::1	localhost ip6-localhost ip6-loopbackfe00::0	ip6-localnetff00::0	ip6-mcastprefixff02::1	ip">
+    <meta name="description" content="入口机器存在ssrf：  直接伪协议读取passwd：www-data、nginx  发送file:&#x2F;&#x2F;&#x2F;etc&#x2F;hosts查看内网IP：192.168.0.2 1234567127.0.0.1	localhost::1	localhost ip6-localhost ip6-loopbackfe00::0	ip6-localnetff00::0	ip6-mcastprefixff02::1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bugku渗透3打靶记录">
 <meta property="og:url" content="https://3xsh0re.github.io/2026/05/24/Bugku%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="3xsh0re&#39;Blog">
-<meta property="og:description" content="存在ssrf：  直接伪协议读取passwd：www-data、nginx  发送file:&#x2F;&#x2F;&#x2F;etc&#x2F;hosts查看内网IP：192.168.0.2 1234567127.0.0.1	localhost::1	localhost ip6-localhost ip6-loopbackfe00::0	ip6-localnetff00::0	ip6-mcastprefixff02::1	ip">
+<meta property="og:description" content="入口机器存在ssrf：  直接伪协议读取passwd：www-data、nginx  发送file:&#x2F;&#x2F;&#x2F;etc&#x2F;hosts查看内网IP：192.168.0.2 1234567127.0.0.1	localhost::1	localhost ip6-localhost ip6-loopbackfe00::0	ip6-localnetff00::0	ip6-mcastprefixff02::1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://3xsh0re.github.io/BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260521200740853.png">
 <meta property="og:image" content="https://3xsh0re.github.io/BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260521201010531.png">
@@ -32,8 +32,9 @@
 <meta property="og:image" content="https://3xsh0re.github.io/BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260524174453975.png">
 <meta property="og:image" content="https://3xsh0re.github.io/BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260524174600852.png">
 <meta property="article:published_time" content="2026-05-24T10:13:41.000Z">
-<meta property="article:modified_time" content="2026-05-24T10:16:34.513Z">
+<meta property="article:modified_time" content="2026-05-24T10:18:37.525Z">
 <meta property="article:author" content="3xsh0re">
+<meta property="article:tag" content="靶机实战">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://3xsh0re.github.io/BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260521200740853.png">
     
@@ -280,8 +281,18 @@ mjx-container[display="true"] + br {
 
       
 
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%94%BB%E9%98%B2/">攻防</a>
+    </div>
+
 
       
+
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E9%9D%B6%E6%9C%BA%E5%AE%9E%E6%88%98/" rel="tag">靶机实战</a>
+    </div>
 
 
     </div>
@@ -291,9 +302,7 @@ mjx-container[display="true"] + br {
   <div class="content e-content" itemprop="articleBody">
     <span id="more"></span>
 
-
-
-<p>存在ssrf：</p>
+<p>入口机器存在ssrf：</p>
 <p><img src="/./BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260521200740853.png"></p>
 <p>直接伪协议读取passwd：<code>www-data</code>、<code>nginx</code></p>
 <p><img src="/./BugKu%E6%B8%97%E9%80%8F3%E6%89%93%E9%9D%B6%E8%AE%B0%E5%BD%95_img/image-20260521201010531.png"></p>
